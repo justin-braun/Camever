@@ -195,31 +195,18 @@ namespace SpryCoder.WebcamCaptureTool
             }
         }
 
-        private void TestConnectionButton_Click(object sender, EventArgs e)
+        private async void TestConnectionButton_Click(object sender, EventArgs e)
         {
             try
             {
-                // Test connection to camera
-                System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", IPAddress.Text, SnapshotUrlPath.Text));
-                System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Username.Text, Password.Text);
-                request.Credentials = creds;
-                request.Timeout = 10000; // 10 seconds
-                request.Method = "POST";
-
-                System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
-
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    MessageBox.Show("Successfully connected to camera stream.", "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show(String.Format("There was an issue connecting to the camera stream. Status Code: {0}", response.StatusCode.ToString()), "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                this.Cursor = Cursors.WaitCursor;
+                await TestCameraConnection();
+                this.Cursor = Cursors.Default;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Error checking the camera connection. Error: {0}",ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Cursor = Cursors.Default;
+                MessageBox.Show(String.Format("Error checking the camera connection. {0}.", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -248,7 +235,34 @@ namespace SpryCoder.WebcamCaptureTool
             }
         }
 
+        private async Task TestCameraConnection()
+        {
+            try
+            {
+                // Test connection to camera
+                System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", IPAddress.Text, SnapshotUrlPath.Text));
+                System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Username.Text, Password.Text);
+                request.Credentials = creds;
+                request.Timeout = 10000; // 10 seconds
+                request.Method = "POST";
 
+                System.Net.HttpWebResponse response = (System.Net.HttpWebResponse) await request.GetResponseAsync();
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("Successfully connected to camera stream.", "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(String.Format("There was an issue connecting to the camera stream. Status Code: {0}", response.StatusCode.ToString()), "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         private void UpdateOverlayPreview() // FUTURE TODO: Replace with CamUtils.CaptureImage
         {
