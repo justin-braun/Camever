@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace SpryCoder.WebcamCaptureTool
 {
@@ -342,5 +346,103 @@ namespace SpryCoder.WebcamCaptureTool
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void BackupSettingsButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog sfDialog = new SaveFileDialog
+                {
+                    Filter = "Settings (*.settings)|*.settings",
+                    Title = "Backup Settings"
+                };
+                sfDialog.ShowDialog();
+
+                if (sfDialog.FileName == "") return;
+                BackupSettings(sfDialog.FileName);
+                MessageBox.Show("Settings backup complete!", "Backup Complete", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There was a problem backing up your settings file.  " + ex.Message + ".", "Backup Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RestoreSettingsButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog ofDialog = new OpenFileDialog
+                {
+                    Filter = "Settings (*.settings)|*.settings",
+                    Title = "Restore Settings"
+                };
+                ofDialog.ShowDialog();
+
+                if (ofDialog.FileName == "") return;
+
+                // Restore config file
+                RestoreSettings(ofDialog.FileName);
+
+                // Reload GUI with settings from restored config
+                LoadSettings();
+
+                MessageBox.Show("Settings restore complete!", "Restore Complete", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There was a problem restoring your settings file.  " + ex.Message + ".", "Restore Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static void RestoreSettings(string settingsFilePath)
+        {
+            if (!File.Exists(settingsFilePath))
+                throw new FileNotFoundException();
+
+            var appSettings = Properties.Settings.Default;
+            try
+            {
+                var config =
+                    ConfigurationManager.OpenExeConfiguration(
+                        ConfigurationUserLevel.PerUserRoamingAndLocal);
+
+                string appSettingsXmlName =
+                    Properties.Settings.Default.Context["GroupName"].ToString();
+                // returns "MyApplication.Properties.Settings";
+
+                // Open settings file as XML
+                var import = XDocument.Load(settingsFilePath);
+                // Get the whole XML inside the settings node
+                var settings = import.XPathSelectElements("//" + appSettingsXmlName);
+
+                var configurationSectionGroup = config.GetSectionGroup("userSettings");
+                if (configurationSectionGroup != null)
+                    configurationSectionGroup
+                        .Sections[appSettingsXmlName]
+                        .SectionInformation
+                        .SetRawXml(settings.Single().ToString());
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("userSettings");
+
+                appSettings.Reload();
+            }
+            catch (Exception) // Should make this more specific
+            {
+                // Could not import settings.
+                appSettings.Reload(); // from last set saved, not defaults
+                throw;
+            }
+        }
+
+        private static void BackupSettings(string settingsFilePath)
+        {
+            Properties.Settings.Default.Save();
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            config.SaveAs(settingsFilePath);
+        }
+
     }
 }

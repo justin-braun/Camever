@@ -119,15 +119,15 @@
             this.label11 = new System.Windows.Forms.Label();
             this.WundercamEnabled = new System.Windows.Forms.CheckBox();
             this.GeneralTab = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.RestoreSettingsButton = new System.Windows.Forms.Button();
+            this.BackupSettingsButton = new System.Windows.Forms.Button();
             this.WindowLocationGroup = new System.Windows.Forms.GroupBox();
             this.TopRightRadio = new System.Windows.Forms.RadioButton();
             this.KeepOnTopCheckbox = new System.Windows.Forms.CheckBox();
             this.BottomRightRadio = new System.Windows.Forms.RadioButton();
             this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.BackupSettingsButton = new System.Windows.Forms.Button();
-            this.RestoreSettingsButton = new System.Windows.Forms.Button();
             this.OptionsTabs.SuspendLayout();
             this.CameraTab.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -141,8 +141,8 @@
             this.ServicesTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.GeneralTab.SuspendLayout();
-            this.WindowLocationGroup.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.WindowLocationGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // OptionsTabs
@@ -1107,6 +1107,40 @@
             this.GeneralTab.Text = "General";
             this.GeneralTab.UseVisualStyleBackColor = true;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.RestoreSettingsButton);
+            this.groupBox4.Controls.Add(this.BackupSettingsButton);
+            this.groupBox4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(16, 129);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(249, 100);
+            this.groupBox4.TabIndex = 2;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Backup && Restore Settings";
+            // 
+            // RestoreSettingsButton
+            // 
+            this.RestoreSettingsButton.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RestoreSettingsButton.Location = new System.Drawing.Point(125, 44);
+            this.RestoreSettingsButton.Name = "RestoreSettingsButton";
+            this.RestoreSettingsButton.Size = new System.Drawing.Size(75, 23);
+            this.RestoreSettingsButton.TabIndex = 1;
+            this.RestoreSettingsButton.Text = "&Restore";
+            this.RestoreSettingsButton.UseVisualStyleBackColor = true;
+            this.RestoreSettingsButton.Click += new System.EventHandler(this.RestoreSettingsButton_Click);
+            // 
+            // BackupSettingsButton
+            // 
+            this.BackupSettingsButton.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackupSettingsButton.Location = new System.Drawing.Point(44, 44);
+            this.BackupSettingsButton.Name = "BackupSettingsButton";
+            this.BackupSettingsButton.Size = new System.Drawing.Size(75, 23);
+            this.BackupSettingsButton.TabIndex = 0;
+            this.BackupSettingsButton.Text = "&Backup";
+            this.BackupSettingsButton.UseVisualStyleBackColor = true;
+            this.BackupSettingsButton.Click += new System.EventHandler(this.BackupSettingsButton_Click);
+            // 
             // WindowLocationGroup
             // 
             this.WindowLocationGroup.Controls.Add(this.TopRightRadio);
@@ -1178,38 +1212,6 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.RestoreSettingsButton);
-            this.groupBox4.Controls.Add(this.BackupSettingsButton);
-            this.groupBox4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(16, 129);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(249, 100);
-            this.groupBox4.TabIndex = 2;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Backup && Restore Settings";
-            // 
-            // BackupSettingsButton
-            // 
-            this.BackupSettingsButton.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackupSettingsButton.Location = new System.Drawing.Point(44, 44);
-            this.BackupSettingsButton.Name = "BackupSettingsButton";
-            this.BackupSettingsButton.Size = new System.Drawing.Size(75, 23);
-            this.BackupSettingsButton.TabIndex = 0;
-            this.BackupSettingsButton.Text = "&Backup";
-            this.BackupSettingsButton.UseVisualStyleBackColor = true;
-            // 
-            // RestoreSettingsButton
-            // 
-            this.RestoreSettingsButton.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RestoreSettingsButton.Location = new System.Drawing.Point(125, 44);
-            this.RestoreSettingsButton.Name = "RestoreSettingsButton";
-            this.RestoreSettingsButton.Size = new System.Drawing.Size(75, 23);
-            this.RestoreSettingsButton.TabIndex = 1;
-            this.RestoreSettingsButton.Text = "&Restore";
-            this.RestoreSettingsButton.UseVisualStyleBackColor = true;
-            // 
             // OptionsForm
             // 
             this.AcceptButton = this.OKButton;
@@ -1251,9 +1253,9 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.GeneralTab.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.WindowLocationGroup.ResumeLayout(false);
             this.WindowLocationGroup.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
