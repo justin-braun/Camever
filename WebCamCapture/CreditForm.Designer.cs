@@ -40,7 +40,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(18, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(249, 19);
             this.label1.TabIndex = 1;
@@ -71,10 +71,10 @@
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Control;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(16, 49);
+            this.textBox1.Location = new System.Drawing.Point(22, 61);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(274, 142);
+            this.textBox1.Size = new System.Drawing.Size(269, 142);
             this.textBox1.TabIndex = 3;
             this.textBox1.Text = "Portions of this software may utilize the following material, the use of which is" +
     " hereby acknowledged.\r\n\r\n- \"Webcam\" icon designed by freepik.com\r\n- AForge.NET F" +
