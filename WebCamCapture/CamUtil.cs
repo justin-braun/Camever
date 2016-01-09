@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SpryCoder.WebcamCaptureTool
 {
@@ -52,7 +53,7 @@ namespace SpryCoder.WebcamCaptureTool
             return output;
         }
 
-        public static Image CaptureImage(CaptureType CapType)
+        public static async Task<Image> CaptureImage(CaptureType CapType)
         {
             Image image = null;
             Bitmap bitmap = null;
@@ -67,7 +68,7 @@ namespace SpryCoder.WebcamCaptureTool
                     System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Properties.Settings.Default.Username.ToString(), PasswordMgmt.DecryptString(Properties.Settings.Default.Password.ToString()));
                     request.Credentials = creds;
                     request.Method = "POST";
-                    System.Net.WebResponse response = request.GetResponse();
+                    System.Net.WebResponse response = await request.GetResponseAsync();
                     System.IO.Stream stream = response.GetResponseStream();
 
                     // Image

@@ -313,11 +313,11 @@ namespace SpryCoder.WebcamCaptureTool
             UpdateOverlayPreview();
         }
 
-        private void UploadWundercamButton_Click(object sender, EventArgs e)
+        private async void UploadWundercamButton_Click(object sender, EventArgs e)
         {
             try
             {
-                CamUtil.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage));
+                CamUtil.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage));
                 MessageBox.Show("Upload Successful!", "Upload Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)

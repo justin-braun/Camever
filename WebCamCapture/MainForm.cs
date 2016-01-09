@@ -172,15 +172,15 @@ namespace SpryCoder.WebcamCaptureTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Task_DoWork(object sender, DoWorkEventArgs e)
+        private async void Task_DoWork(object sender, DoWorkEventArgs e)
         {
             // Capture Image and then save it
             try
             {
                 // Save Capture
-                SaveCapturedImage(CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),
-                                    string.Format("{0}\\{1}.jpg", 
-                                    Properties.Settings.Default.ImageSavePath, 
+                SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),
+                                    string.Format("{0}\\{1}.jpg",
+                                    Properties.Settings.Default.ImageSavePath,
                                     ImageFileName)
                                     );
 
@@ -190,7 +190,7 @@ namespace SpryCoder.WebcamCaptureTool
                     CamUtil.UploadWUCamImage(
                                                 Properties.Settings.Default.WundergroundCameraID,
                                                 PasswordMgmt.DecryptString(Properties.Settings.Default.WundergroundPassword),
-                                                CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
+                                                await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
                                             );
                 }
 
@@ -329,16 +329,19 @@ namespace SpryCoder.WebcamCaptureTool
             this.Close();
         }
 
-        private void previewCameraToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void previewCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                this.Cursor = Cursors.WaitCursor;
                 // Instantiate Preview Form with Image
-                PreviewForm preview = new PreviewForm(CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage));
+                PreviewForm preview = new PreviewForm(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage));
+                this.Cursor = Cursors.Default;
                 preview.ShowDialog();
             }
             catch (Exception)
             {
+                this.Cursor = Cursors.Default;
                 MessageBox.Show("We ran into a problem generating the preview image.  You can try again later.",
                                     "Error",
                                     MessageBoxButtons.OK,
@@ -347,16 +350,17 @@ namespace SpryCoder.WebcamCaptureTool
 
         }
 
-        private void captureSnapshotNowToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void captureSnapshotNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 // Capture Image and then save it
                 //Image image = CaptureImage();
-
-                SaveCapturedImage(CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),
+                this.Cursor = Cursors.WaitCursor;
+                SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),
                                   string.Format("{0}\\{1}.jpg", Properties.Settings.Default.ImageSavePath, ImageFileName)
                                  );
+                this.Cursor = Cursors.Default;
 
                 MessageBox.Show("Snapshot completed successfully!",
                     "Snapshot Completed",
@@ -365,6 +369,7 @@ namespace SpryCoder.WebcamCaptureTool
             }
             catch (Exception)
             {
+                this.Cursor = Cursors.Default;
                 MessageBox.Show("We ran into a problem generating the snapshot image.  You can try again later.",
                     "Error",
                     MessageBoxButtons.OK,
