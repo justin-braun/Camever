@@ -68,7 +68,7 @@ namespace SpryCoder.WebcamCaptureTool
                     System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Properties.Settings.Default.Username.ToString(), PasswordMgmt.DecryptString(Properties.Settings.Default.Password.ToString()));
                     request.Credentials = creds;
                     request.Method = "POST";
-                    System.Net.WebResponse response = await request.GetResponseAsync();
+                    System.Net.WebResponse response = await request.GetResponseAsync().ConfigureAwait(false);
                     System.IO.Stream stream = response.GetResponseStream();
 
                     // Image
@@ -135,7 +135,7 @@ namespace SpryCoder.WebcamCaptureTool
             }
         }
 
-        public static void UploadWUCamImage(string username, string password, Image image)
+        public static async Task UploadWUCamImage(string username, string password, Image image)
         {
             try
             {
@@ -162,7 +162,7 @@ namespace SpryCoder.WebcamCaptureTool
                 }
 
                 // Get response
-                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                FtpWebResponse response = (FtpWebResponse) await request.GetResponseAsync();
                 response.Close();
 
             }

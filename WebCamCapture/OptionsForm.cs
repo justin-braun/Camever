@@ -200,7 +200,7 @@ namespace SpryCoder.WebcamCaptureTool
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-                await TestCameraConnection();
+                await TestCameraConnection(); //.ConfigureAwait(false);
                 this.Cursor = Cursors.Default;
             }
             catch (Exception ex)
@@ -331,11 +331,14 @@ namespace SpryCoder.WebcamCaptureTool
         {
             try
             {
-                CamUtil.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage));
+                this.Cursor = Cursors.WaitCursor;
+                await CamUtil.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)).ConfigureAwait(false);
+                this.Cursor = Cursors.Default;
                 MessageBox.Show("Upload Successful!", "Upload Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
+                this.Cursor = Cursors.Default;
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -187,7 +187,7 @@ namespace SpryCoder.WebcamCaptureTool
                 // Check for Services enabled on schedule
                 if (Properties.Settings.Default.WundergroundUploadEnabled == true)
                 {
-                    CamUtil.UploadWUCamImage(
+                    await CamUtil.UploadWUCamImage(
                                                 Properties.Settings.Default.WundergroundCameraID,
                                                 PasswordMgmt.DecryptString(Properties.Settings.Default.WundergroundPassword),
                                                 await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
