@@ -125,6 +125,9 @@
             this.BottomRightRadio = new System.Windows.Forms.RadioButton();
             this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.BackupSettingsButton = new System.Windows.Forms.Button();
+            this.RestoreSettingsButton = new System.Windows.Forms.Button();
             this.OptionsTabs.SuspendLayout();
             this.CameraTab.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -139,6 +142,7 @@
             this.groupBox3.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.WindowLocationGroup.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // OptionsTabs
@@ -1093,6 +1097,7 @@
             // 
             // GeneralTab
             // 
+            this.GeneralTab.Controls.Add(this.groupBox4);
             this.GeneralTab.Controls.Add(this.WindowLocationGroup);
             this.GeneralTab.Location = new System.Drawing.Point(4, 25);
             this.GeneralTab.Name = "GeneralTab";
@@ -1173,6 +1178,38 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.RestoreSettingsButton);
+            this.groupBox4.Controls.Add(this.BackupSettingsButton);
+            this.groupBox4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(16, 129);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(249, 100);
+            this.groupBox4.TabIndex = 2;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Backup && Restore Settings";
+            // 
+            // BackupSettingsButton
+            // 
+            this.BackupSettingsButton.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackupSettingsButton.Location = new System.Drawing.Point(44, 44);
+            this.BackupSettingsButton.Name = "BackupSettingsButton";
+            this.BackupSettingsButton.Size = new System.Drawing.Size(75, 23);
+            this.BackupSettingsButton.TabIndex = 0;
+            this.BackupSettingsButton.Text = "&Backup";
+            this.BackupSettingsButton.UseVisualStyleBackColor = true;
+            // 
+            // RestoreSettingsButton
+            // 
+            this.RestoreSettingsButton.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RestoreSettingsButton.Location = new System.Drawing.Point(125, 44);
+            this.RestoreSettingsButton.Name = "RestoreSettingsButton";
+            this.RestoreSettingsButton.Size = new System.Drawing.Size(75, 23);
+            this.RestoreSettingsButton.TabIndex = 1;
+            this.RestoreSettingsButton.Text = "&Restore";
+            this.RestoreSettingsButton.UseVisualStyleBackColor = true;
+            // 
             // OptionsForm
             // 
             this.AcceptButton = this.OKButton;
@@ -1216,6 +1253,7 @@
             this.GeneralTab.ResumeLayout(false);
             this.WindowLocationGroup.ResumeLayout(false);
             this.WindowLocationGroup.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1321,5 +1359,8 @@
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button RestoreSettingsButton;
+        private System.Windows.Forms.Button BackupSettingsButton;
     }
 }

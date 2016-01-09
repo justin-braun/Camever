@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Timers;
 using AForge.Video.FFMPEG;
+using System.Net;
 
 namespace SpryCoder.WebcamCaptureTool
 {
@@ -177,6 +178,12 @@ namespace SpryCoder.WebcamCaptureTool
             // Capture Image and then save it
             try
             {
+                // Update on the UI thread
+                BeginInvoke((MethodInvoker)delegate
+                {
+                    LastStatusLabel.Text = "Capturing";
+                });
+
                 // Save Capture
                 SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),
                                     string.Format("{0}\\{1}.jpg",
@@ -207,6 +214,8 @@ namespace SpryCoder.WebcamCaptureTool
                 {
                     LastStatusLabel.Text = "Error";
                 });
+
+                // TODO: Log Here
             }
 
         }
@@ -339,10 +348,10 @@ namespace SpryCoder.WebcamCaptureTool
                 this.Cursor = Cursors.Default;
                 preview.ShowDialog();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                MessageBox.Show("We ran into a problem generating the preview image.  You can try again later.",
+                MessageBox.Show("We ran into a problem generating the preview image. " + ex.Message + ".",
                                     "Error",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
@@ -367,10 +376,10 @@ namespace SpryCoder.WebcamCaptureTool
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                MessageBox.Show("We ran into a problem generating the snapshot image.  You can try again later.",
+                MessageBox.Show("We ran into a problem generating the snapshot image.  " + ex.Message + ".",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
