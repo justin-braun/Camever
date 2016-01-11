@@ -201,21 +201,24 @@ namespace SpryCoder.WebcamCaptureTool
                                             );
                 }
 
+                Logger.WriteLogEntry("Scheduled snapshot taken successfully.", Logger.LogEntryType.Information);
+                
                 // Update on the UI thread
                 BeginInvoke((MethodInvoker)delegate
                 {
                     LastStatusLabel.Text = "Success";
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Update on the UI thread
+                Logger.WriteLogEntry("Scheduled snapshot capture failed. " + ex.Message, Logger.LogEntryType.Error);
+
                 BeginInvoke((MethodInvoker)delegate
                 {
                     LastStatusLabel.Text = "Error";
                 });
 
-                // TODO: Log Here
             }
 
         }
@@ -314,11 +317,14 @@ namespace SpryCoder.WebcamCaptureTool
                 // Instantiate Preview Form with Image
                 PreviewForm preview = new PreviewForm(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage));
                 this.Cursor = Cursors.Default;
+                Logger.WriteLogEntry("Preview snapshot loaded successfully.", Logger.LogEntryType.Information);
                 preview.ShowDialog();
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
+                Logger.WriteLogEntry("Preview snapshot error has occurred. " + ex.Message, Logger.LogEntryType.Error);
+
                 MessageBox.Show("We ran into a problem generating the preview image. " + ex.Message + ".",
                                     "Error",
                                     MessageBoxButtons.OK,
@@ -339,6 +345,8 @@ namespace SpryCoder.WebcamCaptureTool
                                  );
                 this.Cursor = Cursors.Default;
 
+                Logger.WriteLogEntry("Manual snapshot taken successfully.", Logger.LogEntryType.Information);
+
                 MessageBox.Show("Snapshot completed successfully!",
                     "Snapshot Completed",
                     MessageBoxButtons.OK,
@@ -347,6 +355,7 @@ namespace SpryCoder.WebcamCaptureTool
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
+                Logger.WriteLogEntry("Manual snapshot error has occurred. " + ex.Message, Logger.LogEntryType.Error);
                 MessageBox.Show("We ran into a problem generating the snapshot image.  " + ex.Message + ".",
                     "Error",
                     MessageBoxButtons.OK,

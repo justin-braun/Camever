@@ -57,11 +57,13 @@ namespace SpryCoder.WebcamCaptureTool
                     imageItems));
 
                 this.Cursor = Cursors.Default;
+                Logger.WriteLogEntry("Time Lapse created successfully.", Logger.LogEntryType.Information);
                 MessageBox.Show("Done!");
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
+                Logger.WriteLogEntry("Time Lapse creation failed. " + ex.Message, Logger.LogEntryType.Error);
                 MessageBox.Show(ex.Message);
                 throw;
             }
