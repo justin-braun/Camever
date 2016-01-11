@@ -20,7 +20,7 @@ namespace SpryCoder.WebcamCaptureTool
         private void addImageButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofDialog = new OpenFileDialog();
-            ofDialog.Filter = "Jpeg images (*.jpg)|*.jpg";
+            ofDialog.Filter = "JPG image (*.jpg)|*.jpg";
             ofDialog.Multiselect = true;
             ofDialog.ShowDialog();
 
@@ -39,6 +39,7 @@ namespace SpryCoder.WebcamCaptureTool
 
         private async void startButton_Click(object sender, EventArgs e)
         {
+
             try
             {
                 string[] imageItems = new string[imageList.Items.Count];
@@ -58,9 +59,10 @@ namespace SpryCoder.WebcamCaptureTool
                 this.Cursor = Cursors.Default;
                 MessageBox.Show("Done!");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
+                MessageBox.Show(ex.Message);
                 throw;
             }
 
@@ -99,6 +101,8 @@ namespace SpryCoder.WebcamCaptureTool
 
         private void UpdateImageCount()
         {
+            int _updateInt = 0;
+
             // Update count label
             if (imageList.Items.Count == 0)
             {
@@ -106,6 +110,7 @@ namespace SpryCoder.WebcamCaptureTool
                 imageCountLabel.Text = "No images selected";
                 removeImageButton.Enabled = false;
                 clearImageButton.Enabled = false;
+                //startButton.Enabled = false;
             }
             else
             {
@@ -113,7 +118,27 @@ namespace SpryCoder.WebcamCaptureTool
                 imageCountLabel.Text = imageList.Items.Count + " image(s) selected";
                 removeImageButton.Enabled = true;
                 clearImageButton.Enabled = true;
+                //startButton.Enabled = true;
             }
+
+            if (string.IsNullOrEmpty(frameRate.Text)  || (int.TryParse(frameRate.Text, out _updateInt) == false))
+            {
+                startButton.Enabled = false;
+                return;
+            }
+
+            if (imageList.Items.Count == 0)
+            {
+                startButton.Enabled = false;
+                return;
+            }
+
+            startButton.Enabled = true;
+        }
+
+        private void frameRate_TextChanged(object sender, EventArgs e)
+        {
+            UpdateImageCount();
         }
     }
 }

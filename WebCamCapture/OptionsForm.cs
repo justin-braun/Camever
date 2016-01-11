@@ -101,12 +101,12 @@ namespace SpryCoder.WebcamCaptureTool
                 return;
             }
             //Scheduling
-            else if (CapturesEnabled.Checked && String.IsNullOrWhiteSpace(UpdateInterval.Text))
+            else if (CapturesEnabled.Checked && ((String.IsNullOrWhiteSpace(UpdateInterval.Text) || (int.TryParse(UpdateInterval.Text, out _updateInt) == false))))
             {
-                MessageBox.Show("Please enter the capture interval.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter the capture interval in a numeric value.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else if(int.TryParse(UpdateInterval.Text, out _updateInt) == false)
+            else if (int.TryParse(UpdateInterval.Text, out _updateInt) == false)
             {
                 MessageBox.Show("Please change the update interval to a valid numeric value.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

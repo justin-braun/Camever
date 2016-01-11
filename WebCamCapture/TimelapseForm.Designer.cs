@@ -43,6 +43,7 @@
             // 
             // startButton
             // 
+            this.startButton.Enabled = false;
             this.startButton.Location = new System.Drawing.Point(417, 298);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
@@ -137,7 +138,8 @@
             this.frameRate.Name = "frameRate";
             this.frameRate.Size = new System.Drawing.Size(39, 21);
             this.frameRate.TabIndex = 9;
-            this.frameRate.Text = "5";
+            this.frameRate.Text = "15";
+            this.frameRate.TextChanged += new System.EventHandler(this.frameRate_TextChanged);
             // 
             // label3
             // 

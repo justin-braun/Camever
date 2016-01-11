@@ -18,7 +18,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="UpdateInterval" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="ImageSavePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
