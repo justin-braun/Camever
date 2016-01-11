@@ -33,6 +33,8 @@ namespace SpryCoder.WebcamCaptureTool
 
                 clearImageButton.Enabled = true;
             }
+
+            UpdateImageCount();
         }
 
         private async void startButton_Click(object sender, EventArgs e)
@@ -68,18 +70,16 @@ namespace SpryCoder.WebcamCaptureTool
 
             if (imageList.Items.Count > 0)
                 imageList.SelectedIndex = imageList.Items.Count - 1;
+
+            UpdateImageCount();
         }
 
         private void clearImageButton_Click(object sender, EventArgs e)
         {
             // Clear image list
             imageList.Items.Clear();
+            UpdateImageCount();
 
-            if (imageList.Items.Count == 0)
-            { 
-                clearImageButton.Enabled = false;
-                removeImageButton.Enabled = false;
-            }
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -89,6 +89,12 @@ namespace SpryCoder.WebcamCaptureTool
         }
 
         private void imageList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateImageCount();
+
+        }
+
+        private void UpdateImageCount()
         {
             // Update count label
             if (imageList.Items.Count == 0)
@@ -105,7 +111,6 @@ namespace SpryCoder.WebcamCaptureTool
                 removeImageButton.Enabled = true;
                 clearImageButton.Enabled = true;
             }
-
         }
     }
 }
