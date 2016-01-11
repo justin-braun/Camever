@@ -216,7 +216,7 @@
             // 
             this.errorLogToolStripMenuItem.Name = "errorLogToolStripMenuItem";
             this.errorLogToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.errorLogToolStripMenuItem.Text = "Lo&gging";
+            this.errorLogToolStripMenuItem.Text = "Lo&g File";
             this.errorLogToolStripMenuItem.Click += new System.EventHandler(this.errorLogToolStripMenuItem_Click);
             // 
             // toolStripSeparator2

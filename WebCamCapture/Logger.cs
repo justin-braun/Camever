@@ -15,8 +15,14 @@ namespace SpryCoder.WebcamCaptureTool
 
         public static void WriteLogEntry(string logText, LogEntryType logType)
         {
-            string logLine = $"{DateTime.Now.ToString()}\t{logType}\t{logText}";
-            File.AppendAllText(logFile, logLine);
+            if (!File.Exists(logFile))
+                File.CreateText(logFile).Close();
+
+            string oldLogEntries = File.ReadAllText(logFile);
+
+            string logLine = $"{DateTime.Now.ToString()}\t{logType}\t{logText}" + Environment.NewLine;
+            //File.AppendAllText(logFile, logLine);
+            File.WriteAllText(logFile, logLine + oldLogEntries);
         }
 
         public static void ClearLog()
