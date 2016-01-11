@@ -1038,6 +1038,7 @@
             // 
             // ServicesTab
             // 
+            this.ServicesTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ServicesTab.Controls.Add(this.groupBox3);
             this.ServicesTab.Location = new System.Drawing.Point(4, 25);
             this.ServicesTab.Name = "ServicesTab";
@@ -1125,6 +1126,7 @@
             // 
             // GeneralTab
             // 
+            this.GeneralTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.GeneralTab.Controls.Add(this.groupBox4);
             this.GeneralTab.Controls.Add(this.WindowLocationGroup);
             this.GeneralTab.Location = new System.Drawing.Point(4, 25);

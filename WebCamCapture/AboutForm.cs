@@ -18,7 +18,7 @@ namespace SpryCoder.WebcamCaptureTool
             this.ProductNameLabel.Text = AssemblyProduct;
             this.ProductVersionLabel.Text = String.Format("Version {0}", AssemblyVersion);
             this.CopyrightLabel.Text = AssemblyCopyright;
-            this.ProductCompanyLabel.Text = "Created by " + AssemblyCompany;
+            this.ProductCompanyLabel.Text = "Developed by " + AssemblyCompany;
         }
 
         #region Assembly Attribute Accessors
