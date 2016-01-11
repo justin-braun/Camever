@@ -35,7 +35,7 @@ namespace SpryCoder.WebcamCaptureTool
             }
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private async void startButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -49,17 +49,17 @@ namespace SpryCoder.WebcamCaptureTool
                 if (sfDialog.FileName == "")
                     return;
 
-                CamUtil.CreateTimeLapse(sfDialog.FileName, 640, 480, int.Parse(frameRate.Text), false,
-                    imageItems);
+                await Task.Run(() => CamUtil.CreateTimeLapse(sfDialog.FileName, 640, 480, int.Parse(frameRate.Text), false,
+                    imageItems));
 
                 MessageBox.Show("Done!");
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
-            
+
         }
 
         private void removeImageButton_Click(object sender, EventArgs e)

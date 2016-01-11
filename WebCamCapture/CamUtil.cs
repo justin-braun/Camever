@@ -179,34 +179,36 @@ namespace SpryCoder.WebcamCaptureTool
         {
             try
             {
-                using (var videoWriter = new VideoFileWriter())
-                {
-                    videoWriter.Open(outputFilePath, width, height, frameRate, VideoCodec.MPEG4, 1000000);
+                    using (var videoWriter = new VideoFileWriter())
+                    {
+                        videoWriter.Open(outputFilePath, width, height, frameRate, VideoCodec.MPEG4, 1000000);
 
-                    // use for ordering by file date
-                    //System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(basePath);
-                    //System.IO.FileSystemInfo[] images = di.GetFileSystemInfos();
-                    //var orderedImages = images.OrderBy(f => f.CreationTime);
+                        // use for ordering by file date
+                        //System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(basePath);
+                        //System.IO.FileSystemInfo[] images = di.GetFileSystemInfos();
+                        //var orderedImages = images.OrderBy(f => f.CreationTime);
 
-                    //foreach (FileSystemInfo imageFile in images)
-                    foreach (string file in fileList)
+                        //foreach (FileSystemInfo imageFile in images)
+
+                        foreach (string file in fileList)
                         {
-                        // Out of Memory errors are common for incomplete or corrupted images.  Skip over them and continue.
-                        try
-                        {
-                            using (Bitmap image = Image.FromFile(file) as Bitmap)
+                            // Out of Memory errors are common for incomplete or corrupted images.  Skip over them and continue.
+                            try
                             {
-                                videoWriter.WriteVideoFrame(image);
+                                using (Bitmap image = Image.FromFile(file) as Bitmap)
+                                {
+                                    videoWriter.WriteVideoFrame(image);
+                                }
+                            }
+                            catch
+                            {
+                                continue;
                             }
                         }
-                        catch
-                        {
-                            continue;
-                        }
+
+                        videoWriter.Close();
                     }
 
-                    videoWriter.Close();
-                }
             }
             catch (Exception)
             {
