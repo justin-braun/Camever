@@ -55,7 +55,7 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(168, 21);
+            this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Next Capture Time";
             // 
@@ -64,7 +64,7 @@
             this.NextCaptureTimeLabel.AutoSize = true;
             this.NextCaptureTimeLabel.Location = new System.Drawing.Point(12, 60);
             this.NextCaptureTimeLabel.Name = "NextCaptureTimeLabel";
-            this.NextCaptureTimeLabel.Size = new System.Drawing.Size(178, 21);
+            this.NextCaptureTimeLabel.Size = new System.Drawing.Size(116, 13);
             this.NextCaptureTimeLabel.TabIndex = 5;
             this.NextCaptureTimeLabel.Text = "NextCaptureTimeLabel";
             // 
@@ -74,7 +74,7 @@
             this.label2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(277, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 21);
+            this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Scheduler";
             // 
@@ -83,7 +83,7 @@
             this.SchedulerStatusLabel.AutoSize = true;
             this.SchedulerStatusLabel.Location = new System.Drawing.Point(277, 60);
             this.SchedulerStatusLabel.Name = "SchedulerStatusLabel";
-            this.SchedulerStatusLabel.Size = new System.Drawing.Size(168, 21);
+            this.SchedulerStatusLabel.Size = new System.Drawing.Size(110, 13);
             this.SchedulerStatusLabel.TabIndex = 7;
             this.SchedulerStatusLabel.Text = "SchedulerStatusLabel";
             // 
@@ -93,7 +93,7 @@
             this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(159, 42);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 21);
+            this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Last Status";
             // 
@@ -102,7 +102,7 @@
             this.LastStatusLabel.AutoSize = true;
             this.LastStatusLabel.Location = new System.Drawing.Point(159, 60);
             this.LastStatusLabel.Name = "LastStatusLabel";
-            this.LastStatusLabel.Size = new System.Drawing.Size(127, 21);
+            this.LastStatusLabel.Size = new System.Drawing.Size(83, 13);
             this.LastStatusLabel.TabIndex = 10;
             this.LastStatusLabel.Text = "LastStatusLabel";
             // 
@@ -115,7 +115,7 @@
             this.helpToolStripMenuItem});
             this.MainFormMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainFormMenuStrip.Name = "MainFormMenuStrip";
-            this.MainFormMenuStrip.Size = new System.Drawing.Size(400, 33);
+            this.MainFormMenuStrip.Size = new System.Drawing.Size(400, 24);
             this.MainFormMenuStrip.TabIndex = 11;
             this.MainFormMenuStrip.Text = "MainFormMenuStrip";
             // 
@@ -128,7 +128,7 @@
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 29);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // captureSnapshotNowToolStripMenuItem
@@ -136,7 +136,7 @@
             this.captureSnapshotNowToolStripMenuItem.Name = "captureSnapshotNowToolStripMenuItem";
             this.captureSnapshotNowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.C)));
-            this.captureSnapshotNowToolStripMenuItem.Size = new System.Drawing.Size(391, 30);
+            this.captureSnapshotNowToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.captureSnapshotNowToolStripMenuItem.Text = "Capture Snapshot &Now";
             this.captureSnapshotNowToolStripMenuItem.Click += new System.EventHandler(this.captureSnapshotNowToolStripMenuItem_Click);
             // 
@@ -144,26 +144,26 @@
             // 
             this.previewCameraToolStripMenuItem.Name = "previewCameraToolStripMenuItem";
             this.previewCameraToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.previewCameraToolStripMenuItem.Size = new System.Drawing.Size(391, 30);
+            this.previewCameraToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.previewCameraToolStripMenuItem.Text = "&Preview Camera Image";
             this.previewCameraToolStripMenuItem.Click += new System.EventHandler(this.previewCameraToolStripMenuItem_Click);
             // 
             // createTimelapseToolStripMenuItem
             // 
             this.createTimelapseToolStripMenuItem.Name = "createTimelapseToolStripMenuItem";
-            this.createTimelapseToolStripMenuItem.Size = new System.Drawing.Size(391, 30);
-            this.createTimelapseToolStripMenuItem.Text = "Create &Timelapse...";
+            this.createTimelapseToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.createTimelapseToolStripMenuItem.Text = "Create &Time Lapse...";
             this.createTimelapseToolStripMenuItem.Click += new System.EventHandler(this.createTimelapseToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(388, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(267, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(391, 30);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -172,13 +172,13 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(173, 30);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.optionsToolStripMenuItem.Text = "&Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -187,19 +187,19 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(61, 29);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(326, 30);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.aboutToolStripMenuItem.Text = "&About Webcam Capture Tool";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 90);
             this.Controls.Add(this.LastStatusLabel);

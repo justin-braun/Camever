@@ -175,26 +175,26 @@ namespace SpryCoder.WebcamCaptureTool
 
         }
 
-        public static void CreateTimeLapse()
+        public static void CreateTimeLapse(string outputFilePath, int width, int height, int frameRate, bool orderByFileDate, string[] fileList)
         {
-            const string basePath = @"C:\Users\Justin\Desktop\wc_weathernerd\";
-
             try
             {
                 using (var videoWriter = new VideoFileWriter())
                 {
-                    videoWriter.Open(basePath + "timelapse.avi", 640, 480, 15, VideoCodec.MPEG4, 1000000);
+                    videoWriter.Open(outputFilePath, width, height, frameRate, VideoCodec.MPEG4, 1000000);
 
-                    System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(basePath);
-                    System.IO.FileSystemInfo[] images = di.GetFileSystemInfos();
-                    var orderedImages = images.OrderBy(f => f.CreationTime);
+                    // use for ordering by file date
+                    //System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(basePath);
+                    //System.IO.FileSystemInfo[] images = di.GetFileSystemInfos();
+                    //var orderedImages = images.OrderBy(f => f.CreationTime);
 
-                    foreach (System.IO.FileSystemInfo imageFile in images)
-                    {
+                    //foreach (FileSystemInfo imageFile in images)
+                    foreach (string file in fileList)
+                        {
                         // Out of Memory errors are common for incomplete or corrupted images.  Skip over them and continue.
                         try
                         {
-                            using (Bitmap image = Image.FromFile(imageFile.FullName) as Bitmap)
+                            using (Bitmap image = Image.FromFile(file) as Bitmap)
                             {
                                 videoWriter.WriteVideoFrame(image);
                             }

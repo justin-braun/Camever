@@ -37,7 +37,29 @@ namespace SpryCoder.WebcamCaptureTool
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string[] imageItems = new string[imageList.Items.Count];
+                imageList.Items.CopyTo(imageItems, 0);
 
+                SaveFileDialog sfDialog = new SaveFileDialog();
+                sfDialog.Filter = "AVI file (*.avi)|*.avi";
+                sfDialog.ShowDialog();
+
+                if (sfDialog.FileName == "")
+                    return;
+
+                CamUtil.CreateTimeLapse(sfDialog.FileName, 640, 480, int.Parse(frameRate.Text), false,
+                    imageItems);
+
+                MessageBox.Show("Done!");
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
         }
 
         private void removeImageButton_Click(object sender, EventArgs e)
