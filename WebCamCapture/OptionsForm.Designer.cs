@@ -37,6 +37,8 @@
             this.Password = new System.Windows.Forms.TextBox();
             this.Username = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CameraMfgSelector = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.CameraUrlPreview = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SnapshotUrlPath = new System.Windows.Forms.TextBox();
@@ -242,6 +244,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.CameraMfgSelector);
+            this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.CameraUrlPreview);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.SnapshotUrlPath);
@@ -250,16 +254,40 @@
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(23, 21);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(287, 146);
+            this.groupBox1.Size = new System.Drawing.Size(287, 187);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connection Information";
+            // 
+            // CameraMfgSelector
+            // 
+            this.CameraMfgSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CameraMfgSelector.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CameraMfgSelector.FormattingEnabled = true;
+            this.CameraMfgSelector.Items.AddRange(new object[] {
+            "Amcrest",
+            "Foscam"});
+            this.CameraMfgSelector.Location = new System.Drawing.Point(9, 41);
+            this.CameraMfgSelector.Name = "CameraMfgSelector";
+            this.CameraMfgSelector.Size = new System.Drawing.Size(133, 21);
+            this.CameraMfgSelector.TabIndex = 6;
+            this.CameraMfgSelector.SelectedIndexChanged += new System.EventHandler(this.CameraMfgCombo_SelectedIndexChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(9, 24);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(72, 13);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "Manufacturer";
             // 
             // CameraUrlPreview
             // 
             this.CameraUrlPreview.AutoSize = true;
             this.CameraUrlPreview.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CameraUrlPreview.Location = new System.Drawing.Point(9, 113);
+            this.CameraUrlPreview.Location = new System.Drawing.Point(9, 159);
             this.CameraUrlPreview.Name = "CameraUrlPreview";
             this.CameraUrlPreview.Size = new System.Drawing.Size(39, 13);
             this.CameraUrlPreview.TabIndex = 4;
@@ -269,7 +297,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 68);
+            this.label4.Location = new System.Drawing.Point(9, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 2;
@@ -278,7 +306,7 @@
             // SnapshotUrlPath
             // 
             this.SnapshotUrlPath.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SnapshotUrlPath.Location = new System.Drawing.Point(9, 85);
+            this.SnapshotUrlPath.Location = new System.Drawing.Point(9, 129);
             this.SnapshotUrlPath.Name = "SnapshotUrlPath";
             this.SnapshotUrlPath.Size = new System.Drawing.Size(261, 21);
             this.SnapshotUrlPath.TabIndex = 3;
@@ -288,7 +316,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 24);
+            this.label1.Location = new System.Drawing.Point(9, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 0;
@@ -297,7 +325,7 @@
             // IPAddress
             // 
             this.IPAddress.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IPAddress.Location = new System.Drawing.Point(9, 41);
+            this.IPAddress.Location = new System.Drawing.Point(9, 85);
             this.IPAddress.Name = "IPAddress";
             this.IPAddress.Size = new System.Drawing.Size(136, 21);
             this.IPAddress.TabIndex = 1;
@@ -1364,5 +1392,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button RestoreSettingsButton;
         private System.Windows.Forms.Button BackupSettingsButton;
+        private System.Windows.Forms.ComboBox CameraMfgSelector;
+        private System.Windows.Forms.Label label10;
     }
 }

@@ -130,6 +130,7 @@ namespace SpryCoder.WebcamCaptureTool
         private void SaveSettings()
         {
             // Camera Information
+            if (Properties.Settings.Default.CameraMfg != CameraMfgSelector.SelectedItem.ToString()) Properties.Settings.Default.CameraMfg = CameraMfgSelector.SelectedItem.ToString();
             if (Properties.Settings.Default.IPAddress != IPAddress.Text) Properties.Settings.Default.IPAddress = IPAddress.Text;
             if (Properties.Settings.Default.SnapshotUrl != SnapshotUrlPath.Text) Properties.Settings.Default.SnapshotUrl = SnapshotUrlPath.Text;
             if (Properties.Settings.Default.Username != Username.Text) Properties.Settings.Default.Username = Username.Text;
@@ -166,6 +167,7 @@ namespace SpryCoder.WebcamCaptureTool
         private void LoadSettings()
         {
             // Camera Information
+            CameraMfgSelector.SelectedIndex = CameraMfgSelector.FindStringExact(Properties.Settings.Default.CameraMfg.ToString());
             IPAddress.Text = Properties.Settings.Default.IPAddress.ToString();
             SnapshotUrlPath.Text = Properties.Settings.Default.SnapshotUrl.ToString();
             Username.Text = Properties.Settings.Default.Username.ToString();
@@ -444,5 +446,20 @@ namespace SpryCoder.WebcamCaptureTool
             config.SaveAs(settingsFilePath);
         }
 
+        private void CameraMfgCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (CameraMfgSelector.SelectedItem.ToString())
+            {
+                case "Amcrest":
+                    SnapshotUrlPath.Text = "cgi-bin/snapshot.cgi";
+                    break;
+                case "Foscam":
+                    SnapshotUrlPath.Text = "snapshot.cgi";
+                    break;
+                default:
+                    SnapshotUrlPath.Text = "cgi-bin/snapshot.cgi";
+                    break;
+            }
+        }
     }
 }

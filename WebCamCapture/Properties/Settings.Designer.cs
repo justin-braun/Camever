@@ -250,5 +250,17 @@ namespace SpryCoder.WebcamCaptureTool.Properties {
                 this["OverlayBottomRightText"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Amcrest")]
+        public string CameraMfg {
+            get {
+                return ((string)(this["CameraMfg"]));
+            }
+            set {
+                this["CameraMfg"] = value;
+            }
+        }
     }
 }
