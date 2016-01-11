@@ -28,36 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.startButton = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             this.imageList = new System.Windows.Forms.ListBox();
-            this.buttonAddImage = new System.Windows.Forms.Button();
-            this.buttonRemoveImage = new System.Windows.Forms.Button();
-            this.buttonClearImages = new System.Windows.Forms.Button();
+            this.addImageButton = new System.Windows.Forms.Button();
+            this.removeImageButton = new System.Windows.Forms.Button();
+            this.clearImageButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.imageCountLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.frameRate = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // buttonStart
+            // startButton
             // 
-            this.buttonStart.Location = new System.Drawing.Point(417, 298);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 0;
-            this.buttonStart.Text = "&Start";
-            this.buttonStart.UseVisualStyleBackColor = true;
+            this.startButton.Location = new System.Drawing.Point(417, 298);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(75, 23);
+            this.startButton.TabIndex = 0;
+            this.startButton.Text = "&Start";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
-            // buttonClose
+            // closeButton
             // 
-            this.buttonClose.Location = new System.Drawing.Point(498, 298);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 23);
-            this.buttonClose.TabIndex = 1;
-            this.buttonClose.Text = "&Close";
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.closeButton.Location = new System.Drawing.Point(498, 298);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 1;
+            this.closeButton.Text = "&Close";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // imageList
             // 
@@ -67,33 +69,39 @@
             this.imageList.Name = "imageList";
             this.imageList.Size = new System.Drawing.Size(298, 212);
             this.imageList.TabIndex = 2;
+            this.imageList.SelectedIndexChanged += new System.EventHandler(this.imageList_SelectedIndexChanged);
             // 
-            // buttonAddImage
+            // addImageButton
             // 
-            this.buttonAddImage.Location = new System.Drawing.Point(13, 261);
-            this.buttonAddImage.Name = "buttonAddImage";
-            this.buttonAddImage.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddImage.TabIndex = 3;
-            this.buttonAddImage.Text = "&Add";
-            this.buttonAddImage.UseVisualStyleBackColor = true;
+            this.addImageButton.Location = new System.Drawing.Point(13, 261);
+            this.addImageButton.Name = "addImageButton";
+            this.addImageButton.Size = new System.Drawing.Size(75, 23);
+            this.addImageButton.TabIndex = 3;
+            this.addImageButton.Text = "&Add";
+            this.addImageButton.UseVisualStyleBackColor = true;
+            this.addImageButton.Click += new System.EventHandler(this.addImageButton_Click);
             // 
-            // buttonRemoveImage
+            // removeImageButton
             // 
-            this.buttonRemoveImage.Location = new System.Drawing.Point(95, 261);
-            this.buttonRemoveImage.Name = "buttonRemoveImage";
-            this.buttonRemoveImage.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemoveImage.TabIndex = 4;
-            this.buttonRemoveImage.Text = "&Remove Image";
-            this.buttonRemoveImage.UseVisualStyleBackColor = true;
+            this.removeImageButton.Enabled = false;
+            this.removeImageButton.Location = new System.Drawing.Point(95, 261);
+            this.removeImageButton.Name = "removeImageButton";
+            this.removeImageButton.Size = new System.Drawing.Size(75, 23);
+            this.removeImageButton.TabIndex = 4;
+            this.removeImageButton.Text = "&Remove Image";
+            this.removeImageButton.UseVisualStyleBackColor = true;
+            this.removeImageButton.Click += new System.EventHandler(this.removeImageButton_Click);
             // 
-            // buttonClearImages
+            // clearImageButton
             // 
-            this.buttonClearImages.Location = new System.Drawing.Point(236, 261);
-            this.buttonClearImages.Name = "buttonClearImages";
-            this.buttonClearImages.Size = new System.Drawing.Size(75, 23);
-            this.buttonClearImages.TabIndex = 5;
-            this.buttonClearImages.Text = "&C&lear";
-            this.buttonClearImages.UseVisualStyleBackColor = true;
+            this.clearImageButton.Enabled = false;
+            this.clearImageButton.Location = new System.Drawing.Point(236, 261);
+            this.clearImageButton.Name = "clearImageButton";
+            this.clearImageButton.Size = new System.Drawing.Size(75, 23);
+            this.clearImageButton.TabIndex = 5;
+            this.clearImageButton.Text = "&C&lear";
+            this.clearImageButton.UseVisualStyleBackColor = true;
+            this.clearImageButton.Click += new System.EventHandler(this.clearImageButton_Click);
             // 
             // label1
             // 
@@ -131,21 +139,31 @@
             this.frameRate.TabIndex = 9;
             this.frameRate.Text = "5";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(377, 67);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "(1 - 60)";
+            // 
             // TimelapseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(585, 332);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.frameRate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.imageCountLabel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonClearImages);
-            this.Controls.Add(this.buttonRemoveImage);
-            this.Controls.Add(this.buttonAddImage);
+            this.Controls.Add(this.clearImageButton);
+            this.Controls.Add(this.removeImageButton);
+            this.Controls.Add(this.addImageButton);
             this.Controls.Add(this.imageList);
-            this.Controls.Add(this.buttonClose);
-            this.Controls.Add(this.buttonStart);
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.startButton);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -162,15 +180,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.ListBox imageList;
-        private System.Windows.Forms.Button buttonAddImage;
-        private System.Windows.Forms.Button buttonRemoveImage;
-        private System.Windows.Forms.Button buttonClearImages;
+        private System.Windows.Forms.Button addImageButton;
+        private System.Windows.Forms.Button removeImageButton;
+        private System.Windows.Forms.Button clearImageButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label imageCountLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox frameRate;
+        private System.Windows.Forms.Label label3;
     }
 }
