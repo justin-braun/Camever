@@ -51,16 +51,19 @@ namespace SpryCoder.WebcamCaptureTool
                 if (sfDialog.FileName == "")
                     return;
 
+                this.Cursor = Cursors.WaitCursor;
                 await Task.Run(() => CamUtil.CreateTimeLapse(sfDialog.FileName, 640, 480, int.Parse(frameRate.Text), false,
                     imageItems));
 
+                this.Cursor = Cursors.Default;
                 MessageBox.Show("Done!");
             }
             catch (Exception)
             {
-
+                this.Cursor = Cursors.Default;
                 throw;
             }
+
 
         }
 
