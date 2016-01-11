@@ -1,6 +1,8 @@
-﻿using System;
+﻿using AForge.Video.FFMPEG;
+using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -170,6 +172,48 @@ namespace SpryCoder.WebcamCaptureTool
             {
                 throw;
             }
+
+        }
+
+        public static void CreateTimeLapse()
+        {
+            const string basePath = @"C:\Users\Justin\Desktop\wc_weathernerd\";
+
+            try
+            {
+                using (var videoWriter = new VideoFileWriter())
+                {
+                    videoWriter.Open(basePath + "timelapse.avi", 640, 480, 15, VideoCodec.MPEG4, 1000000);
+
+                    System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(basePath);
+                    System.IO.FileSystemInfo[] images = di.GetFileSystemInfos();
+                    var orderedImages = images.OrderBy(f => f.CreationTime);
+
+                    foreach (System.IO.FileSystemInfo imageFile in images)
+                    {
+                        // Out of Memory errors are common for incomplete or corrupted images.  Skip over them and continue.
+                        try
+                        {
+                            using (Bitmap image = Image.FromFile(imageFile.FullName) as Bitmap)
+                            {
+                                videoWriter.WriteVideoFrame(image);
+                            }
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+
+                    videoWriter.Close();
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+
 
         }
     }

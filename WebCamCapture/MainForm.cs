@@ -296,39 +296,7 @@ namespace SpryCoder.WebcamCaptureTool
             NextCaptureTimeLabel.Text = Properties.Settings.Default.CapturesEnabled ? string.Format("{0} {1}", NextHitTime.ToShortDateString(), NextHitTime.ToShortTimeString()) : "No captures scheduled";
         }
 
-        private void CreateTimeLapse()
-        {
-            const string basePath = @"C:\Users\Justin\Desktop\wc_weathernerd\";
 
-            using (var videoWriter = new VideoFileWriter())
-            {
-                videoWriter.Open(basePath + "timelapse.avi", 640, 480, 15, VideoCodec.MPEG4, 1000000);
-
-                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(basePath);
-                System.IO.FileSystemInfo[] images = di.GetFileSystemInfos();
-                var orderedImages = images.OrderBy(f => f.CreationTime);
-
-                foreach (System.IO.FileSystemInfo imageFile in images)
-                {
-                    // Out of Memory errors are common for incomplete or corrupted images.  Skip over them and continue.
-                    try
-                    {
-                        using (Bitmap image = Bitmap.FromFile(imageFile.FullName) as Bitmap)
-                        {
-                            videoWriter.WriteVideoFrame(image);
-                        }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                }
-
-                videoWriter.Close();
-            }
-
-            MessageBox.Show("Timelapse Creation Complete!");
-        }
 
 
         /// MENU ITEMS ///
@@ -396,7 +364,8 @@ namespace SpryCoder.WebcamCaptureTool
 
         private void createTimelapseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateTimeLapse();
+            TimelapseForm tlForm = new TimelapseForm();
+            tlForm.ShowDialog();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

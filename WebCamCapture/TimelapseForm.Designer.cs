@@ -110,9 +110,9 @@
             this.imageCountLabel.AutoSize = true;
             this.imageCountLabel.Location = new System.Drawing.Point(16, 303);
             this.imageCountLabel.Name = "imageCountLabel";
-            this.imageCountLabel.Size = new System.Drawing.Size(83, 13);
+            this.imageCountLabel.Size = new System.Drawing.Size(99, 13);
             this.imageCountLabel.TabIndex = 7;
-            this.imageCountLabel.Text = "images selected";
+            this.imageCountLabel.Text = "No images selected";
             // 
             // label2
             // 
