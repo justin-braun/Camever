@@ -373,5 +373,15 @@ namespace SpryCoder.WebcamCaptureTool
             AboutForm about = new AboutForm();
             about.ShowDialog();
         }
+
+        private void errorLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logger.ViewLogFile();
+        }
+
+        private void clearLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logger.ClearLog();
+        }
     }
 }

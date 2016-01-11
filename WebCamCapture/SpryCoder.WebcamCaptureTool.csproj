@@ -87,6 +87,7 @@
     <Compile Include="CreditForm.Designer.cs">
       <DependentUpon>CreditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
