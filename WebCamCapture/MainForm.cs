@@ -31,9 +31,6 @@ namespace SpryCoder.WebcamCaptureTool
         {
             InitializeComponent();
 
-            //Reset Settings for debugging
-            //Properties.Settings.Default.Reset();
-
             // Clear controls/labels
             NextCaptureTimeLabel.Text = "";
             LastStatusLabel.Text = "";
@@ -48,7 +45,6 @@ namespace SpryCoder.WebcamCaptureTool
                 OptionsForm options = new OptionsForm();
                 options.ShowDialog();
             }
-
         }
 
         /// <summary>
