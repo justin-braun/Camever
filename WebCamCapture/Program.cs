@@ -15,11 +15,19 @@ namespace SpryCoder.WebcamCaptureTool
         static void Main()
         {
 
+            // Check if settings need to be upgraded because of file version change
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
 
             // Blocks the current thread until the current instance receives a signal,
             // using a TimeSpan to specify the time interval and specifying whether to exit the synchronization domain before the wait.
             if (mutex.WaitOne(TimeSpan.Zero, true))
             {
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());

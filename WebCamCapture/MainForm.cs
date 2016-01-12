@@ -38,14 +38,6 @@ namespace SpryCoder.WebcamCaptureTool
             NextCaptureTimeLabel.Text = "";
             LastStatusLabel.Text = "";
 
-            // Check if settings need to be upgraded because of file version change
-            if (Properties.Settings.Default.UpgradeRequired)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeRequired = false;
-                Properties.Settings.Default.Save();
-            }
-
             // Look for settings changes
             Properties.Settings.Default.PropertyChanged += Settings_PropertyChanged;
 
