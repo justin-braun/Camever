@@ -2,7 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Webcam Capture Tool"
-#define MyAppVersion "1.12.2016.0"
+;#define MyAppVersion "1.12.2016.0"
+#define MyAppVersion GetFileVersion("C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\wcct.exe")
 #define MyAppPublisher "Spry Coder Software"
 #define MyAppURL "http://sprycoder.com"
 #define MyAppExeName "wcct.exe"
@@ -19,8 +20,10 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
+DisableWelcomePage=no
 DefaultDirName={pf}\Spry Coder Software\Webcam Capture Tool
 DisableDirPage=yes
+DisableReadyPage=no
 DefaultGroupName=Spry Coder Software
 OutputBaseFilename=setup
 SetupIconFile=C:\Users\Justin\Dropbox\Projects\WebcamCaptureTool\webcam.ico
