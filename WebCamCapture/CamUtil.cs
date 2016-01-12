@@ -13,10 +13,10 @@ namespace SpryCoder.WebcamCaptureTool
 {
     public static class CamUtil
     {
-        private const int width = 640;
-        private const int height = 480;
+        private const int Width = 640;
+        private const int Height = 480;
 
-        private const string wuCamFtp = "webcam.wunderground.com";
+        private const string WuCamFtp = "webcam.wunderground.com";
 
         public enum CaptureType { OptionPreviewImage, FinalImage }
         public static DateTime NextCaptureTime(DateTime dt, double minuteInterval)
@@ -40,9 +40,7 @@ namespace SpryCoder.WebcamCaptureTool
 
         public static string TemplateReplace(string input)
         {
-            string output;
-
-            output = input;
+            var output = input;
             output = output.Replace("{monthno}", DateTime.Now.ToString("MM"));
             output = output.Replace("{month}", DateTime.Now.ToString("MMM"));
             output = output.Replace("{day}", DateTime.Now.ToString("dd"));
@@ -57,7 +55,7 @@ namespace SpryCoder.WebcamCaptureTool
             return output;
         }
 
-        public static async Task<Image> CaptureImage(CaptureType CapType)
+        public static async Task<Image> CaptureImage(CaptureType capType)
         {
             Image image = null;
             Bitmap bitmap = null;
@@ -65,7 +63,7 @@ namespace SpryCoder.WebcamCaptureTool
 
             try
             {
-                if (CapType == CaptureType.FinalImage)
+                if (capType == CaptureType.FinalImage)
                 {
                     // Http Post Request/Response
                     System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", Properties.Settings.Default.IPAddress.ToString(), Properties.Settings.Default.SnapshotUrl.ToString()));
@@ -78,9 +76,9 @@ namespace SpryCoder.WebcamCaptureTool
                     // Image
                     image = System.Drawing.Image.FromStream(stream);
                 }
-                else if (CapType == CaptureType.OptionPreviewImage)
+                else if (capType == CaptureType.OptionPreviewImage)
                 {
-                    bitmap = new Bitmap(width, height);
+                    bitmap = new Bitmap(Width, Height);
                 }
 
 
@@ -90,7 +88,7 @@ namespace SpryCoder.WebcamCaptureTool
                 using (Graphics g = Graphics.FromImage(finalImage))
                 {
                     // Full preview picture rectangle fill
-                    if (finalImage == bitmap) g.FillRectangle(Brushes.Green, new Rectangle(0, 0, width, height));
+                    if (finalImage == bitmap) g.FillRectangle(Brushes.Green, new Rectangle(0, 0, Width, Height));
 
                     // Brush for transparency
                     Brush semiTransBrush = new SolidBrush(Color.FromArgb(CamUtil.CalculateTransparency(Properties.Settings.Default.OverlayTransparency), 176, 176, 176));
@@ -103,28 +101,28 @@ namespace SpryCoder.WebcamCaptureTool
                     if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.OverlayTopLeftText) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.OverlayTopRightText))
                     {
                         // Top Overlay rectangle with transparency
-                        RectangleF rectfTop = new RectangleF(0, 0, width, 20);
+                        RectangleF rectfTop = new RectangleF(0, 0, Width, 20);
                         g.FillRectangle(semiTransBrush, rectfTop);
 
                         // Top Left Text
                         g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayTopLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
 
                         // Top Right Text
-                        g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayTopRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 6, sf);
+                        g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayTopRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 6, sf);
                     }
 
                     // Bottom Overlay
                     if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.OverlayBottomLeftText) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.OverlayBottomRightText))
                     {
                         // Bottom Overlay rectangle with transparency
-                        RectangleF rectfBottom = new RectangleF(0, height - 20, width, 20);
+                        RectangleF rectfBottom = new RectangleF(0, Height - 20, Width, 20);
                         g.FillRectangle(semiTransBrush, rectfBottom);
 
                         // Bottom Left Text
                         g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayBottomLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
 
                         // Bottom Right Text
-                        g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayBottomRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 465, sf);
+                        g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayBottomRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 465, sf);
                     }
                 }
 
@@ -144,7 +142,7 @@ namespace SpryCoder.WebcamCaptureTool
             try
             {
                 // Get the object used to communicate with the server.
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + wuCamFtp + "/image.jpg");
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + WuCamFtp + "/image.jpg");
                 request.Method = WebRequestMethods.Ftp.UploadFile;
 
                 // This example assumes the FTP site uses anonymous logon.
