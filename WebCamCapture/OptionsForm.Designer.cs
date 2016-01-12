@@ -183,7 +183,7 @@
             // 
             this.TestConnectionButton.AutoSize = true;
             this.TestConnectionButton.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TestConnectionButton.Location = new System.Drawing.Point(524, 173);
+            this.TestConnectionButton.Location = new System.Drawing.Point(524, 214);
             this.TestConnectionButton.Name = "TestConnectionButton";
             this.TestConnectionButton.Size = new System.Drawing.Size(106, 23);
             this.TestConnectionButton.TabIndex = 8;
@@ -200,7 +200,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(343, 21);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(287, 146);
+            this.groupBox2.Size = new System.Drawing.Size(287, 187);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Credentials";
@@ -318,9 +318,9 @@
             this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(9, 68);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.Size = new System.Drawing.Size(123, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "IP Address";
+            this.label1.Text = "IP Address or Hostname";
             // 
             // IPAddress
             // 

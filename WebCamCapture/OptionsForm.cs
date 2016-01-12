@@ -33,15 +33,12 @@ namespace SpryCoder.WebcamCaptureTool
             // Build Camera URL Preview Label
             BuildSnapshotUrlPreview();
 
-            // Overlays Tab
-            /////
-            //PreviewPictureBox.BackColor = Color.Gray;
         }
 
         private void BuildSnapshotUrlPreview()
         {
-            string urlPreview = string.Format("http://{0}/{1}", IPAddress.Text, SnapshotUrlPath.Text);
-            CameraUrlPreview.Text = urlPreview;
+            string url = string.Format("http://{0}/{1}", IPAddress.Text, SnapshotUrlPath.Text);
+            CameraUrlPreview.Text = url;
 
         }
 
@@ -72,7 +69,7 @@ namespace SpryCoder.WebcamCaptureTool
 
             if (string.IsNullOrWhiteSpace(IPAddress.Text))
             {
-                MessageBox.Show("Please enter a value for the IP Address of the camera.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter a value for the IP Address or hostname of the camera.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else if (string.IsNullOrWhiteSpace(SnapshotUrlPath.Text))
