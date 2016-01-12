@@ -114,8 +114,6 @@ namespace SpryCoder.WebcamCaptureTool
         private void CreditAckLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.Close();
-            CreditForm credit = new CreditForm();
-            credit.ShowDialog();
         }
     }
 }
