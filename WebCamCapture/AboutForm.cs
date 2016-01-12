@@ -111,9 +111,5 @@ namespace SpryCoder.WebcamCaptureTool
             this.Close();
         }
 
-        private void CreditAckLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            this.Close();
-        }
     }
 }
