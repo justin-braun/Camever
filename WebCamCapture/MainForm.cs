@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace SpryCoder.WebcamCaptureTool
         // PROPERTIES
         public DateTime NextHitTime { get { return CamUtil.NextCaptureTime(DateTime.Now, double.Parse(Properties.Settings.Default.UpdateInterval)); } }
         public TimeSpan TimeDiff { get { return NextHitTime.Subtract(DateTime.Now); } }
-        public string ImageFileName {  get { return CamUtil.TemplateReplace(Properties.Settings.Default.ImageFileNamingFormat); } }
+        public string ImageFileName {  get { return CamUtil.TemplateReplace(Properties.Settings.Default.ImageFileNamingFormat) + ".jpg"; } }
 
         /// <summary>
         /// Main Form 
@@ -184,25 +185,38 @@ namespace SpryCoder.WebcamCaptureTool
                     LastStatusLabel.Text = "Capturing";
                 });
 
+                string imageFile = Path.Combine(Properties.Settings.Default.ImageSavePath, ImageFileName);
+
                 // Save Capture
-                SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),
-                                    string.Format("{0}\\{1}.jpg",
-                                    Properties.Settings.Default.ImageSavePath,
-                                    ImageFileName)
-                                    );
+                SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),imageFile);
+                Logger.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
 
                 // Check for Services enabled on schedule
                 if (Properties.Settings.Default.WundergroundUploadEnabled == true)
                 {
-                    await CamUtil.UploadWUCamImage(
-                                                Properties.Settings.Default.WundergroundCameraID,
-                                                PasswordMgmt.DecryptString(Properties.Settings.Default.WundergroundPassword),
-                                                await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
-                                            );
+                    try
+                    {
+                        await CamUtil.UploadWUCamImage(
+                            Properties.Settings.Default.WundergroundCameraID,
+                            PasswordMgmt.DecryptString(Properties.Settings.Default.WundergroundPassword),
+                            await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
+                        );
+
+                        Logger.WriteLogEntry("Weather Underground webcam snapshot uploaded successfully.", Logger.LogEntryType.Information);
+                    }
+                    catch (Exception wuex)
+                    {
+
+                        // Update on the UI thread
+                        Logger.WriteLogEntry("Weather Underground webcam snapshot upload failed. " + wuex.Message, Logger.LogEntryType.Error);
+
+                        BeginInvoke((MethodInvoker)delegate
+                        {
+                            LastStatusLabel.Text = "Upload Failure";
+                        });
+                    }
                 }
 
-                Logger.WriteLogEntry("Scheduled snapshot taken successfully.", Logger.LogEntryType.Information);
-                
                 // Update on the UI thread
                 BeginInvoke((MethodInvoker)delegate
                 {
@@ -340,12 +354,13 @@ namespace SpryCoder.WebcamCaptureTool
                 // Capture Image and then save it
                 //Image image = CaptureImage();
                 this.Cursor = Cursors.WaitCursor;
-                SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),
-                                  string.Format("{0}\\{1}.jpg", Properties.Settings.Default.ImageSavePath, ImageFileName)
-                                 );
+                string imageFile = Path.Combine(Properties.Settings.Default.ImageSavePath, ImageFileName);
+
+                SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),imageFile);
+
                 this.Cursor = Cursors.Default;
 
-                Logger.WriteLogEntry("Manual snapshot taken successfully.", Logger.LogEntryType.Information);
+                Logger.WriteLogEntry($"Manual snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
 
                 MessageBox.Show("Snapshot completed successfully!",
                     "Snapshot Completed",

@@ -340,11 +340,17 @@ namespace SpryCoder.WebcamCaptureTool
                 this.Cursor = Cursors.WaitCursor;
                 await CamUtil.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)).ConfigureAwait(false);
                 this.Cursor = Cursors.Default;
+                Logger.WriteLogEntry("Weather Underground webcam manual snapshot uploaded successfully.", Logger.LogEntryType.Information);
                 MessageBox.Show("Upload Successful!", "Upload Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                this.Cursor = Cursors.Default;
+                BeginInvoke((MethodInvoker)delegate
+                {
+                    this.Cursor = Cursors.Default;
+                });
+                
+                Logger.WriteLogEntry("Weather Underground webcam snapshot upload failed. " + ex.Message, Logger.LogEntryType.Error);
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
