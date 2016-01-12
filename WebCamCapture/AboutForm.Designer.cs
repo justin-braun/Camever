@@ -30,10 +30,10 @@
             this.ProductNameLabel = new System.Windows.Forms.Label();
             this.OKButton = new System.Windows.Forms.Button();
             this.ProductVersionLabel = new System.Windows.Forms.Label();
-            this.CreditAckLinkLabel = new System.Windows.Forms.LinkLabel();
             this.ProductCompanyLabel = new System.Windows.Forms.Label();
             this.CopyrightLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +49,7 @@
             // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(348, 155);
+            this.OKButton.Location = new System.Drawing.Point(348, 210);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 2;
@@ -65,17 +65,6 @@
             this.ProductVersionLabel.Size = new System.Drawing.Size(104, 13);
             this.ProductVersionLabel.TabIndex = 3;
             this.ProductVersionLabel.Text = "ProductVersionLabel";
-            // 
-            // CreditAckLinkLabel
-            // 
-            this.CreditAckLinkLabel.AutoSize = true;
-            this.CreditAckLinkLabel.Location = new System.Drawing.Point(12, 160);
-            this.CreditAckLinkLabel.Name = "CreditAckLinkLabel";
-            this.CreditAckLinkLabel.Size = new System.Drawing.Size(146, 13);
-            this.CreditAckLinkLabel.TabIndex = 4;
-            this.CreditAckLinkLabel.TabStop = true;
-            this.CreditAckLinkLabel.Text = "Credits && Acknowledgements";
-            this.CreditAckLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CreditAckLinkLabel_LinkClicked);
             // 
             // ProductCompanyLabel
             // 
@@ -97,7 +86,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = SpryCoder.WebcamCaptureTool.Properties.Resources.webcam;
+            this.pictureBox1.Image = global::SpryCoder.WebcamCaptureTool.Properties.Resources.webcam;
             this.pictureBox1.Location = new System.Drawing.Point(13, 13);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 128);
@@ -105,15 +94,28 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(13, 159);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(269, 74);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.Text = "Portions of this software may utilize the following material, the use of which is" +
+    " hereby acknowledged.\r\n\r\nAForge.NET Framework libraries for video processing pub" +
+    "lished under the GPL v3 License.";
+            // 
             // AboutForm
             // 
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 190);
+            this.ClientSize = new System.Drawing.Size(435, 245);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.CopyrightLabel);
             this.Controls.Add(this.ProductCompanyLabel);
-            this.Controls.Add(this.CreditAckLinkLabel);
             this.Controls.Add(this.ProductVersionLabel);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.ProductNameLabel);
@@ -141,8 +143,8 @@
         private System.Windows.Forms.Label ProductNameLabel;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Label ProductVersionLabel;
-        private System.Windows.Forms.LinkLabel CreditAckLinkLabel;
         private System.Windows.Forms.Label ProductCompanyLabel;
         private System.Windows.Forms.Label CopyrightLabel;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
