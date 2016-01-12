@@ -52,6 +52,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>webcam.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge.Video.FFMPEG">
       <HintPath>DLL\AForge.Video.FFMPEG.dll</HintPath>
@@ -182,6 +185,7 @@
     <Content Include="postproc-52.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="webcam.ico" />
     <None Include="Resources\webcam.png" />
     <Content Include="swresample-0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
