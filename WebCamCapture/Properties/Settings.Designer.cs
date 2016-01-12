@@ -37,7 +37,7 @@ namespace SpryCoder.WebcamCaptureTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("snapshot.cgi")]
+        [global::System.Configuration.DefaultSettingValueAttribute("cgi-bin/snapshot.cgi")]
         public string SnapshotUrl {
             get {
                 return ((string)(this["SnapshotUrl"]));

@@ -6,7 +6,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SnapshotUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">snapshot.cgi</Value>
+      <Value Profile="(Default)">cgi-bin/snapshot.cgi</Value>
     </Setting>
     <Setting Name="Username" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
