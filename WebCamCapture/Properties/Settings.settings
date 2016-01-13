@@ -57,7 +57,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="OverlayBottomRightText" Type="System.String" Scope="User">
-      <Value Profile="(Default)">{year4}{monthno}{day}-{24hour}{min}{sec}</Value>
+      <Value Profile="(Default)">{monthno}/{day}/{year4} {12hour}:{min}:{sec} {ampm}</Value>
     </Setting>
     <Setting Name="CameraMfg" Type="System.String" Scope="User">
       <Value Profile="(Default)">Amcrest</Value>

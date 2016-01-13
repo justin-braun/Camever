@@ -241,7 +241,7 @@ namespace SpryCoder.Camever.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{year4}{monthno}{day}-{24hour}{min}{sec}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("{monthno}/{day}/{year4} {12hour}:{min}:{sec} {ampm}")]
         public string OverlayBottomRightText {
             get {
                 return ((string)(this["OverlayBottomRightText"]));
