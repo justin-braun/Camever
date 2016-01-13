@@ -26,12 +26,12 @@ namespace SpryCoder.WebcamCaptureTool.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string IPAddress {
+        public string CameraHostname {
             get {
-                return ((string)(this["IPAddress"]));
+                return ((string)(this["CameraHostname"]));
             }
             set {
-                this["IPAddress"] = value;
+                this["CameraHostname"] = value;
             }
         }
         

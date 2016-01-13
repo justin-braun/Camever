@@ -66,7 +66,7 @@ namespace SpryCoder.WebcamCaptureTool
                 if (capType == CaptureType.FinalImage)
                 {
                     // Http Post Request/Response
-                    System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", Properties.Settings.Default.IPAddress.ToString(), Properties.Settings.Default.SnapshotUrl.ToString()));
+                    System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", Properties.Settings.Default.CameraHostname.ToString(), Properties.Settings.Default.SnapshotUrl.ToString()));
                     System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Properties.Settings.Default.Username.ToString(), PasswordMgmt.DecryptString(Properties.Settings.Default.Password.ToString()));
                     request.Credentials = creds;
                     request.Method = "POST";

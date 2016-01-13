@@ -39,7 +39,7 @@ namespace SpryCoder.WebcamCaptureTool
             Properties.Settings.Default.PropertyChanged += Settings_PropertyChanged;
 
             // If settings are blank, force the Options window
-            if (String.IsNullOrEmpty(Properties.Settings.Default.IPAddress))
+            if (String.IsNullOrEmpty(Properties.Settings.Default.CameraHostname))
             {
                 MessageBox.Show("This is the first time that this application has been executed.  We'll take you to the Options so you can configure the required settings.");
                 OptionsForm options = new OptionsForm();

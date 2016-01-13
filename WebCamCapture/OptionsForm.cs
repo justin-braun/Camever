@@ -28,7 +28,7 @@ namespace SpryCoder.WebcamCaptureTool
             LoadSettings();
 
             // Check for first run settings
-            if (String.IsNullOrEmpty(Properties.Settings.Default.IPAddress)) CancelButton.Enabled = false;
+            if (String.IsNullOrEmpty(Properties.Settings.Default.CameraHostname)) CancelButton.Enabled = false;
 
             // Build Camera URL Preview Label
             BuildSnapshotUrlPreview();
@@ -37,12 +37,12 @@ namespace SpryCoder.WebcamCaptureTool
 
         private void BuildSnapshotUrlPreview()
         {
-            string url = string.Format("http://{0}/{1}", IPAddress.Text, SnapshotUrlPath.Text);
+            string url = string.Format("http://{0}/{1}", CameraHostName.Text, SnapshotUrlPath.Text);
             CameraUrlPreview.Text = url;
 
         }
 
-        private void IPAddress_TextChanged(object sender, EventArgs e)
+        private void CameraHostname_TextChanged(object sender, EventArgs e)
         {
             // Build Camera URL Preview Label
             BuildSnapshotUrlPreview();
@@ -67,7 +67,7 @@ namespace SpryCoder.WebcamCaptureTool
             // Check if required settings are filled in
             int _updateInt = 0;
 
-            if (string.IsNullOrWhiteSpace(IPAddress.Text))
+            if (string.IsNullOrWhiteSpace(CameraHostName.Text))
             {
                 MessageBox.Show("Please enter a value for the IP Address or hostname of the camera.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -128,7 +128,7 @@ namespace SpryCoder.WebcamCaptureTool
         {
             // Camera Information
             if (Properties.Settings.Default.CameraMfg != CameraMfgSelector.SelectedItem.ToString()) Properties.Settings.Default.CameraMfg = CameraMfgSelector.SelectedItem.ToString();
-            if (Properties.Settings.Default.IPAddress != IPAddress.Text) Properties.Settings.Default.IPAddress = IPAddress.Text;
+            if (Properties.Settings.Default.CameraHostname != CameraHostName.Text) Properties.Settings.Default.CameraHostname = CameraHostName.Text;
             if (Properties.Settings.Default.SnapshotUrl != SnapshotUrlPath.Text) Properties.Settings.Default.SnapshotUrl = SnapshotUrlPath.Text;
             if (Properties.Settings.Default.Username != Username.Text) Properties.Settings.Default.Username = Username.Text;
             if (Properties.Settings.Default.Password != PasswordMgmt.EncryptString(Password.Text)) Properties.Settings.Default.Password = PasswordMgmt.EncryptString(Password.Text);
@@ -165,7 +165,7 @@ namespace SpryCoder.WebcamCaptureTool
         {
             // Camera Information
             CameraMfgSelector.SelectedIndex = CameraMfgSelector.FindStringExact(Properties.Settings.Default.CameraMfg.ToString());
-            IPAddress.Text = Properties.Settings.Default.IPAddress.ToString();
+            CameraHostName.Text = Properties.Settings.Default.CameraHostname.ToString();
             SnapshotUrlPath.Text = Properties.Settings.Default.SnapshotUrl.ToString();
             Username.Text = Properties.Settings.Default.Username.ToString();
             Password.Text = String.IsNullOrEmpty(Properties.Settings.Default.Password.ToString()) ? "" : PasswordMgmt.DecryptString(Properties.Settings.Default.Password.ToString());
@@ -243,7 +243,7 @@ namespace SpryCoder.WebcamCaptureTool
             try
             {
                 // Test connection to camera
-                System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", IPAddress.Text, SnapshotUrlPath.Text));
+                System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", CameraHostName.Text, SnapshotUrlPath.Text));
                 System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Username.Text, Password.Text);
                 request.Credentials = creds;
                 request.Timeout = 10000; // 10 seconds

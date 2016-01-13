@@ -43,7 +43,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.SnapshotUrlPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.IPAddress = new System.Windows.Forms.TextBox();
+            this.CameraHostName = new System.Windows.Forms.TextBox();
             this.OverlayTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label38 = new System.Windows.Forms.Label();
@@ -250,7 +250,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.SnapshotUrlPath);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.IPAddress);
+            this.groupBox1.Controls.Add(this.CameraHostName);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(23, 21);
             this.groupBox1.Name = "groupBox1";
@@ -322,14 +322,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "IP Address or Hostname";
             // 
-            // IPAddress
+            // CameraHostName
             // 
-            this.IPAddress.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IPAddress.Location = new System.Drawing.Point(9, 85);
-            this.IPAddress.Name = "IPAddress";
-            this.IPAddress.Size = new System.Drawing.Size(136, 21);
-            this.IPAddress.TabIndex = 1;
-            this.IPAddress.TextChanged += new System.EventHandler(this.IPAddress_TextChanged);
+            this.CameraHostName.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CameraHostName.Location = new System.Drawing.Point(9, 85);
+            this.CameraHostName.Name = "CameraHostName";
+            this.CameraHostName.Size = new System.Drawing.Size(136, 21);
+            this.CameraHostName.TabIndex = 1;
+            this.CameraHostName.TextChanged += new System.EventHandler(this.CameraHostname_TextChanged);
             // 
             // OverlayTab
             // 
@@ -1301,7 +1301,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox Username;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox IPAddress;
+        private System.Windows.Forms.TextBox CameraHostName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
