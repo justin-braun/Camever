@@ -39,17 +39,17 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\camever.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\AForge.Video.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\AForge.Video.FFMPEG.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\avcodec-53.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\avdevice-53.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\avfilter-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\avformat-53.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\avutil-51.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\Effortless.Net.Encryption.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\postproc-52.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\swresample-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\swscale-2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\AForge.Video.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\AForge.Video.FFMPEG.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avcodec-53.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avdevice-53.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avfilter-2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avformat-53.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avutil-51.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\Effortless.Net.Encryption.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\postproc-52.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\swresample-0.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\swscale-2.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
