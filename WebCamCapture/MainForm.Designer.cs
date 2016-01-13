@@ -228,7 +228,7 @@
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.aboutToolStripMenuItem.Text = "&About Webcam Capture Tool";
+            this.aboutToolStripMenuItem.Text = "&About Camever";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MainForm
@@ -251,7 +251,7 @@
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Webcam Capture Tool";
+            this.Text = "Camever";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MainFormMenuStrip.ResumeLayout(false);
             this.MainFormMenuStrip.PerformLayout();

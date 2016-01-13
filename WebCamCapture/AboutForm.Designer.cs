@@ -50,7 +50,7 @@
             // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(348, 210);
+            this.OKButton.Location = new System.Drawing.Point(348, 185);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 2;
@@ -102,18 +102,17 @@
             this.textBox1.Location = new System.Drawing.Point(13, 159);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(269, 74);
+            this.textBox1.Size = new System.Drawing.Size(295, 74);
             this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "Portions of this software may utilize the following material, the use of which is" +
-    " hereby acknowledged.\r\n\r\nAForge.NET Framework libraries for video processing pub" +
-    "lished under the GPL v3 License.";
+            this.textBox1.Text = "Portions of this product were created using the AForge.NET Framework library for " +
+    "video processing, licensed under the GPL v3 License.";
             // 
             // AboutForm
             // 
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 245);
+            this.ClientSize = new System.Drawing.Size(435, 220);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.CopyrightLabel);
             this.Controls.Add(this.ProductCompanyLabel);
