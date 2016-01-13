@@ -10,5 +10,7 @@ namespace SpryCoder.Camever.Helpers
         {
             return (DateTime.Now > BetaExpireDate) ? true : false;
         }
+
+
     }
 }

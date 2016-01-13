@@ -26,13 +26,6 @@ namespace SpryCoder.Camever
         {
             InitializeComponent();
 
-            // Check if beta expired
-            if (BetaHelper.BetaExpired())
-            {
-                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
-                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
             // Clear controls/labels
             NextCaptureTimeLabel.Text = "";
             LastStatusLabel.Text = "";
@@ -61,6 +54,9 @@ namespace SpryCoder.Camever
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // Form title
+            this.Text = ProductInfoHelper.AssemblyTitle;
+
             // Check for general settings
             this.TopMost = Settings.Default.KeepOnTop;
 
@@ -143,6 +139,14 @@ namespace SpryCoder.Camever
         /// <param name="e"></param>
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            // Check for beta expiration
+            if (BetaHelper.BetaExpired())
+            {
+                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
+                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+
             backgroundCaptureTask.RunWorkerAsync();
             captureTimer.Stop();
             captureTimer.Interval = TimeDiff.TotalMilliseconds;
@@ -344,6 +348,14 @@ namespace SpryCoder.Camever
 
         private async void captureSnapshotNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Check for beta expiration
+            if (BetaHelper.BetaExpired())
+            {
+                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
+                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+
             try
             {
                 // Capture Image and then save it
@@ -383,6 +395,14 @@ namespace SpryCoder.Camever
 
         private void createTimelapseToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Check for beta expiration
+            if (BetaHelper.BetaExpired())
+            {
+                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
+                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+
             TimelapseForm tlForm = new TimelapseForm();
             tlForm.ShowDialog();
         }

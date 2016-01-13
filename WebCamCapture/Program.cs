@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using SpryCoder.Camever.Properties;
+using SpryCoder.Camever.Helpers;
 
 namespace SpryCoder.Camever
 {
@@ -15,6 +17,13 @@ namespace SpryCoder.Camever
         [STAThread]
         static void Main()
         {
+            // Check if beta expired
+            if (BetaHelper.BetaExpired())
+            {
+                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
+                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // Check if settings need to be upgraded because of file version change
             if (Settings.Default.UpgradeRequired)
@@ -23,7 +32,7 @@ namespace SpryCoder.Camever
                 Settings.Default.UpgradeRequired = false;
                 Settings.Default.Save();
             }
-
+            
             // Blocks the current thread until the current instance receives a signal,
             // using a TimeSpan to specify the time interval and specifying whether to exit the synchronization domain before the wait.
             if (mutex.WaitOne(TimeSpan.Zero, true))
