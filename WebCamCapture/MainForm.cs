@@ -32,12 +32,16 @@ namespace SpryCoder.Camever
             // Look for settings changes
             Settings.Default.PropertyChanged += Settings_PropertyChanged;
 
-            // If settings are blank, force the Options window
-            if (String.IsNullOrEmpty(Settings.Default.CameraHostname))
+
+            // Check for First Run
+            // First Run, force the Options window
+            if (Settings.Default.FirstRun)
             {
-                MessageBox.Show("This is the first time that this application has been executed.  We'll take you to the Options so you can configure the required settings.");
+                MessageBox.Show("This is the first time that this application has been executed.  We'll take you to the Options so you can configure the required settings.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 OptionsForm options = new OptionsForm();
                 options.ShowDialog();
+                Settings.Default.FirstRun = false;
+                Settings.Default.Save();
             }
         }
 

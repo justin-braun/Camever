@@ -40,6 +40,8 @@ namespace SpryCoder.Camever
             {
                 MessageBox.Show("There is already an instance of this application running.", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+
         }
     }
 }
