@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Timers;
 using System.Windows.Forms;
+using SpryCoder.Camever.Helpers;
 
 namespace SpryCoder.Camever
 {
@@ -14,9 +15,9 @@ namespace SpryCoder.Camever
         System.Timers.Timer captureTimer;
 
         // PROPERTIES
-        public DateTime NextHitTime { get { return CamUtil.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval)); } }
+        public DateTime NextHitTime { get { return CameraHelper.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval)); } }
         public TimeSpan TimeDiff { get { return NextHitTime.Subtract(DateTime.Now); } }
-        public string ImageFileName {  get { return CamUtil.TemplateReplace(Settings.Default.ImageFileNamingFormat) + ".jpg"; } }
+        public string ImageFileName {  get { return CameraHelper.TemplateReplace(Settings.Default.ImageFileNamingFormat) + ".jpg"; } }
 
         /// <summary>
         /// Main Form 
@@ -25,6 +26,13 @@ namespace SpryCoder.Camever
         {
             InitializeComponent();
 
+            // Check if beta expired
+            if (BetaHelper.BetaExpired())
+            {
+                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
+                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
             // Clear controls/labels
             NextCaptureTimeLabel.Text = "";
             LastStatusLabel.Text = "";
@@ -175,27 +183,27 @@ namespace SpryCoder.Camever
                 string imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
                 // Save Capture
-                SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),imageFile);
-                //Logger.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
+                SaveCapturedImage(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
+                //LogHelper.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
 
                 // Check for Services enabled on schedule
                 if (Settings.Default.WundergroundUploadEnabled == true)
                 {
                     try
                     {
-                        await CamUtil.UploadWUCamImage(
+                        await CameraHelper.UploadWUCamImage(
                             Settings.Default.WundergroundCameraID,
                             PasswordHelper.DecryptString(Settings.Default.WundergroundPassword),
-                            await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
+                            await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)
                         );
 
-                        //Logger.WriteLogEntry("Weather Underground webcam snapshot uploaded successfully.", Logger.LogEntryType.Information);
+                        //LogHelper.WriteLogEntry("Weather Underground webcam snapshot uploaded successfully.", LogHelper.LogEntryType.Information);
                     }
                     catch (Exception wuex)
                     {
 
                         // Update on the UI thread
-                        Logger.WriteLogEntry("Weather Underground webcam snapshot upload failed. " + wuex.Message, Logger.LogEntryType.Error);
+                        LogHelper.WriteLogEntry("Weather Underground webcam snapshot upload failed. " + wuex.Message, LogHelper.LogEntryType.Error);
 
                         BeginInvoke((MethodInvoker)delegate
                         {
@@ -213,7 +221,7 @@ namespace SpryCoder.Camever
             catch (Exception ex)
             {
                 // Update on the UI thread
-                Logger.WriteLogEntry("Scheduled snapshot capture failed. " + ex.Message, Logger.LogEntryType.Error);
+                LogHelper.WriteLogEntry("Scheduled snapshot capture failed. " + ex.Message, LogHelper.LogEntryType.Error);
 
                 BeginInvoke((MethodInvoker)delegate
                 {
@@ -316,15 +324,15 @@ namespace SpryCoder.Camever
             {
                 this.Cursor = Cursors.WaitCursor;
                 // Instantiate Preview Form with Image
-                PreviewForm preview = new PreviewForm(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage));
+                PreviewForm preview = new PreviewForm(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage));
                 this.Cursor = Cursors.Default;
-                //Logger.WriteLogEntry("Preview snapshot loaded successfully.", Logger.LogEntryType.Information);
+                //LogHelper.WriteLogEntry("Preview snapshot loaded successfully.", LogHelper.LogEntryType.Information);
                 preview.ShowDialog();
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Logger.WriteLogEntry("Preview snapshot error has occurred. " + ex.Message, Logger.LogEntryType.Error);
+                LogHelper.WriteLogEntry("Preview snapshot error has occurred. " + ex.Message, LogHelper.LogEntryType.Error);
 
                 MessageBox.Show("We ran into a problem generating the preview image. " + ex.Message + ".",
                                     "Error",
@@ -343,11 +351,11 @@ namespace SpryCoder.Camever
                 this.Cursor = Cursors.WaitCursor;
                 string imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
-                SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),imageFile);
+                SaveCapturedImage(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
 
                 this.Cursor = Cursors.Default;
 
-                //Logger.WriteLogEntry($"Manual snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
+                //LogHelper.WriteLogEntry($"Manual snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
 
                 MessageBox.Show("Snapshot completed successfully!",
                     "Snapshot Completed",
@@ -357,7 +365,7 @@ namespace SpryCoder.Camever
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Logger.WriteLogEntry("Manual snapshot error has occurred. " + ex.Message, Logger.LogEntryType.Error);
+                LogHelper.WriteLogEntry("Manual snapshot error has occurred. " + ex.Message, LogHelper.LogEntryType.Error);
                 MessageBox.Show("We ran into a problem generating the snapshot image.  " + ex.Message + ".",
                     "Error",
                     MessageBoxButtons.OK,
@@ -387,12 +395,12 @@ namespace SpryCoder.Camever
 
         private void errorLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logger.ViewLogFile();
+            LogHelper.ViewLogFile();
         }
 
         private void clearLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logger.ClearLog();
+            LogHelper.ClearLog();
         }
     }
 }

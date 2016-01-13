@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using SpryCoder.Camever.Helpers;
 using SpryCoder.Camever.Properties;
 
 namespace SpryCoder.Camever
@@ -279,7 +280,7 @@ namespace SpryCoder.Camever
                 g.FillRectangle(Brushes.Green, new Rectangle(0, 0, width, height));
 
                 // Brush for transparency
-                Brush semiTransBrush = new SolidBrush(Color.FromArgb(CamUtil.CalculateTransparency(OverlayTransparencyBar.Value), 176, 176, 176));
+                Brush semiTransBrush = new SolidBrush(Color.FromArgb(CameraHelper.CalculateTransparency(OverlayTransparencyBar.Value), 176, 176, 176));
 
                 // Right alignment string format
                 StringFormat sf = new StringFormat();
@@ -293,10 +294,10 @@ namespace SpryCoder.Camever
                     g.FillRectangle(semiTransBrush, rectfTop);
 
                     // Top Left Text
-                    g.DrawString(CamUtil.TemplateReplace(topLeftText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
+                    g.DrawString(CameraHelper.TemplateReplace(topLeftText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
 
                     // Top Right Text
-                    g.DrawString(CamUtil.TemplateReplace(topRightText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 6, sf);
+                    g.DrawString(CameraHelper.TemplateReplace(topRightText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 6, sf);
                 }
 
                 // Bottom Overlay
@@ -307,10 +308,10 @@ namespace SpryCoder.Camever
                     g.FillRectangle(semiTransBrush, rectfBottom);
 
                     // Bottom Left Text
-                    g.DrawString(CamUtil.TemplateReplace(bottomLeftText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
+                    g.DrawString(CameraHelper.TemplateReplace(bottomLeftText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
 
                     // Bottom Right Text
-                    g.DrawString(CamUtil.TemplateReplace(bottomRightText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 465, sf);
+                    g.DrawString(CameraHelper.TemplateReplace(bottomRightText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 465, sf);
                 }
             }
 
@@ -332,9 +333,9 @@ namespace SpryCoder.Camever
             try
             {
                 this.Cursor = Cursors.WaitCursor;
-                await CamUtil.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)).ConfigureAwait(false);
+                await CameraHelper.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)).ConfigureAwait(false);
                 this.Cursor = Cursors.Default;
-                //Logger.WriteLogEntry("Weather Underground webcam manual snapshot uploaded successfully.", Logger.LogEntryType.Information);
+                //LogHelper.WriteLogEntry("Weather Underground webcam manual snapshot uploaded successfully.", LogHelper.LogEntryType.Information);
                 MessageBox.Show("Upload Successful!", "Upload Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -344,7 +345,7 @@ namespace SpryCoder.Camever
                     this.Cursor = Cursors.Default;
                 });
                 
-                Logger.WriteLogEntry("Weather Underground webcam snapshot upload failed. " + ex.Message, Logger.LogEntryType.Error);
+                LogHelper.WriteLogEntry("Weather Underground webcam snapshot upload failed. " + ex.Message, LogHelper.LogEntryType.Error);
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

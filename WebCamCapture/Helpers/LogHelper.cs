@@ -2,9 +2,9 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace SpryCoder.Camever
+namespace SpryCoder.Camever.Helpers
 {
-    public static class Logger
+    public static class LogHelper
     {
         private static readonly string logFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "log.txt");
         public enum LogEntryType { Error, Information }

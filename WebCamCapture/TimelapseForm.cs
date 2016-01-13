@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpryCoder.Camever.Helpers;
 
 namespace SpryCoder.Camever
 {
@@ -47,17 +48,17 @@ namespace SpryCoder.Camever
                     return;
 
                 this.Cursor = Cursors.WaitCursor;
-                await Task.Run(() => CamUtil.CreateTimeLapse(sfDialog.FileName, 640, 480, int.Parse(frameRate.Text), false,
+                await Task.Run(() => CameraHelper.CreateTimeLapse(sfDialog.FileName, 640, 480, int.Parse(frameRate.Text), false,
                     imageItems));
 
                 this.Cursor = Cursors.Default;
-                //Logger.WriteLogEntry("Time Lapse created successfully.", Logger.LogEntryType.Information);
+                //LogHelper.WriteLogEntry("Time Lapse created successfully.", LogHelper.LogEntryType.Information);
                 MessageBox.Show("Time lapse created successfully.", "Success", MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                Logger.WriteLogEntry("Time Lapse creation failed. " + ex.Message, Logger.LogEntryType.Error);
+                LogHelper.WriteLogEntry("Time Lapse creation failed. " + ex.Message, LogHelper.LogEntryType.Error);
                 MessageBox.Show("An error occurred generating the time lapse. " + ex.Message + ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }

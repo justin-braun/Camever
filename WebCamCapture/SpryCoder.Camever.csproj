@@ -102,9 +102,10 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BetaHelper.cs" />
-    <Compile Include="CamUtil.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="Helpers\BetaHelper.cs" />
+    <Compile Include="Helpers\CameraHelper.cs" />
+    <Compile Include="Helpers\ProductInfoHelper.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,7 +118,7 @@
     <Compile Include="OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PasswordHelper.cs" />
+    <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="PreviewForm.cs">
       <SubType>Form</SubType>
     </Compile>

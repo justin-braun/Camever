@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using AForge.Video.FFMPEG;
 using SpryCoder.Camever.Properties;
 
-namespace SpryCoder.Camever
+namespace SpryCoder.Camever.Helpers
 {
-    public static class CamUtil
+    public static class CameraHelper
     {
         private const int Width = 640;
         private const int Height = 480;
@@ -90,7 +90,7 @@ namespace SpryCoder.Camever
                     if (finalImage == bitmap) g.FillRectangle(Brushes.Green, new Rectangle(0, 0, Width, Height));
 
                     // Brush for transparency
-                    Brush semiTransBrush = new SolidBrush(Color.FromArgb(CamUtil.CalculateTransparency(Settings.Default.OverlayTransparency), 176, 176, 176));
+                    Brush semiTransBrush = new SolidBrush(Color.FromArgb(CameraHelper.CalculateTransparency(Settings.Default.OverlayTransparency), 176, 176, 176));
 
                     // Right alignment string format
                     StringFormat sf = new StringFormat();
@@ -104,10 +104,10 @@ namespace SpryCoder.Camever
                         g.FillRectangle(semiTransBrush, rectfTop);
 
                         // Top Left Text
-                        g.DrawString(CamUtil.TemplateReplace(Settings.Default.OverlayTopLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
+                        g.DrawString(CameraHelper.TemplateReplace(Settings.Default.OverlayTopLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
 
                         // Top Right Text
-                        g.DrawString(CamUtil.TemplateReplace(Settings.Default.OverlayTopRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 6, sf);
+                        g.DrawString(CameraHelper.TemplateReplace(Settings.Default.OverlayTopRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 6, sf);
                     }
 
                     // Bottom Overlay
@@ -118,10 +118,10 @@ namespace SpryCoder.Camever
                         g.FillRectangle(semiTransBrush, rectfBottom);
 
                         // Bottom Left Text
-                        g.DrawString(CamUtil.TemplateReplace(Settings.Default.OverlayBottomLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
+                        g.DrawString(CameraHelper.TemplateReplace(Settings.Default.OverlayBottomLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
 
                         // Bottom Right Text
-                        g.DrawString(CamUtil.TemplateReplace(Settings.Default.OverlayBottomRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 465, sf);
+                        g.DrawString(CameraHelper.TemplateReplace(Settings.Default.OverlayBottomRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 465, sf);
                     }
                 }
 

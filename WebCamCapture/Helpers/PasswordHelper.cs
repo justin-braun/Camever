@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SpryCoder.Camever
+namespace SpryCoder.Camever.Helpers
 {
     public static class PasswordHelper
     {
