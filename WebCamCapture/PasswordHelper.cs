@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpryCoder.Camever
 {
-    public static class PasswordMgmt
+    public static class PasswordHelper
     {
         private const string phrase = "nkfasd82kjlfas8323";
 

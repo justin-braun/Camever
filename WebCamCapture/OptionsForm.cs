@@ -128,7 +128,7 @@ namespace SpryCoder.Camever
             if (Settings.Default.CameraHostname != CameraHostName.Text) Settings.Default.CameraHostname = CameraHostName.Text;
             if (Settings.Default.SnapshotUrl != SnapshotUrlPath.Text) Settings.Default.SnapshotUrl = SnapshotUrlPath.Text;
             if (Settings.Default.Username != Username.Text) Settings.Default.Username = Username.Text;
-            if (Settings.Default.Password != PasswordMgmt.EncryptString(Password.Text)) Settings.Default.Password = PasswordMgmt.EncryptString(Password.Text);
+            if (Settings.Default.Password != PasswordHelper.EncryptString(Password.Text)) Settings.Default.Password = PasswordHelper.EncryptString(Password.Text);
 
             // Image Settings
             if (Settings.Default.ImageFileNamingFormat != ImageFileNamingFormat.Text) Settings.Default.ImageFileNamingFormat = ImageFileNamingFormat.Text;
@@ -148,7 +148,7 @@ namespace SpryCoder.Camever
             // Weather Underground
             if (Settings.Default.WundergroundUploadEnabled != WundercamEnabled.Checked) Settings.Default.WundergroundUploadEnabled = WundercamEnabled.Checked;
             if (Settings.Default.WundergroundCameraID != WundergroundCameraID.Text) Settings.Default.WundergroundCameraID = WundergroundCameraID.Text;
-            if (Settings.Default.WundergroundPassword != PasswordMgmt.EncryptString(WundergroundPassword.Text)) Settings.Default.WundergroundPassword = PasswordMgmt.EncryptString(WundergroundPassword.Text);
+            if (Settings.Default.WundergroundPassword != PasswordHelper.EncryptString(WundergroundPassword.Text)) Settings.Default.WundergroundPassword = PasswordHelper.EncryptString(WundergroundPassword.Text);
 
             // General
             if (Settings.Default.KeepOnTop != KeepOnTopCheckbox.Checked) Settings.Default.KeepOnTop = KeepOnTopCheckbox.Checked;
@@ -165,7 +165,7 @@ namespace SpryCoder.Camever
             CameraHostName.Text = Settings.Default.CameraHostname.ToString();
             SnapshotUrlPath.Text = Settings.Default.SnapshotUrl.ToString();
             Username.Text = Settings.Default.Username.ToString();
-            Password.Text = String.IsNullOrEmpty(Settings.Default.Password.ToString()) ? "" : PasswordMgmt.DecryptString(Settings.Default.Password.ToString());
+            Password.Text = String.IsNullOrEmpty(Settings.Default.Password.ToString()) ? "" : PasswordHelper.DecryptString(Settings.Default.Password.ToString());
 
             // Image Settings
             ImageFileNamingFormat.Text = Settings.Default.ImageFileNamingFormat.ToString();
@@ -185,7 +185,7 @@ namespace SpryCoder.Camever
             // Weather Underground
             WundercamEnabled.Checked = Settings.Default.WundergroundUploadEnabled;
             WundergroundCameraID.Text = Settings.Default.WundergroundCameraID.ToString();
-            WundergroundPassword.Text = String.IsNullOrEmpty(Settings.Default.WundergroundPassword.ToString()) ? "" : PasswordMgmt.DecryptString(Settings.Default.WundergroundPassword.ToString());
+            WundergroundPassword.Text = String.IsNullOrEmpty(Settings.Default.WundergroundPassword.ToString()) ? "" : PasswordHelper.DecryptString(Settings.Default.WundergroundPassword.ToString());
 
             // General
             KeepOnTopCheckbox.Checked = Settings.Default.KeepOnTop; // ? true : false;

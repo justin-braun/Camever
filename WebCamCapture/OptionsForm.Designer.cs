@@ -186,7 +186,7 @@
             this.TestConnectionButton.Location = new System.Drawing.Point(524, 214);
             this.TestConnectionButton.Name = "TestConnectionButton";
             this.TestConnectionButton.Size = new System.Drawing.Size(106, 23);
-            this.TestConnectionButton.TabIndex = 8;
+            this.TestConnectionButton.TabIndex = 6;
             this.TestConnectionButton.Text = "Test Connection";
             this.TestConnectionButton.UseVisualStyleBackColor = true;
             this.TestConnectionButton.Click += new System.EventHandler(this.TestConnectionButton_Click);
@@ -240,7 +240,7 @@
             this.Username.Location = new System.Drawing.Point(6, 41);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(136, 21);
-            this.Username.TabIndex = 3;
+            this.Username.TabIndex = 4;
             // 
             // groupBox1
             // 
@@ -270,7 +270,7 @@
             this.CameraMfgSelector.Location = new System.Drawing.Point(9, 41);
             this.CameraMfgSelector.Name = "CameraMfgSelector";
             this.CameraMfgSelector.Size = new System.Drawing.Size(133, 21);
-            this.CameraMfgSelector.TabIndex = 6;
+            this.CameraMfgSelector.TabIndex = 1;
             this.CameraMfgSelector.SelectedIndexChanged += new System.EventHandler(this.CameraMfgCombo_SelectedIndexChanged);
             // 
             // label10
@@ -328,7 +328,7 @@
             this.CameraHostName.Location = new System.Drawing.Point(9, 85);
             this.CameraHostName.Name = "CameraHostName";
             this.CameraHostName.Size = new System.Drawing.Size(136, 21);
-            this.CameraHostName.TabIndex = 1;
+            this.CameraHostName.TabIndex = 2;
             this.CameraHostName.TextChanged += new System.EventHandler(this.CameraHostname_TextChanged);
             // 
             // OverlayTab
@@ -1226,7 +1226,7 @@
             this.OKButton.Location = new System.Drawing.Point(525, 348);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
-            this.OKButton.TabIndex = 1;
+            this.OKButton.TabIndex = 7;
             this.OKButton.Text = "&OK";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
@@ -1237,7 +1237,7 @@
             this.CancelButton.Location = new System.Drawing.Point(606, 348);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 2;
+            this.CancelButton.TabIndex = 8;
             this.CancelButton.Text = "&Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);

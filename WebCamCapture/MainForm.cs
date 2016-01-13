@@ -37,7 +37,8 @@ namespace SpryCoder.Camever
             // First Run, force the Options window
             if (Settings.Default.FirstRun)
             {
-                MessageBox.Show("This is the first time that this application has been executed.  We'll take you to the Options so you can configure the required settings.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("This is the first time that this application has been executed.  We'll take you to the Options so you can configure the required settings.", 
+                                    "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 OptionsForm options = new OptionsForm();
                 options.ShowDialog();
                 Settings.Default.FirstRun = false;
@@ -184,7 +185,7 @@ namespace SpryCoder.Camever
                     {
                         await CamUtil.UploadWUCamImage(
                             Settings.Default.WundergroundCameraID,
-                            PasswordMgmt.DecryptString(Settings.Default.WundergroundPassword),
+                            PasswordHelper.DecryptString(Settings.Default.WundergroundPassword),
                             await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
                         );
 

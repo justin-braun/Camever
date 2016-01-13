@@ -66,7 +66,7 @@ namespace SpryCoder.Camever
                 {
                     // Http Post Request/Response
                     System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", Settings.Default.CameraHostname.ToString(), Settings.Default.SnapshotUrl.ToString()));
-                    System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Settings.Default.Username.ToString(), PasswordMgmt.DecryptString(Settings.Default.Password.ToString()));
+                    System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Settings.Default.Username.ToString(), PasswordHelper.DecryptString(Settings.Default.Password.ToString()));
                     request.Credentials = creds;
                     request.Method = "POST";
                     System.Net.WebResponse response = await request.GetResponseAsync().ConfigureAwait(false);
