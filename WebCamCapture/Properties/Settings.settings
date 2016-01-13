@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpryCoder.WebcamCaptureTool.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpryCoder.Camever.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="CameraHostname" Type="System.String" Scope="User">
@@ -57,7 +57,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="OverlayBottomRightText" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">{year4}{monthno}{day}-{24hour}{min}{sec}</Value>
     </Setting>
     <Setting Name="CameraMfg" Type="System.String" Scope="User">
       <Value Profile="(Default)">Amcrest</Value>

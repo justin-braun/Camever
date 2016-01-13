@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpryCoder.WebcamCaptureTool", "WebCamCapture\SpryCoder.WebcamCaptureTool.csproj", "{CFD9FB92-CE78-401D-AEBA-F4393CCCE921}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpryCoder.Camever", "WebCamCapture\SpryCoder.Camever.csproj", "{CFD9FB92-CE78-401D-AEBA-F4393CCCE921}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

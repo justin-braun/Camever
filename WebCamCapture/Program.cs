@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 
-namespace SpryCoder.WebcamCaptureTool
+namespace SpryCoder.Camever
 {
     static class Program
     {
@@ -16,11 +16,11 @@ namespace SpryCoder.WebcamCaptureTool
         {
 
             // Check if settings need to be upgraded because of file version change
-            if (Properties.Settings.Default.UpgradeRequired)
+            if (Settings.Default.UpgradeRequired)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeRequired = false;
-                Properties.Settings.Default.Save();
+                Settings.Default.Upgrade();
+                Settings.Default.UpgradeRequired = false;
+                Settings.Default.Save();
             }
 
             // Blocks the current thread until the current instance receives a signal,

@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Timers;
-using AForge.Video.FFMPEG;
-using System.Net;
+using System.Windows.Forms;
 
-namespace SpryCoder.WebcamCaptureTool
+namespace SpryCoder.Camever
 {
     public partial class MainForm : Form
     {
@@ -20,9 +13,9 @@ namespace SpryCoder.WebcamCaptureTool
         System.Timers.Timer captureTimer;
 
         // PROPERTIES
-        public DateTime NextHitTime { get { return CamUtil.NextCaptureTime(DateTime.Now, double.Parse(Properties.Settings.Default.UpdateInterval)); } }
+        public DateTime NextHitTime { get { return CamUtil.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval)); } }
         public TimeSpan TimeDiff { get { return NextHitTime.Subtract(DateTime.Now); } }
-        public string ImageFileName {  get { return CamUtil.TemplateReplace(Properties.Settings.Default.ImageFileNamingFormat) + ".jpg"; } }
+        public string ImageFileName {  get { return CamUtil.TemplateReplace(Settings.Default.ImageFileNamingFormat) + ".jpg"; } }
 
         /// <summary>
         /// Main Form 
@@ -36,10 +29,10 @@ namespace SpryCoder.WebcamCaptureTool
             LastStatusLabel.Text = "";
 
             // Look for settings changes
-            Properties.Settings.Default.PropertyChanged += Settings_PropertyChanged;
+            Settings.Default.PropertyChanged += Settings_PropertyChanged;
 
             // If settings are blank, force the Options window
-            if (String.IsNullOrEmpty(Properties.Settings.Default.CameraHostname))
+            if (String.IsNullOrEmpty(Settings.Default.CameraHostname))
             {
                 MessageBox.Show("This is the first time that this application has been executed.  We'll take you to the Options so you can configure the required settings.");
                 OptionsForm options = new OptionsForm();
@@ -55,13 +48,13 @@ namespace SpryCoder.WebcamCaptureTool
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Check for general settings
-            this.TopMost = Properties.Settings.Default.KeepOnTop;
+            this.TopMost = Settings.Default.KeepOnTop;
 
             // Set window location
             SetWindowLocation();
 
             // Check if capture enabled
-            if (Properties.Settings.Default.CapturesEnabled == true)
+            if (Settings.Default.CapturesEnabled == true)
             {
                 LaunchTimer();
             }
@@ -85,7 +78,7 @@ namespace SpryCoder.WebcamCaptureTool
             if (e.PropertyName == "KeepOnTop")
             {
                 // Check if capture enabled
-                if (Properties.Settings.Default.KeepOnTop == true)
+                if (Settings.Default.KeepOnTop == true)
                 {
                     this.TopMost = true;
                 }
@@ -100,7 +93,7 @@ namespace SpryCoder.WebcamCaptureTool
             {
                 // Reset scheduling task
                 // Check if capture enabled
-                if (Properties.Settings.Default.CapturesEnabled)
+                if (Settings.Default.CapturesEnabled)
                 {
                     LaunchTimer();
                 }
@@ -173,20 +166,20 @@ namespace SpryCoder.WebcamCaptureTool
                     LastStatusLabel.Text = "Capturing";
                 });
 
-                string imageFile = Path.Combine(Properties.Settings.Default.ImageSavePath, ImageFileName);
+                string imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
                 // Save Capture
                 SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),imageFile);
                 Logger.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
 
                 // Check for Services enabled on schedule
-                if (Properties.Settings.Default.WundergroundUploadEnabled == true)
+                if (Settings.Default.WundergroundUploadEnabled == true)
                 {
                     try
                     {
                         await CamUtil.UploadWUCamImage(
-                            Properties.Settings.Default.WundergroundCameraID,
-                            PasswordMgmt.DecryptString(Properties.Settings.Default.WundergroundPassword),
+                            Settings.Default.WundergroundCameraID,
+                            PasswordMgmt.DecryptString(Settings.Default.WundergroundPassword),
                             await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
                         );
 
@@ -245,7 +238,7 @@ namespace SpryCoder.WebcamCaptureTool
         private void SetWindowLocation()
         {
             // Check for preferred window location
-            switch (Properties.Settings.Default.WindowLocation)
+            switch (Settings.Default.WindowLocation)
             {
                 case "BottomRight":
                     // Place form in lower right
@@ -297,8 +290,8 @@ namespace SpryCoder.WebcamCaptureTool
         private void UpdateLabels()
         {
             // Update Labels
-            SchedulerStatusLabel.Text = Properties.Settings.Default.CapturesEnabled ? "Enabled" : "Disabled";
-            NextCaptureTimeLabel.Text = Properties.Settings.Default.CapturesEnabled ? string.Format("{0} {1}", NextHitTime.ToShortDateString(), NextHitTime.ToShortTimeString()) : "No captures scheduled";
+            SchedulerStatusLabel.Text = Settings.Default.CapturesEnabled ? "Enabled" : "Disabled";
+            NextCaptureTimeLabel.Text = Settings.Default.CapturesEnabled ? string.Format("{0} {1}", NextHitTime.ToShortDateString(), NextHitTime.ToShortTimeString()) : "No captures scheduled";
         }
 
 
@@ -342,7 +335,7 @@ namespace SpryCoder.WebcamCaptureTool
                 // Capture Image and then save it
                 //Image image = CaptureImage();
                 this.Cursor = Cursors.WaitCursor;
-                string imageFile = Path.Combine(Properties.Settings.Default.ImageSavePath, ImageFileName);
+                string imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
                 SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),imageFile);
 

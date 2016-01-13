@@ -1,15 +1,13 @@
-﻿using AForge.Video.FFMPEG;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
+using AForge.Video.FFMPEG;
 
-namespace SpryCoder.WebcamCaptureTool
+namespace SpryCoder.Camever
 {
     public static class CamUtil
     {
@@ -66,8 +64,8 @@ namespace SpryCoder.WebcamCaptureTool
                 if (capType == CaptureType.FinalImage)
                 {
                     // Http Post Request/Response
-                    System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", Properties.Settings.Default.CameraHostname.ToString(), Properties.Settings.Default.SnapshotUrl.ToString()));
-                    System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Properties.Settings.Default.Username.ToString(), PasswordMgmt.DecryptString(Properties.Settings.Default.Password.ToString()));
+                    System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", Settings.Default.CameraHostname.ToString(), Settings.Default.SnapshotUrl.ToString()));
+                    System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Settings.Default.Username.ToString(), PasswordMgmt.DecryptString(Settings.Default.Password.ToString()));
                     request.Credentials = creds;
                     request.Method = "POST";
                     System.Net.WebResponse response = await request.GetResponseAsync().ConfigureAwait(false);
@@ -91,38 +89,38 @@ namespace SpryCoder.WebcamCaptureTool
                     if (finalImage == bitmap) g.FillRectangle(Brushes.Green, new Rectangle(0, 0, Width, Height));
 
                     // Brush for transparency
-                    Brush semiTransBrush = new SolidBrush(Color.FromArgb(CamUtil.CalculateTransparency(Properties.Settings.Default.OverlayTransparency), 176, 176, 176));
+                    Brush semiTransBrush = new SolidBrush(Color.FromArgb(CamUtil.CalculateTransparency(Settings.Default.OverlayTransparency), 176, 176, 176));
 
                     // Right alignment string format
                     StringFormat sf = new StringFormat();
                     sf.Alignment = StringAlignment.Far;
 
                     // Top Overlay
-                    if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.OverlayTopLeftText) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.OverlayTopRightText))
+                    if (!string.IsNullOrWhiteSpace(Settings.Default.OverlayTopLeftText) || !string.IsNullOrWhiteSpace(Settings.Default.OverlayTopRightText))
                     {
                         // Top Overlay rectangle with transparency
                         RectangleF rectfTop = new RectangleF(0, 0, Width, 20);
                         g.FillRectangle(semiTransBrush, rectfTop);
 
                         // Top Left Text
-                        g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayTopLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
+                        g.DrawString(CamUtil.TemplateReplace(Settings.Default.OverlayTopLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
 
                         // Top Right Text
-                        g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayTopRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 6, sf);
+                        g.DrawString(CamUtil.TemplateReplace(Settings.Default.OverlayTopRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 6, sf);
                     }
 
                     // Bottom Overlay
-                    if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.OverlayBottomLeftText) || !string.IsNullOrWhiteSpace(Properties.Settings.Default.OverlayBottomRightText))
+                    if (!string.IsNullOrWhiteSpace(Settings.Default.OverlayBottomLeftText) || !string.IsNullOrWhiteSpace(Settings.Default.OverlayBottomRightText))
                     {
                         // Bottom Overlay rectangle with transparency
                         RectangleF rectfBottom = new RectangleF(0, Height - 20, Width, 20);
                         g.FillRectangle(semiTransBrush, rectfBottom);
 
                         // Bottom Left Text
-                        g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayBottomLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
+                        g.DrawString(CamUtil.TemplateReplace(Settings.Default.OverlayBottomLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
 
                         // Bottom Right Text
-                        g.DrawString(CamUtil.TemplateReplace(Properties.Settings.Default.OverlayBottomRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 465, sf);
+                        g.DrawString(CamUtil.TemplateReplace(Settings.Default.OverlayBottomRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 465, sf);
                     }
                 }
 

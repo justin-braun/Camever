@@ -1,4 +1,4 @@
-﻿namespace SpryCoder.WebcamCaptureTool.Properties {
+﻿namespace SpryCoder.Camever {
     
     
     // This class allows you to handle specific events on the settings class:

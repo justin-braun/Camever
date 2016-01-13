@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
-namespace SpryCoder.WebcamCaptureTool
+namespace SpryCoder.Camever
 {
     public static class PasswordMgmt
     {

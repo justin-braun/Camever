@@ -8,16 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SpryCoder.WebcamCaptureTool.Properties {
+namespace SpryCoder.Camever {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static Camever.Settings defaultInstance = ((Camever.Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Camever.Settings())));
         
-        public static Settings Default {
+        public static Camever.Settings Default {
             get {
                 return defaultInstance;
             }
@@ -241,7 +241,7 @@ namespace SpryCoder.WebcamCaptureTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("{year4}{monthno}{day}-{24hour}{min}{sec}")]
         public string OverlayBottomRightText {
             get {
                 return ((string)(this["OverlayBottomRightText"]));

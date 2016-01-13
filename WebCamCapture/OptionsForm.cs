@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace SpryCoder.WebcamCaptureTool
+namespace SpryCoder.Camever
 {
     public partial class OptionsForm : Form
     {
@@ -28,7 +24,7 @@ namespace SpryCoder.WebcamCaptureTool
             LoadSettings();
 
             // Check for first run settings
-            if (String.IsNullOrEmpty(Properties.Settings.Default.CameraHostname)) CancelButton.Enabled = false;
+            if (String.IsNullOrEmpty(Settings.Default.CameraHostname)) CancelButton.Enabled = false;
 
             // Build Camera URL Preview Label
             BuildSnapshotUrlPreview();
@@ -127,74 +123,74 @@ namespace SpryCoder.WebcamCaptureTool
         private void SaveSettings()
         {
             // Camera Information
-            if (Properties.Settings.Default.CameraMfg != CameraMfgSelector.SelectedItem.ToString()) Properties.Settings.Default.CameraMfg = CameraMfgSelector.SelectedItem.ToString();
-            if (Properties.Settings.Default.CameraHostname != CameraHostName.Text) Properties.Settings.Default.CameraHostname = CameraHostName.Text;
-            if (Properties.Settings.Default.SnapshotUrl != SnapshotUrlPath.Text) Properties.Settings.Default.SnapshotUrl = SnapshotUrlPath.Text;
-            if (Properties.Settings.Default.Username != Username.Text) Properties.Settings.Default.Username = Username.Text;
-            if (Properties.Settings.Default.Password != PasswordMgmt.EncryptString(Password.Text)) Properties.Settings.Default.Password = PasswordMgmt.EncryptString(Password.Text);
+            if (Settings.Default.CameraMfg != CameraMfgSelector.SelectedItem.ToString()) Settings.Default.CameraMfg = CameraMfgSelector.SelectedItem.ToString();
+            if (Settings.Default.CameraHostname != CameraHostName.Text) Settings.Default.CameraHostname = CameraHostName.Text;
+            if (Settings.Default.SnapshotUrl != SnapshotUrlPath.Text) Settings.Default.SnapshotUrl = SnapshotUrlPath.Text;
+            if (Settings.Default.Username != Username.Text) Settings.Default.Username = Username.Text;
+            if (Settings.Default.Password != PasswordMgmt.EncryptString(Password.Text)) Settings.Default.Password = PasswordMgmt.EncryptString(Password.Text);
 
             // Image Settings
-            if (Properties.Settings.Default.ImageFileNamingFormat != ImageFileNamingFormat.Text) Properties.Settings.Default.ImageFileNamingFormat = ImageFileNamingFormat.Text;
-            if (Properties.Settings.Default.ImageSavePath != ImageSavePath.Text) Properties.Settings.Default.ImageSavePath = ImageSavePath.Text;
+            if (Settings.Default.ImageFileNamingFormat != ImageFileNamingFormat.Text) Settings.Default.ImageFileNamingFormat = ImageFileNamingFormat.Text;
+            if (Settings.Default.ImageSavePath != ImageSavePath.Text) Settings.Default.ImageSavePath = ImageSavePath.Text;
 
             // Overlays
-            if (Properties.Settings.Default.OverlayTransparency.ToString() != OverlayTransparencyBar.Value.ToString()) Properties.Settings.Default.OverlayTransparency = OverlayTransparencyBar.Value;
-            if (Properties.Settings.Default.OverlayTopLeftText != topLeftText.Text) Properties.Settings.Default.OverlayTopLeftText = topLeftText.Text;
-            if (Properties.Settings.Default.OverlayTopRightText != topRightText.Text) Properties.Settings.Default.OverlayTopRightText = topRightText.Text;
-            if (Properties.Settings.Default.OverlayBottomLeftText != bottomLeftText.Text) Properties.Settings.Default.OverlayBottomLeftText = bottomLeftText.Text;
-            if (Properties.Settings.Default.OverlayBottomRightText != bottomRightText.Text) Properties.Settings.Default.OverlayBottomRightText = bottomRightText.Text;
+            if (Settings.Default.OverlayTransparency.ToString() != OverlayTransparencyBar.Value.ToString()) Settings.Default.OverlayTransparency = OverlayTransparencyBar.Value;
+            if (Settings.Default.OverlayTopLeftText != topLeftText.Text) Settings.Default.OverlayTopLeftText = topLeftText.Text;
+            if (Settings.Default.OverlayTopRightText != topRightText.Text) Settings.Default.OverlayTopRightText = topRightText.Text;
+            if (Settings.Default.OverlayBottomLeftText != bottomLeftText.Text) Settings.Default.OverlayBottomLeftText = bottomLeftText.Text;
+            if (Settings.Default.OverlayBottomRightText != bottomRightText.Text) Settings.Default.OverlayBottomRightText = bottomRightText.Text;
 
             // Scheduling
-            if (Properties.Settings.Default.UpdateInterval != UpdateInterval.Text) Properties.Settings.Default.UpdateInterval = UpdateInterval.Text;
-            if (Properties.Settings.Default.CapturesEnabled != CapturesEnabled.Checked) Properties.Settings.Default.CapturesEnabled = CapturesEnabled.Checked;
+            if (Settings.Default.UpdateInterval != UpdateInterval.Text) Settings.Default.UpdateInterval = UpdateInterval.Text;
+            if (Settings.Default.CapturesEnabled != CapturesEnabled.Checked) Settings.Default.CapturesEnabled = CapturesEnabled.Checked;
 
             // Weather Underground
-            if (Properties.Settings.Default.WundergroundUploadEnabled != WundercamEnabled.Checked) Properties.Settings.Default.WundergroundUploadEnabled = WundercamEnabled.Checked;
-            if (Properties.Settings.Default.WundergroundCameraID != WundergroundCameraID.Text) Properties.Settings.Default.WundergroundCameraID = WundergroundCameraID.Text;
-            if (Properties.Settings.Default.WundergroundPassword != PasswordMgmt.EncryptString(WundergroundPassword.Text)) Properties.Settings.Default.WundergroundPassword = PasswordMgmt.EncryptString(WundergroundPassword.Text);
+            if (Settings.Default.WundergroundUploadEnabled != WundercamEnabled.Checked) Settings.Default.WundergroundUploadEnabled = WundercamEnabled.Checked;
+            if (Settings.Default.WundergroundCameraID != WundergroundCameraID.Text) Settings.Default.WundergroundCameraID = WundergroundCameraID.Text;
+            if (Settings.Default.WundergroundPassword != PasswordMgmt.EncryptString(WundergroundPassword.Text)) Settings.Default.WundergroundPassword = PasswordMgmt.EncryptString(WundergroundPassword.Text);
 
             // General
-            if (Properties.Settings.Default.KeepOnTop != KeepOnTopCheckbox.Checked) Properties.Settings.Default.KeepOnTop = KeepOnTopCheckbox.Checked;
-            if (Properties.Settings.Default.WindowLocation != (string)WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag) Properties.Settings.Default.WindowLocation = (string)WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag;
+            if (Settings.Default.KeepOnTop != KeepOnTopCheckbox.Checked) Settings.Default.KeepOnTop = KeepOnTopCheckbox.Checked;
+            if (Settings.Default.WindowLocation != (string)WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag) Settings.Default.WindowLocation = (string)WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag;
 
             // Save all settings
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private void LoadSettings()
         {
             // Camera Information
-            CameraMfgSelector.SelectedIndex = CameraMfgSelector.FindStringExact(Properties.Settings.Default.CameraMfg.ToString());
-            CameraHostName.Text = Properties.Settings.Default.CameraHostname.ToString();
-            SnapshotUrlPath.Text = Properties.Settings.Default.SnapshotUrl.ToString();
-            Username.Text = Properties.Settings.Default.Username.ToString();
-            Password.Text = String.IsNullOrEmpty(Properties.Settings.Default.Password.ToString()) ? "" : PasswordMgmt.DecryptString(Properties.Settings.Default.Password.ToString());
+            CameraMfgSelector.SelectedIndex = CameraMfgSelector.FindStringExact(Settings.Default.CameraMfg.ToString());
+            CameraHostName.Text = Settings.Default.CameraHostname.ToString();
+            SnapshotUrlPath.Text = Settings.Default.SnapshotUrl.ToString();
+            Username.Text = Settings.Default.Username.ToString();
+            Password.Text = String.IsNullOrEmpty(Settings.Default.Password.ToString()) ? "" : PasswordMgmt.DecryptString(Settings.Default.Password.ToString());
 
             // Image Settings
-            ImageFileNamingFormat.Text = Properties.Settings.Default.ImageFileNamingFormat.ToString();
-            ImageSavePath.Text = Properties.Settings.Default.ImageSavePath.ToString();
+            ImageFileNamingFormat.Text = Settings.Default.ImageFileNamingFormat.ToString();
+            ImageSavePath.Text = Settings.Default.ImageSavePath.ToString();
 
             // Overlays
-            topLeftText.Text = Properties.Settings.Default.OverlayTopLeftText;
-            topRightText.Text = Properties.Settings.Default.OverlayTopRightText;
-            bottomLeftText.Text = Properties.Settings.Default.OverlayBottomLeftText;
-            bottomRightText.Text = Properties.Settings.Default.OverlayBottomRightText;
-            OverlayTransparencyBar.Value = Properties.Settings.Default.OverlayTransparency;
+            topLeftText.Text = Settings.Default.OverlayTopLeftText;
+            topRightText.Text = Settings.Default.OverlayTopRightText;
+            bottomLeftText.Text = Settings.Default.OverlayBottomLeftText;
+            bottomRightText.Text = Settings.Default.OverlayBottomRightText;
+            OverlayTransparencyBar.Value = Settings.Default.OverlayTransparency;
                
             // Scheduling
-            CapturesEnabled.Checked = Properties.Settings.Default.CapturesEnabled;
-            UpdateInterval.Text = Properties.Settings.Default.UpdateInterval.ToString();
+            CapturesEnabled.Checked = Settings.Default.CapturesEnabled;
+            UpdateInterval.Text = Settings.Default.UpdateInterval.ToString();
 
             // Weather Underground
-            WundercamEnabled.Checked = Properties.Settings.Default.WundergroundUploadEnabled;
-            WundergroundCameraID.Text = Properties.Settings.Default.WundergroundCameraID.ToString();
-            WundergroundPassword.Text = String.IsNullOrEmpty(Properties.Settings.Default.WundergroundPassword.ToString()) ? "" : PasswordMgmt.DecryptString(Properties.Settings.Default.WundergroundPassword.ToString());
+            WundercamEnabled.Checked = Settings.Default.WundergroundUploadEnabled;
+            WundergroundCameraID.Text = Settings.Default.WundergroundCameraID.ToString();
+            WundergroundPassword.Text = String.IsNullOrEmpty(Settings.Default.WundergroundPassword.ToString()) ? "" : PasswordMgmt.DecryptString(Settings.Default.WundergroundPassword.ToString());
 
             // General
-            KeepOnTopCheckbox.Checked = Properties.Settings.Default.KeepOnTop; // ? true : false;
+            KeepOnTopCheckbox.Checked = Settings.Default.KeepOnTop; // ? true : false;
             foreach(RadioButton rb in WindowLocationGroup.Controls.OfType<RadioButton>())
             {
-                if (Properties.Settings.Default.WindowLocation == rb.Tag.ToString()) rb.Checked = true;
+                if (Settings.Default.WindowLocation == rb.Tag.ToString()) rb.Checked = true;
             }
         }
 
@@ -407,7 +403,7 @@ namespace SpryCoder.WebcamCaptureTool
             if (!File.Exists(settingsFilePath))
                 throw new FileNotFoundException();
 
-            var appSettings = Properties.Settings.Default;
+            var appSettings = Settings.Default;
             try
             {
                 var config =
@@ -415,7 +411,7 @@ namespace SpryCoder.WebcamCaptureTool
                         ConfigurationUserLevel.PerUserRoamingAndLocal);
 
                 string appSettingsXmlName =
-                    Properties.Settings.Default.Context["GroupName"].ToString();
+                    Settings.Default.Context["GroupName"].ToString();
                 // returns "MyApplication.Properties.Settings";
 
                 // Open settings file as XML
@@ -444,7 +440,7 @@ namespace SpryCoder.WebcamCaptureTool
 
         private static void BackupSettings(string settingsFilePath)
         {
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
             config.SaveAs(settingsFilePath);
         }

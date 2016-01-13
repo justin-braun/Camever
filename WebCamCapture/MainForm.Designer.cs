@@ -1,4 +1,4 @@
-﻿namespace SpryCoder.WebcamCaptureTool
+﻿namespace SpryCoder.Camever
 {
     partial class MainForm
     {
