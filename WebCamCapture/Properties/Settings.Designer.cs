@@ -8,16 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SpryCoder.Camever {
+namespace SpryCoder.Camever.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Camever.Settings defaultInstance = ((Camever.Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Camever.Settings())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-        public static Camever.Settings Default {
+        public static Settings Default {
             get {
                 return defaultInstance;
             }
@@ -260,6 +260,18 @@ namespace SpryCoder.Camever {
             }
             set {
                 this["CameraMfg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LaunchCode {
+            get {
+                return ((string)(this["LaunchCode"]));
+            }
+            set {
+                this["LaunchCode"] = value;
             }
         }
     }

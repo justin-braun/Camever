@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using AForge.Video.FFMPEG;
+using SpryCoder.Camever.Properties;
 
 namespace SpryCoder.Camever
 {

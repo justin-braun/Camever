@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpryCoder.Camever.Properties;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;

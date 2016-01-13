@@ -62,5 +62,8 @@
     <Setting Name="CameraMfg" Type="System.String" Scope="User">
       <Value Profile="(Default)">Amcrest</Value>
     </Setting>
+    <Setting Name="LaunchCode" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
