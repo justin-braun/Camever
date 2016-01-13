@@ -51,7 +51,7 @@ namespace SpryCoder.Camever
                     imageItems));
 
                 this.Cursor = Cursors.Default;
-                Logger.WriteLogEntry("Time Lapse created successfully.", Logger.LogEntryType.Information);
+                //Logger.WriteLogEntry("Time Lapse created successfully.", Logger.LogEntryType.Information);
                 MessageBox.Show("Time lapse created successfully.", "Success", MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch (Exception ex)

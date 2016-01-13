@@ -170,7 +170,7 @@ namespace SpryCoder.Camever
 
                 // Save Capture
                 SaveCapturedImage(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage),imageFile);
-                Logger.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
+                //Logger.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
 
                 // Check for Services enabled on schedule
                 if (Settings.Default.WundergroundUploadEnabled == true)
@@ -183,7 +183,7 @@ namespace SpryCoder.Camever
                             await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)
                         );
 
-                        Logger.WriteLogEntry("Weather Underground webcam snapshot uploaded successfully.", Logger.LogEntryType.Information);
+                        //Logger.WriteLogEntry("Weather Underground webcam snapshot uploaded successfully.", Logger.LogEntryType.Information);
                     }
                     catch (Exception wuex)
                     {
@@ -312,7 +312,7 @@ namespace SpryCoder.Camever
                 // Instantiate Preview Form with Image
                 PreviewForm preview = new PreviewForm(await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage));
                 this.Cursor = Cursors.Default;
-                Logger.WriteLogEntry("Preview snapshot loaded successfully.", Logger.LogEntryType.Information);
+                //Logger.WriteLogEntry("Preview snapshot loaded successfully.", Logger.LogEntryType.Information);
                 preview.ShowDialog();
             }
             catch (Exception ex)
@@ -341,7 +341,7 @@ namespace SpryCoder.Camever
 
                 this.Cursor = Cursors.Default;
 
-                Logger.WriteLogEntry($"Manual snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
+                //Logger.WriteLogEntry($"Manual snapshot taken successfully. ({imageFile})", Logger.LogEntryType.Information);
 
                 MessageBox.Show("Snapshot completed successfully!",
                     "Snapshot Completed",

@@ -333,7 +333,7 @@ namespace SpryCoder.Camever
                 this.Cursor = Cursors.WaitCursor;
                 await CamUtil.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CamUtil.CaptureImage(CamUtil.CaptureType.FinalImage)).ConfigureAwait(false);
                 this.Cursor = Cursors.Default;
-                Logger.WriteLogEntry("Weather Underground webcam manual snapshot uploaded successfully.", Logger.LogEntryType.Information);
+                //Logger.WriteLogEntry("Weather Underground webcam manual snapshot uploaded successfully.", Logger.LogEntryType.Information);
                 MessageBox.Show("Upload Successful!", "Upload Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
