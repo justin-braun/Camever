@@ -39,7 +39,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.captureSnapshotNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createTimelapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,7 +128,6 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.captureSnapshotNowToolStripMenuItem,
             this.previewCameraToolStripMenuItem,
-            this.createTimelapseToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -152,13 +150,6 @@
             this.previewCameraToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.previewCameraToolStripMenuItem.Text = "&Preview Camera Image";
             this.previewCameraToolStripMenuItem.Click += new System.EventHandler(this.previewCameraToolStripMenuItem_Click);
-            // 
-            // createTimelapseToolStripMenuItem
-            // 
-            this.createTimelapseToolStripMenuItem.Name = "createTimelapseToolStripMenuItem";
-            this.createTimelapseToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
-            this.createTimelapseToolStripMenuItem.Text = "Create &Time Lapse...";
-            this.createTimelapseToolStripMenuItem.Click += new System.EventHandler(this.createTimelapseToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -271,7 +262,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem captureSnapshotNowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previewCameraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem createTimelapseToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;

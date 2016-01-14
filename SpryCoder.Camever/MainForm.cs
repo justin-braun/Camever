@@ -393,20 +393,6 @@ namespace SpryCoder.Camever
             UpdateLabels();
         }
 
-        private void createTimelapseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Check for beta expiration
-            if (BetaHelper.BetaExpired())
-            {
-                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
-                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
-
-            TimelapseForm tlForm = new TimelapseForm();
-            tlForm.ShowDialog();
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm about = new AboutForm();

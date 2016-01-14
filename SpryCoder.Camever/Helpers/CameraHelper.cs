@@ -5,7 +5,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using AForge.Video.FFMPEG;
 using SpryCoder.Camever.Properties;
 
 namespace SpryCoder.Camever.Helpers
@@ -171,54 +170,6 @@ namespace SpryCoder.Camever.Helpers
             {
                 throw;
             }
-
-        }
-
-        public static void CreateTimeLapse(string outputFilePath, int width, int height, int frameRate, bool orderByFileDate, string[] fileList)
-        {
-            try
-            {
-                    using (var videoWriter = new VideoFileWriter())
-                    {
-                        videoWriter.Open(outputFilePath, width, height, frameRate, VideoCodec.MPEG4, 1000000);
-
-                        // use for ordering by file date
-                        //System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(basePath);
-                        //System.IO.FileSystemInfo[] images = di.GetFileSystemInfos();
-                        //var orderedImages = images.OrderBy(f => f.CreationTime);
-
-                        //foreach (FileSystemInfo imageFile in images)
-
-                        foreach (string file in fileList)
-                        {
-                            // Out of Memory errors are common for incomplete or corrupted images.  Skip over them and continue.
-                            try
-                            {
-                                using (Bitmap image = Image.FromFile(file) as Bitmap)
-                                {
-                                    if (image != null)
-                                    {
-                                        Bitmap bm = ResizeImage(image, width, height);
-                                        videoWriter.WriteVideoFrame(bm);
-                                    }
-                                }
-                            }
-                            catch
-                            {
-                                continue;
-                            }
-                        }
-
-                        videoWriter.Close();
-                    }
-
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
-
 
         }
 
