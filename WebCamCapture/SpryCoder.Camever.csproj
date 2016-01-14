@@ -68,7 +68,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>camever-icon-png.ico</ApplicationIcon>
+    <ApplicationIcon>camever.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -174,6 +174,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="camever.ico" />
     <Content Include="lib\AForge.Video.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -195,7 +196,6 @@
     <Content Include="lib\avutil-51.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="camever-icon-png.ico" />
     <Content Include="lib\postproc-52.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

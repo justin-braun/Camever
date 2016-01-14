@@ -34,7 +34,7 @@
             this.ProductCompanyLabel = new System.Windows.Forms.Label();
             this.CopyrightLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(348, 185);
+            this.OKButton.Location = new System.Drawing.Point(429, 153);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 2;
@@ -95,25 +95,23 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // textBox1
+            // label1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(13, 159);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(295, 74);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "Portions of this product were created using the AForge.NET Framework library for " +
-    "video processing, licensed under the GPL v3 License.";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(148, 63);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Beta Release";
             // 
             // AboutForm
             // 
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 220);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(516, 188);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.CopyrightLabel);
             this.Controls.Add(this.ProductCompanyLabel);
             this.Controls.Add(this.ProductVersionLabel);
@@ -145,6 +143,6 @@
         private System.Windows.Forms.Label ProductVersionLabel;
         private System.Windows.Forms.Label ProductCompanyLabel;
         private System.Windows.Forms.Label CopyrightLabel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }

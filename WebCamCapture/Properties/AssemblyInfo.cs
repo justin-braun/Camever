@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Camever (Beta Release)")]
+[assembly: AssemblyTitle("Camever")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Spry Coder Software")]
-[assembly: AssemblyProduct("Camever (Beta Release)")]
-[assembly: AssemblyCopyright("Copyright © 2015.  All rights reserved.")]
+[assembly: AssemblyProduct("Camever")]
+[assembly: AssemblyCopyright("Copyright © 2015-2016 Spry Coder Software.  All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.13.2016.1712")]
-[assembly: AssemblyFileVersion("1.13.2016.1712")]
+[assembly: AssemblyVersion("1.16014.0236")]
+[assembly: AssemblyFileVersion("1.16014.0236")]

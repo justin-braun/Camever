@@ -21,24 +21,44 @@ namespace SpryCoder.Camever.Helpers
             }
         }
 
-        public static string AssemblyVersion
+        public static string AssemblyVersion(int octetsToShow = 4)
         {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
+                string versionString = "";
+                System.Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+                switch (octetsToShow)
+                {
+                    case 1:
+                        versionString = $"{appVersion.Major}";
+                        break;
+                    case 2:
+                        versionString = $"{appVersion.Major}.{appVersion.Minor}";
+                        break;
+                    case 3:
+                        versionString = $"{appVersion.Major}.{appVersion.Minor}.{appVersion.Build}";
+                        break;
+                    case 4:
+                        versionString = $"{appVersion.Major}.{appVersion.Minor}.{appVersion.Build}.{appVersion.Revision}";
+                        break;
+                    default:
+                        versionString = $"{appVersion.Major}.{appVersion.Minor}.{appVersion.Build}.{appVersion.Revision}";
+                        break;
+                }
+
+                return versionString;
         }
 
         public static string AssemblyDescription
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+                object[] attributes =
+                    Assembly.GetExecutingAssembly().GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
                 {
                     return "";
                 }
-                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+                return ((AssemblyDescriptionAttribute) attributes[0]).Description;
             }
         }
 

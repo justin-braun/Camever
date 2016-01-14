@@ -21,13 +21,13 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DisableWelcomePage=no
-DefaultDirName={pf}\{#MyAppPublisher}\{#MyAppName}
-DisableDirPage=yes
+DefaultDirName={pf}\{#MyAppPublisher}\Camever
+DisableDirPage=no
 DisableReadyPage=no
 DisableProgramGroupPage=yes
 OutputBaseFilename=setupcamever
-SetupIconFile=C:\Users\Justin\Dropbox\Projects\WebcamCaptureTool\ico\camever-icon.ico
-UninstallDisplayIcon=C:\Users\Justin\Dropbox\Projects\WebcamCaptureTool\ico\camever-icon.ico
+SetupIconFile=C:\Users\Justin\Dropbox\Projects\WebcamCaptureTool\ico\camever.ico
+UninstallDisplayIcon=C:\Users\Justin\Dropbox\Projects\WebcamCaptureTool\ico\camever.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -53,9 +53,9 @@ Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{userstartmenu}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{userstartmenu}\Camever"; Filename: "{app}\{#MyAppExeName}"
 ;Name: "{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{commondesktop}\Camever"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
