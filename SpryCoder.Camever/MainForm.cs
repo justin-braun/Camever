@@ -6,13 +6,14 @@ using System.IO;
 using System.Timers;
 using System.Windows.Forms;
 using SpryCoder.Camever.Helpers;
+using System.Diagnostics;
 
 namespace SpryCoder.Camever
 {
     public partial class MainForm : Form
     {
-        BackgroundWorker backgroundCaptureTask;
-        System.Timers.Timer captureTimer;
+        BackgroundWorker backgroundCaptureTask = new BackgroundWorker();
+        System.Timers.Timer captureTimer = new System.Timers.Timer();
 
         // PROPERTIES
         public DateTime NextHitTime { get { return CameraHelper.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval)); } }
@@ -45,6 +46,13 @@ namespace SpryCoder.Camever
                 Settings.Default.FirstRun = false;
                 Settings.Default.Save();
             }
+
+            // Setup events
+
+            backgroundCaptureTask.DoWork += Task_DoWork;
+            backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
+            captureTimer.Elapsed += Timer_Elapsed;
+
         }
 
         /// <summary>
@@ -67,6 +75,7 @@ namespace SpryCoder.Camever
             if (Settings.Default.CapturesEnabled == true)
             {
                 LaunchTimer();
+                Debug.WriteLine("Timer started");
             }
 
             // Update labels
@@ -106,6 +115,12 @@ namespace SpryCoder.Camever
                 if (Settings.Default.CapturesEnabled)
                 {
                     LaunchTimer();
+                    Debug.WriteLine("Timer started after setting change.");
+                }
+                else
+                {
+                    captureTimer.Stop();
+                    Debug.WriteLine("Timer stopped after setting change.");
                 }
             }
 
@@ -119,15 +134,15 @@ namespace SpryCoder.Camever
         public void LaunchTimer()
         {
             // Setup background worker task
-            backgroundCaptureTask = new BackgroundWorker();
-            backgroundCaptureTask.DoWork += Task_DoWork;
-            backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
+            //backgroundCaptureTask = new BackgroundWorker();
+            //backgroundCaptureTask.DoWork += Task_DoWork;
+            //backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
 
             // Start timer
-            captureTimer = new System.Timers.Timer();
             captureTimer.Interval = TimeDiff.TotalMilliseconds;
-            captureTimer.Elapsed += Timer_Elapsed;
             captureTimer.AutoReset = false;
+
+            //captureTimer.Elapsed += Timer_Elapsed;
             captureTimer.Start();
             
         }
@@ -148,9 +163,12 @@ namespace SpryCoder.Camever
             }
 
             backgroundCaptureTask.RunWorkerAsync();
-            captureTimer.Stop();
-            captureTimer.Interval = TimeDiff.TotalMilliseconds;
-            captureTimer.Start();
+            Debug.WriteLine("Timer elapsed, background task started.");
+            //captureTimer.Stop();
+
+            //LaunchTimer();
+            //captureTimer.Interval = TimeDiff.TotalMilliseconds;
+            //captureTimer.Start();
 
         }
 
@@ -162,10 +180,15 @@ namespace SpryCoder.Camever
         private void Task_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // Reset task schedule
+            captureTimer.Stop();
+            LaunchTimer();
+
             BeginInvoke((MethodInvoker)delegate
             {
                 UpdateLabels();
             });
+
+            Debug.WriteLine("Task completed, timer stopped and relaunched.");
         }
 
         /// <summary>
@@ -188,7 +211,7 @@ namespace SpryCoder.Camever
 
                 // Save Capture
                 SaveCapturedImage(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
-                //LogHelper.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
+                LogHelper.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
 
                 // Check for Services enabled on schedule
                 if (Settings.Default.WundergroundUploadEnabled == true)
@@ -201,7 +224,7 @@ namespace SpryCoder.Camever
                             await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)
                         );
 
-                        //LogHelper.WriteLogEntry("Weather Underground webcam snapshot uploaded successfully.", LogHelper.LogEntryType.Information);
+                        LogHelper.WriteLogEntry("Weather Underground webcam snapshot uploaded successfully.", LogHelper.LogEntryType.Information);
                     }
                     catch (Exception wuex)
                     {
@@ -247,7 +270,7 @@ namespace SpryCoder.Camever
             }
             catch (Exception)
             {
-
+                //LogHelper.WriteLogEntry("Error saving captured image file. " + ex.Message, LogHelper.LogEntryType.Error);
                 throw;
             }
 
