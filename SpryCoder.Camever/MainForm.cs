@@ -13,7 +13,7 @@ namespace SpryCoder.Camever
     public partial class MainForm : Form
     {
         BackgroundWorker backgroundCaptureTask = new BackgroundWorker();
-        System.Timers.Timer captureTimer = new System.Timers.Timer();
+        System.Timers.Timer captureTimer;
 
         // PROPERTIES
         public DateTime NextHitTime { get { return CameraHelper.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval)); } }
@@ -54,7 +54,7 @@ namespace SpryCoder.Camever
 
             backgroundCaptureTask.DoWork += Task_DoWork;
             backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
-            captureTimer.Elapsed += Timer_Elapsed;
+            
 
         }
 
@@ -111,7 +111,7 @@ namespace SpryCoder.Camever
             }
 
             // Check for schedule change
-            if (e.PropertyName == "CapturesEnabled")
+            if (e.PropertyName == "CapturesEnabled" || e.PropertyName == "UpdateInterval")
             {
                 // Reset scheduling task
                 // Check if capture enabled
@@ -143,6 +143,8 @@ namespace SpryCoder.Camever
             //backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
 
             // Start timer
+            captureTimer = new System.Timers.Timer();
+            captureTimer.Elapsed += Timer_Elapsed;
             captureTimer.Interval = TimeDiff.TotalMilliseconds;
             captureTimer.AutoReset = false;
 
@@ -185,6 +187,8 @@ namespace SpryCoder.Camever
         {
             // Reset task schedule
             captureTimer.Stop();
+            captureTimer.Dispose();
+
             LaunchTimer();
 
             BeginInvoke((MethodInvoker)delegate
