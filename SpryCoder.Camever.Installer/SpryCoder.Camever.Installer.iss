@@ -38,18 +38,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\camever.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\AForge.Video.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\AForge.Video.FFMPEG.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avcodec-53.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avdevice-53.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avfilter-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avformat-53.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\avutil-51.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\Effortless.Net.Encryption.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\postproc-52.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\swresample-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\lib\swscale-2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\BitBucket\SpryCoder.Camever\SpryCoder.Camever\bin\Release\camever.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Justin\Dropbox\BitBucket\SpryCoder.Camever\SpryCoder.Camever\bin\Release\lib\Effortless.Net.Encryption.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
