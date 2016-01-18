@@ -2,8 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Camever (Beta Release)"
-;#define MyAppVersion "1.12.2016.0"
-#define MyAppVersion GetFileVersion("C:\Users\Justin\Dropbox\WebCamCapture\WebCamCapture\bin\x86\Release\camever.exe")
+#define MyAppVersion GetFileVersion("C:\Users\Justin\Dropbox\BitBucket\SpryCoder.Camever\SpryCoder.Camever\bin\Release\camever.exe")
 #define MyAppPublisher "Spry Coder Software"
 #define MyAppURL "http://sprycoder.com"
 #define MyAppExeName "camever.exe"
@@ -19,7 +18,7 @@ AppVerName={#MyAppName}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}
+AppUpdatesURL={#MyAppURL}VersionInfoVersion={#MyAppVersion}
 DisableWelcomePage=no
 DefaultDirName={pf}\{#MyAppPublisher}\Camever
 DisableDirPage=no
