@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.label1 = new System.Windows.Forms.Label();
-            this.NextCaptureTimeLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.SchedulerStatusLabel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.LastStatusLabel = new System.Windows.Forms.Label();
             this.MainFormMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.captureSnapshotNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,65 +43,13 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStripMain = new System.Windows.Forms.StatusStrip();
+            this.stripStatusScheduler = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripStatusNextCaptureTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripStatusLastStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.MainFormMenuStrip.SuspendLayout();
+            this.statusStripMain.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Next Capture Time";
-            // 
-            // NextCaptureTimeLabel
-            // 
-            this.NextCaptureTimeLabel.AutoSize = true;
-            this.NextCaptureTimeLabel.Location = new System.Drawing.Point(12, 60);
-            this.NextCaptureTimeLabel.Name = "NextCaptureTimeLabel";
-            this.NextCaptureTimeLabel.Size = new System.Drawing.Size(116, 13);
-            this.NextCaptureTimeLabel.TabIndex = 5;
-            this.NextCaptureTimeLabel.Text = "NextCaptureTimeLabel";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(277, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Scheduler";
-            // 
-            // SchedulerStatusLabel
-            // 
-            this.SchedulerStatusLabel.AutoSize = true;
-            this.SchedulerStatusLabel.Location = new System.Drawing.Point(277, 60);
-            this.SchedulerStatusLabel.Name = "SchedulerStatusLabel";
-            this.SchedulerStatusLabel.Size = new System.Drawing.Size(110, 13);
-            this.SchedulerStatusLabel.TabIndex = 7;
-            this.SchedulerStatusLabel.Text = "SchedulerStatusLabel";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(159, 42);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Last Status";
-            // 
-            // LastStatusLabel
-            // 
-            this.LastStatusLabel.AutoSize = true;
-            this.LastStatusLabel.Location = new System.Drawing.Point(159, 60);
-            this.LastStatusLabel.Name = "LastStatusLabel";
-            this.LastStatusLabel.Size = new System.Drawing.Size(83, 13);
-            this.LastStatusLabel.TabIndex = 10;
-            this.LastStatusLabel.Text = "LastStatusLabel";
             // 
             // MainFormMenuStrip
             // 
@@ -119,7 +61,7 @@
             this.helpToolStripMenuItem});
             this.MainFormMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainFormMenuStrip.Name = "MainFormMenuStrip";
-            this.MainFormMenuStrip.Size = new System.Drawing.Size(400, 24);
+            this.MainFormMenuStrip.Size = new System.Drawing.Size(625, 24);
             this.MainFormMenuStrip.TabIndex = 11;
             this.MainFormMenuStrip.Text = "MainFormMenuStrip";
             // 
@@ -222,17 +164,68 @@
             this.aboutToolStripMenuItem.Text = "&About Camever";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // statusStripMain
+            // 
+            this.statusStripMain.AutoSize = false;
+            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stripStatusScheduler,
+            this.stripStatusNextCaptureTime,
+            this.stripStatusLastStatus});
+            this.statusStripMain.Location = new System.Drawing.Point(0, 205);
+            this.statusStripMain.Name = "statusStripMain";
+            this.statusStripMain.Size = new System.Drawing.Size(625, 30);
+            this.statusStripMain.SizingGrip = false;
+            this.statusStripMain.TabIndex = 12;
+            this.statusStripMain.Text = "statusStrip1";
+            // 
+            // stripStatusScheduler
+            // 
+            this.stripStatusScheduler.AutoSize = false;
+            this.stripStatusScheduler.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.stripStatusScheduler.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.stripStatusScheduler.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.stripStatusScheduler.Name = "stripStatusScheduler";
+            this.stripStatusScheduler.Padding = new System.Windows.Forms.Padding(5);
+            this.stripStatusScheduler.Size = new System.Drawing.Size(125, 25);
+            this.stripStatusScheduler.Text = "stripStatusScheduler";
+            this.stripStatusScheduler.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.stripStatusScheduler.Click += new System.EventHandler(this.stripStatusScheduler_Click);
+            // 
+            // stripStatusNextCaptureTime
+            // 
+            this.stripStatusNextCaptureTime.AutoSize = false;
+            this.stripStatusNextCaptureTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.stripStatusNextCaptureTime.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.stripStatusNextCaptureTime.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.stripStatusNextCaptureTime.Name = "stripStatusNextCaptureTime";
+            this.stripStatusNextCaptureTime.Padding = new System.Windows.Forms.Padding(5);
+            this.stripStatusNextCaptureTime.Size = new System.Drawing.Size(180, 25);
+            this.stripStatusNextCaptureTime.Text = "stripStatusNextCaptureTime";
+            this.stripStatusNextCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // stripStatusLastStatus
+            // 
+            this.stripStatusLastStatus.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.stripStatusLastStatus.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.stripStatusLastStatus.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.stripStatusLastStatus.Name = "stripStatusLastStatus";
+            this.stripStatusLastStatus.Size = new System.Drawing.Size(299, 25);
+            this.stripStatusLastStatus.Spring = true;
+            this.stripStatusLastStatus.Text = "stripStatusLastStatus";
+            this.stripStatusLastStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 90);
-            this.Controls.Add(this.LastStatusLabel);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.SchedulerStatusLabel);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.NextCaptureTimeLabel);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(625, 235);
+            this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.MainFormMenuStrip);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -246,18 +239,14 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MainFormMenuStrip.ResumeLayout(false);
             this.MainFormMenuStrip.PerformLayout();
+            this.statusStripMain.ResumeLayout(false);
+            this.statusStripMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label NextCaptureTimeLabel;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label SchedulerStatusLabel;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label LastStatusLabel;
         private System.Windows.Forms.MenuStrip MainFormMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem captureSnapshotNowToolStripMenuItem;
@@ -272,6 +261,10 @@
         private System.Windows.Forms.ToolStripMenuItem errorLogToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem clearLogToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStripMain;
+        private System.Windows.Forms.ToolStripStatusLabel stripStatusScheduler;
+        private System.Windows.Forms.ToolStripStatusLabel stripStatusNextCaptureTime;
+        private System.Windows.Forms.ToolStripStatusLabel stripStatusLastStatus;
     }
 }
 
