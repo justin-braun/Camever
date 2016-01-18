@@ -28,8 +28,11 @@ namespace SpryCoder.Camever
             InitializeComponent();
 
             // Clear controls/labels
-            NextCaptureTimeLabel.Text = "";
-            LastStatusLabel.Text = "";
+            stripStatusLastStatus.Text = "Status: Ready.";
+
+            // StatusStrip padding/margins
+            statusStripMain.Padding = new Padding(statusStripMain.Padding.Left,
+                                        statusStripMain.Padding.Top, statusStripMain.Padding.Left, statusStripMain.Padding.Bottom);
 
             // Look for settings changes
             Settings.Default.PropertyChanged += Settings_PropertyChanged;
@@ -114,6 +117,7 @@ namespace SpryCoder.Camever
                 // Check if capture enabled
                 if (Settings.Default.CapturesEnabled)
                 {
+                    captureTimer.Stop();
                     LaunchTimer();
                     Debug.WriteLine("Timer started after setting change.");
                 }
@@ -204,7 +208,8 @@ namespace SpryCoder.Camever
                 // Update on the UI thread
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    LastStatusLabel.Text = "Capturing";
+                    //LastStatusLabel.Text = "Capturing";
+                    stripStatusLastStatus.Text = "Status: Capture in progress...";
                 });
 
                 string imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
@@ -234,7 +239,8 @@ namespace SpryCoder.Camever
 
                         BeginInvoke((MethodInvoker)delegate
                         {
-                            LastStatusLabel.Text = "Upload Failure";
+                            //LastStatusLabel.Text = "Upload Failure";
+                            stripStatusLastStatus.Text = $"({DateTime.Now}) Status: WU upload failed.";
                         });
                     }
                 }
@@ -242,17 +248,19 @@ namespace SpryCoder.Camever
                 // Update on the UI thread
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    LastStatusLabel.Text = "Success";
+                    //LastStatusLabel.Text = "Success";
+                    stripStatusLastStatus.Text = $"Status: ({DateTime.Now}) Capture successful.";
                 });
             }
             catch (Exception ex)
             {
                 // Update on the UI thread
-                LogHelper.WriteLogEntry("Scheduled snapshot capture failed. " + ex.Message, LogHelper.LogEntryType.Error);
+                LogHelper.WriteLogEntry($"({DateTime.Now}) Scheduled snapshot capture failed. " + ex.Message, LogHelper.LogEntryType.Error);
 
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    LastStatusLabel.Text = "Error";
+                    //LastStatusLabel.Text = "Error";
+                    stripStatusLastStatus.Text = $"({DateTime.Now}) Status: Capture failed.";
                 });
 
             }
@@ -331,8 +339,8 @@ namespace SpryCoder.Camever
         private void UpdateLabels()
         {
             // Update Labels
-            SchedulerStatusLabel.Text = Settings.Default.CapturesEnabled ? "Enabled" : "Disabled";
-            NextCaptureTimeLabel.Text = Settings.Default.CapturesEnabled ? string.Format("{0} {1}", NextHitTime.ToShortDateString(), NextHitTime.ToShortTimeString()) : "No captures scheduled";
+            stripStatusScheduler.Text = Settings.Default.CapturesEnabled ? "Scheduler: Enabled" : "Scheduler: Disabled";
+            stripStatusNextCaptureTime.Text = Settings.Default.CapturesEnabled ? string.Format("Next Run: {0} {1}", NextHitTime.ToShortDateString(), NextHitTime.ToShortTimeString()) : "Next Run: Not scheduled";
         }
 
 
@@ -430,6 +438,11 @@ namespace SpryCoder.Camever
         private void clearLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LogHelper.ClearLog();
+        }
+
+        private void stripStatusScheduler_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
