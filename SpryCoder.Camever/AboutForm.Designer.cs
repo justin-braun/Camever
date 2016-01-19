@@ -53,7 +53,7 @@ namespace SpryCoder.Camever
             // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(429, 153);
+            this.OKButton.Location = new System.Drawing.Point(338, 153);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 2;
@@ -81,10 +81,9 @@ namespace SpryCoder.Camever
             // 
             // CopyrightLabel
             // 
-            this.CopyrightLabel.AutoSize = true;
             this.CopyrightLabel.Location = new System.Drawing.Point(148, 107);
             this.CopyrightLabel.Name = "CopyrightLabel";
-            this.CopyrightLabel.Size = new System.Drawing.Size(79, 13);
+            this.CopyrightLabel.Size = new System.Drawing.Size(262, 34);
             this.CopyrightLabel.TabIndex = 6;
             this.CopyrightLabel.Text = "CopyrightLabel";
             // 
@@ -113,7 +112,7 @@ namespace SpryCoder.Camever
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 188);
+            this.ClientSize = new System.Drawing.Size(425, 188);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CopyrightLabel);
             this.Controls.Add(this.ProductCompanyLabel);
