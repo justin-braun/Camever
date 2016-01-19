@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -16,7 +17,7 @@ namespace SpryCoder.Camever.Helpers
 
             string oldLogEntries = File.ReadAllText(logFile);
 
-            string logLine = $"{DateTime.Now.ToString()}\t{logType}\t{logText}" + Environment.NewLine;
+            string logLine = $"{DateTime.Now}\t{logType}\t{logText}" + Environment.NewLine;
             //File.AppendAllText(logFile, logLine);
             File.WriteAllText(logFile, logLine + oldLogEntries);
         }
@@ -40,7 +41,7 @@ namespace SpryCoder.Camever.Helpers
             }
 
             // Load log file into default viewer
-            System.Diagnostics.Process.Start(logFile);
+            Process.Start(logFile);
         }
     }
 }

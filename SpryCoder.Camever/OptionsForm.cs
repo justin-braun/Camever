@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -55,7 +56,7 @@ namespace SpryCoder.Camever
         private void CancelButton_Click(object sender, EventArgs e)
         {
             // Cancel / Close form
-            this.Close();
+            Close();
 
         }
 
@@ -70,44 +71,44 @@ namespace SpryCoder.Camever
                 MessageBox.Show("Please enter a value for the IP Address or hostname of the camera.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else if (string.IsNullOrWhiteSpace(SnapshotUrlPath.Text))
+            if (string.IsNullOrWhiteSpace(SnapshotUrlPath.Text))
             {
                 MessageBox.Show("Please enter the snapshot URL path of the camera.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else if (string.IsNullOrWhiteSpace(Username.Text))
+            if (string.IsNullOrWhiteSpace(Username.Text))
             {
                 MessageBox.Show("Please enter the username user to access the camera.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else if (string.IsNullOrWhiteSpace(Password.Text))
+            if (string.IsNullOrWhiteSpace(Password.Text))
             {
                 MessageBox.Show("Please enter the password used to access the camera.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else if (string.IsNullOrWhiteSpace(ImageSavePath.Text))
+            if (string.IsNullOrWhiteSpace(ImageSavePath.Text))
             {
                 MessageBox.Show("Please enter the default path to save image captures to.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else if (string.IsNullOrWhiteSpace(ImageFileNamingFormat.Text))
+            if (string.IsNullOrWhiteSpace(ImageFileNamingFormat.Text))
             {
                 MessageBox.Show("Please provide the file naming format for image captures.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             //Scheduling
-            else if (CapturesEnabled.Checked && ((String.IsNullOrWhiteSpace(UpdateInterval.Text) || (int.TryParse(UpdateInterval.Text, out _updateInt) == false))))
+            if (CapturesEnabled.Checked && ((String.IsNullOrWhiteSpace(UpdateInterval.Text) || (int.TryParse(UpdateInterval.Text, out _updateInt) == false))))
             {
                 MessageBox.Show("Please enter the capture interval in a numeric value.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else if (int.TryParse(UpdateInterval.Text, out _updateInt) == false)
+            if (int.TryParse(UpdateInterval.Text, out _updateInt) == false)
             {
                 MessageBox.Show("Please change the update interval to a valid numeric value.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             // Weather Underground
-            else if (WundercamEnabled.Checked == true && (string.IsNullOrWhiteSpace(WundergroundCameraID.Text) || string.IsNullOrWhiteSpace(WundergroundPassword.Text)))
+            if (WundercamEnabled.Checked && (string.IsNullOrWhiteSpace(WundergroundCameraID.Text) || string.IsNullOrWhiteSpace(WundergroundPassword.Text)))
             {
                 MessageBox.Show("When Weather Underground camera uploads are enabled, you must provide both a Camera ID and Password.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -118,7 +119,7 @@ namespace SpryCoder.Camever
             SaveSettings();
             
             // Close form
-            this.Close();
+            Close();
             
         }
 
@@ -162,15 +163,15 @@ namespace SpryCoder.Camever
         private void LoadSettings()
         {
             // Camera Information
-            CameraMfgSelector.SelectedIndex = CameraMfgSelector.FindStringExact(Settings.Default.CameraMfg.ToString());
-            CameraHostName.Text = Settings.Default.CameraHostname.ToString();
-            SnapshotUrlPath.Text = Settings.Default.SnapshotUrl.ToString();
-            Username.Text = Settings.Default.Username.ToString();
-            Password.Text = String.IsNullOrEmpty(Settings.Default.Password.ToString()) ? "" : PasswordHelper.DecryptString(Settings.Default.Password.ToString());
+            CameraMfgSelector.SelectedIndex = CameraMfgSelector.FindStringExact(Settings.Default.CameraMfg);
+            CameraHostName.Text = Settings.Default.CameraHostname;
+            SnapshotUrlPath.Text = Settings.Default.SnapshotUrl;
+            Username.Text = Settings.Default.Username;
+            Password.Text = String.IsNullOrEmpty(Settings.Default.Password) ? "" : PasswordHelper.DecryptString(Settings.Default.Password);
 
             // Image Settings
-            ImageFileNamingFormat.Text = Settings.Default.ImageFileNamingFormat.ToString();
-            ImageSavePath.Text = Settings.Default.ImageSavePath.ToString();
+            ImageFileNamingFormat.Text = Settings.Default.ImageFileNamingFormat;
+            ImageSavePath.Text = Settings.Default.ImageSavePath;
 
             // Overlays
             topLeftText.Text = Settings.Default.OverlayTopLeftText;
@@ -181,12 +182,12 @@ namespace SpryCoder.Camever
                
             // Scheduling
             CapturesEnabled.Checked = Settings.Default.CapturesEnabled;
-            UpdateInterval.Text = Settings.Default.UpdateInterval.ToString();
+            UpdateInterval.Text = Settings.Default.UpdateInterval;
 
             // Weather Underground
             WundercamEnabled.Checked = Settings.Default.WundergroundUploadEnabled;
-            WundergroundCameraID.Text = Settings.Default.WundergroundCameraID.ToString();
-            WundergroundPassword.Text = String.IsNullOrEmpty(Settings.Default.WundergroundPassword.ToString()) ? "" : PasswordHelper.DecryptString(Settings.Default.WundergroundPassword.ToString());
+            WundergroundCameraID.Text = Settings.Default.WundergroundCameraID;
+            WundergroundPassword.Text = String.IsNullOrEmpty(Settings.Default.WundergroundPassword) ? "" : PasswordHelper.DecryptString(Settings.Default.WundergroundPassword);
 
             // General
             KeepOnTopCheckbox.Checked = Settings.Default.KeepOnTop; // ? true : false;
@@ -200,13 +201,13 @@ namespace SpryCoder.Camever
         {
             try
             {
-                this.Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
                 await TestCameraConnection(); //.ConfigureAwait(false);
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
             catch (Exception ex)
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
                 MessageBox.Show(String.Format("Error checking the camera connection. {0}.", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -226,7 +227,7 @@ namespace SpryCoder.Camever
         private void UpdateInterval_TextChanged(object sender, EventArgs e)
         {
             int _updateInt = 0;
-            if(int.TryParse(UpdateInterval.Text,out _updateInt) == true)
+            if(int.TryParse(UpdateInterval.Text,out _updateInt))
             {
                 CapturesEnabled.Enabled = true;
             }
@@ -241,21 +242,21 @@ namespace SpryCoder.Camever
             try
             {
                 // Test connection to camera
-                System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", CameraHostName.Text, SnapshotUrlPath.Text));
-                System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Username.Text, Password.Text);
+                WebRequest request = WebRequest.Create(string.Format("http://{0}/{1}", CameraHostName.Text, SnapshotUrlPath.Text));
+                NetworkCredential creds = new NetworkCredential(Username.Text, Password.Text);
                 request.Credentials = creds;
                 request.Timeout = 10000; // 10 seconds
                 request.Method = "POST";
 
-                System.Net.HttpWebResponse response = (System.Net.HttpWebResponse) await request.GetResponseAsync();
+                HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
 
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
                     MessageBox.Show("Successfully connected to camera stream.", "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show(String.Format("There was an issue connecting to the camera stream. Status Code: {0}", response.StatusCode.ToString()), "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(String.Format("There was an issue connecting to the camera stream. Status Code: {0}", response.StatusCode), "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
@@ -294,10 +295,10 @@ namespace SpryCoder.Camever
                     g.FillRectangle(semiTransBrush, rectfTop);
 
                     // Top Left Text
-                    g.DrawString(CameraHelper.TemplateReplace(topLeftText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
+                    g.DrawString(CameraHelper.TemplateReplace(topLeftText.Text), new Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
 
                     // Top Right Text
-                    g.DrawString(CameraHelper.TemplateReplace(topRightText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 6, sf);
+                    g.DrawString(CameraHelper.TemplateReplace(topRightText.Text), new Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 6, sf);
                 }
 
                 // Bottom Overlay
@@ -308,10 +309,10 @@ namespace SpryCoder.Camever
                     g.FillRectangle(semiTransBrush, rectfBottom);
 
                     // Bottom Left Text
-                    g.DrawString(CameraHelper.TemplateReplace(bottomLeftText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
+                    g.DrawString(CameraHelper.TemplateReplace(bottomLeftText.Text), new Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
 
                     // Bottom Right Text
-                    g.DrawString(CameraHelper.TemplateReplace(bottomRightText.Text), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 465, sf);
+                    g.DrawString(CameraHelper.TemplateReplace(bottomRightText.Text), new Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, width - 5, 465, sf);
                 }
             }
 
@@ -332,9 +333,9 @@ namespace SpryCoder.Camever
         {
             try
             {
-                this.Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
                 await CameraHelper.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)).ConfigureAwait(false);
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
                 //LogHelper.WriteLogEntry("Weather Underground webcam manual snapshot uploaded successfully.", LogHelper.LogEntryType.Information);
                 MessageBox.Show("Upload Successful!", "Upload Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -342,7 +343,7 @@ namespace SpryCoder.Camever
             {
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    this.Cursor = Cursors.Default;
+                    Cursor = Cursors.Default;
                 });
                 
                 LogHelper.WriteLogEntry("Weather Underground webcam snapshot upload failed. " + ex.Message, LogHelper.LogEntryType.Error);

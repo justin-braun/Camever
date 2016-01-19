@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using System.Windows.Forms;
 using SpryCoder.Camever.Helpers;
 
@@ -10,11 +9,11 @@ namespace SpryCoder.Camever
         public AboutForm()
         {
             InitializeComponent();
-            this.Text = $"About {ProductInfoHelper.AssemblyTitle}";
-            this.ProductNameLabel.Text = ProductInfoHelper.AssemblyProduct;
-            this.ProductVersionLabel.Text = $"Version {ProductInfoHelper.AssemblyVersion(3)}";
-            this.CopyrightLabel.Text = ProductInfoHelper.AssemblyCopyright;
-            this.ProductCompanyLabel.Text = "Developed by " + ProductInfoHelper.AssemblyCompany + ".";
+            Text = $"About {ProductInfoHelper.AssemblyTitle}";
+            ProductNameLabel.Text = ProductInfoHelper.AssemblyProduct;
+            ProductVersionLabel.Text = $"Version {ProductInfoHelper.AssemblyVersion(3)}";
+            CopyrightLabel.Text = ProductInfoHelper.AssemblyCopyright;
+            ProductCompanyLabel.Text = "Developed by " + ProductInfoHelper.AssemblyCompany + ".";
         }
 
         private void AboutForm_Load(object sender, EventArgs e)
@@ -24,7 +23,7 @@ namespace SpryCoder.Camever
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
     }

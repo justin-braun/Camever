@@ -1,11 +1,14 @@
-﻿namespace SpryCoder.Camever
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace SpryCoder.Camever
 {
     partial class AboutForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -137,12 +140,12 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label ProductNameLabel;
-        private System.Windows.Forms.Button OKButton;
-        private System.Windows.Forms.Label ProductVersionLabel;
-        private System.Windows.Forms.Label ProductCompanyLabel;
-        private System.Windows.Forms.Label CopyrightLabel;
-        private System.Windows.Forms.Label label1;
+        private PictureBox pictureBox1;
+        private Label ProductNameLabel;
+        private Button OKButton;
+        private Label ProductVersionLabel;
+        private Label ProductCompanyLabel;
+        private Label CopyrightLabel;
+        private Label label1;
     }
 }

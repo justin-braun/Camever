@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
-using SpryCoder.Camever.Properties;
 using SpryCoder.Camever.Helpers;
+using SpryCoder.Camever.Properties;
 
 namespace SpryCoder.Camever
 {

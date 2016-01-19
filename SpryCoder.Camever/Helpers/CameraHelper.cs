@@ -64,15 +64,15 @@ namespace SpryCoder.Camever.Helpers
                 if (capType == CaptureType.FinalImage)
                 {
                     // Http Post Request/Response
-                    System.Net.WebRequest request = System.Net.WebRequest.Create(string.Format("http://{0}/{1}", Settings.Default.CameraHostname.ToString(), Settings.Default.SnapshotUrl.ToString()));
-                    System.Net.NetworkCredential creds = new System.Net.NetworkCredential(Settings.Default.Username.ToString(), PasswordHelper.DecryptString(Settings.Default.Password.ToString()));
+                    WebRequest request = WebRequest.Create(string.Format("http://{0}/{1}", Settings.Default.CameraHostname, Settings.Default.SnapshotUrl));
+                    NetworkCredential creds = new NetworkCredential(Settings.Default.Username, PasswordHelper.DecryptString(Settings.Default.Password));
                     request.Credentials = creds;
                     request.Method = "POST";
-                    System.Net.WebResponse response = await request.GetResponseAsync().ConfigureAwait(false);
-                    System.IO.Stream stream = response.GetResponseStream();
+                    WebResponse response = await request.GetResponseAsync().ConfigureAwait(false);
+                    Stream stream = response.GetResponseStream();
 
                     // Image
-                    image = System.Drawing.Image.FromStream(stream);
+                    image = Image.FromStream(stream);
                 }
                 else if (capType == CaptureType.OptionPreviewImage)
                 {
@@ -89,7 +89,7 @@ namespace SpryCoder.Camever.Helpers
                     if (finalImage == bitmap) g.FillRectangle(Brushes.Green, new Rectangle(0, 0, Width, Height));
 
                     // Brush for transparency
-                    Brush semiTransBrush = new SolidBrush(Color.FromArgb(CameraHelper.CalculateTransparency(Settings.Default.OverlayTransparency), 176, 176, 176));
+                    Brush semiTransBrush = new SolidBrush(Color.FromArgb(CalculateTransparency(Settings.Default.OverlayTransparency), 176, 176, 176));
 
                     // Right alignment string format
                     StringFormat sf = new StringFormat();
@@ -103,10 +103,10 @@ namespace SpryCoder.Camever.Helpers
                         g.FillRectangle(semiTransBrush, rectfTop);
 
                         // Top Left Text
-                        g.DrawString(CameraHelper.TemplateReplace(Settings.Default.OverlayTopLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
+                        g.DrawString(TemplateReplace(Settings.Default.OverlayTopLeftText), new Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 6);
 
                         // Top Right Text
-                        g.DrawString(CameraHelper.TemplateReplace(Settings.Default.OverlayTopRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 6, sf);
+                        g.DrawString(TemplateReplace(Settings.Default.OverlayTopRightText), new Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 6, sf);
                     }
 
                     // Bottom Overlay
@@ -117,10 +117,10 @@ namespace SpryCoder.Camever.Helpers
                         g.FillRectangle(semiTransBrush, rectfBottom);
 
                         // Bottom Left Text
-                        g.DrawString(CameraHelper.TemplateReplace(Settings.Default.OverlayBottomLeftText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
+                        g.DrawString(TemplateReplace(Settings.Default.OverlayBottomLeftText), new Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, 5, 465);
 
                         // Bottom Right Text
-                        g.DrawString(CameraHelper.TemplateReplace(Settings.Default.OverlayBottomRightText), new System.Drawing.Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 465, sf);
+                        g.DrawString(TemplateReplace(Settings.Default.OverlayBottomRightText), new Font("Lucida Console", 8, FontStyle.Regular), Brushes.White, Width - 5, 465, sf);
                     }
                 }
 
@@ -148,7 +148,7 @@ namespace SpryCoder.Camever.Helpers
 
                 // Copy the contents of the file to the request stream.
                 MemoryStream imageStream = new MemoryStream();
-                image.Save(imageStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                image.Save(imageStream, ImageFormat.Jpeg);
 
                 // Read image into a byte array
                 byte[] bytes = imageStream.ToArray();

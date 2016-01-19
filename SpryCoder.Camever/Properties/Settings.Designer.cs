@@ -8,14 +8,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.CodeDom.Compiler;
+using System.Configuration;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+
 namespace SpryCoder.Camever.Properties {
     
     
-    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    [CompilerGenerated()]
+    [GeneratedCode("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    internal sealed partial class Settings : ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static Settings defaultInstance = ((Settings)(Synchronized(new Settings())));
         
         public static Settings Default {
             get {
@@ -23,9 +28,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string CameraHostname {
             get {
                 return ((string)(this["CameraHostname"]));
@@ -35,9 +40,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cgi-bin/snapshot.cgi")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("cgi-bin/snapshot.cgi")]
         public string SnapshotUrl {
             get {
                 return ((string)(this["SnapshotUrl"]));
@@ -47,9 +52,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -59,9 +64,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -71,9 +76,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("True")]
         public bool UpgradeRequired {
             get {
                 return ((bool)(this["UpgradeRequired"]));
@@ -83,9 +88,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("15")]
         public string UpdateInterval {
             get {
                 return ((string)(this["UpdateInterval"]));
@@ -95,9 +100,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string ImageSavePath {
             get {
                 return ((string)(this["ImageSavePath"]));
@@ -107,9 +112,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{year4}{monthno}{day}-{24hour}{min}{sec}")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("{year4}{monthno}{day}-{24hour}{min}{sec}")]
         public string ImageFileNamingFormat {
             get {
                 return ((string)(this["ImageFileNamingFormat"]));
@@ -119,9 +124,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("False")]
         public bool CapturesEnabled {
             get {
                 return ((bool)(this["CapturesEnabled"]));
@@ -131,9 +136,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string WundergroundCameraID {
             get {
                 return ((string)(this["WundergroundCameraID"]));
@@ -143,9 +148,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string WundergroundPassword {
             get {
                 return ((string)(this["WundergroundPassword"]));
@@ -155,9 +160,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("False")]
         public bool WundergroundUploadEnabled {
             get {
                 return ((bool)(this["WundergroundUploadEnabled"]));
@@ -167,9 +172,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("False")]
         public bool KeepOnTop {
             get {
                 return ((bool)(this["KeepOnTop"]));
@@ -179,9 +184,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("BottomRight")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("BottomRight")]
         public string WindowLocation {
             get {
                 return ((string)(this["WindowLocation"]));
@@ -191,9 +196,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("5")]
         public int OverlayTransparency {
             get {
                 return ((int)(this["OverlayTransparency"]));
@@ -203,9 +208,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string OverlayTopLeftText {
             get {
                 return ((string)(this["OverlayTopLeftText"]));
@@ -215,9 +220,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string OverlayTopRightText {
             get {
                 return ((string)(this["OverlayTopRightText"]));
@@ -227,9 +232,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string OverlayBottomLeftText {
             get {
                 return ((string)(this["OverlayBottomLeftText"]));
@@ -239,9 +244,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{monthno}/{day}/{year4} {12hour}:{min}:{sec} {ampm}")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("{monthno}/{day}/{year4} {12hour}:{min}:{sec} {ampm}")]
         public string OverlayBottomRightText {
             get {
                 return ((string)(this["OverlayBottomRightText"]));
@@ -251,9 +256,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Amcrest")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("Amcrest")]
         public string CameraMfg {
             get {
                 return ((string)(this["CameraMfg"]));
@@ -263,9 +268,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("")]
         public string LaunchCode {
             get {
                 return ((string)(this["LaunchCode"]));
@@ -275,9 +280,9 @@ namespace SpryCoder.Camever.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [UserScopedSetting()]
+        [DebuggerNonUserCode()]
+        [DefaultSettingValue("True")]
         public bool FirstRun {
             get {
                 return ((bool)(this["FirstRun"]));

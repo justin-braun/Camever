@@ -1,24 +1,26 @@
-﻿using SpryCoder.Camever.Properties;
-using System;
+﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Timers;
 using System.Windows.Forms;
 using SpryCoder.Camever.Helpers;
-using System.Diagnostics;
+using SpryCoder.Camever.Properties;
+using Timer = System.Timers.Timer;
 
 namespace SpryCoder.Camever
 {
     public partial class MainForm : Form
     {
-        BackgroundWorker backgroundCaptureTask = new BackgroundWorker();
-        System.Timers.Timer captureTimer = new System.Timers.Timer();
+        readonly BackgroundWorker _backgroundCaptureTask = new BackgroundWorker();
+        readonly Timer _captureTimer = new Timer();
 
         // PROPERTIES
-        public DateTime NextHitTime { get { return CameraHelper.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval)); } }
-        public TimeSpan TimeDiff { get { return NextHitTime.Subtract(DateTime.Now); } }
-        public string ImageFileName {  get { return CameraHelper.TemplateReplace(Settings.Default.ImageFileNamingFormat) + ".jpg"; } }
+        private DateTime NextHitTime => CameraHelper.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval));
+        private TimeSpan TimeDiff => NextHitTime.Subtract(DateTime.Now);
+        private string ImageFileName => CameraHelper.TemplateReplace(Settings.Default.ImageFileNamingFormat) + ".jpg";
 
         /// <summary>
         /// Main Form 
@@ -52,9 +54,9 @@ namespace SpryCoder.Camever
 
             // Setup events
             
-            captureTimer.Elapsed += Timer_Elapsed;
-            backgroundCaptureTask.DoWork += Task_DoWork;
-            backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
+            _captureTimer.Elapsed += Timer_Elapsed;
+            _backgroundCaptureTask.DoWork += Task_DoWork;
+            _backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
             
 
         }
@@ -67,16 +69,16 @@ namespace SpryCoder.Camever
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Form title
-            this.Text = ProductInfoHelper.AssemblyTitle;
+            Text = ProductInfoHelper.AssemblyTitle;
 
             // Check for general settings
-            this.TopMost = Settings.Default.KeepOnTop;
+            TopMost = Settings.Default.KeepOnTop;
 
             // Set window location
             SetWindowLocation();
 
             // Check if capture enabled
-            if (Settings.Default.CapturesEnabled == true)
+            if (Settings.Default.CapturesEnabled)
             {
                 LaunchTimer();
                 Debug.WriteLine("Timer started");
@@ -101,14 +103,7 @@ namespace SpryCoder.Camever
             if (e.PropertyName == "KeepOnTop")
             {
                 // Check if capture enabled
-                if (Settings.Default.KeepOnTop == true)
-                {
-                    this.TopMost = true;
-                }
-                else
-                {
-                    this.TopMost = false;
-                }
+                TopMost = Settings.Default.KeepOnTop;
             }
 
             // Check for schedule change
@@ -118,13 +113,13 @@ namespace SpryCoder.Camever
                 // Check if capture enabled
                 if (Settings.Default.CapturesEnabled)
                 {
-                    captureTimer.Stop();
+                    _captureTimer.Stop();
                     LaunchTimer();
                     Debug.WriteLine("Timer started after setting change.");
                 }
                 else
                 {
-                    captureTimer.Stop();
+                    _captureTimer.Stop();
                     Debug.WriteLine("Timer stopped after setting change.");
                 }
             }
@@ -136,18 +131,18 @@ namespace SpryCoder.Camever
         /// <summary>
         /// Start timer with background task
         /// </summary>
-        public void LaunchTimer()
+        private void LaunchTimer()
         {
 
             // Start timer
 
-            captureTimer.Interval = TimeDiff.TotalMilliseconds;
-            captureTimer.AutoReset = false;
+            _captureTimer.Interval = TimeDiff.TotalMilliseconds;
+            _captureTimer.AutoReset = false;
 
             //captureTimer.Elapsed += Timer_Elapsed;
-            captureTimer.Interval = TimeDiff.TotalMilliseconds;
-            captureTimer.AutoReset = false;
-            captureTimer.Start();
+            _captureTimer.Interval = TimeDiff.TotalMilliseconds;
+            _captureTimer.AutoReset = false;
+            _captureTimer.Start();
             
         }
 
@@ -163,10 +158,10 @@ namespace SpryCoder.Camever
             {
                 MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
                     "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                Close();
             }
 
-            backgroundCaptureTask.RunWorkerAsync();
+            _backgroundCaptureTask.RunWorkerAsync();
             Debug.WriteLine("Timer elapsed, background task started.");
             //captureTimer.Stop();
 
@@ -184,15 +179,13 @@ namespace SpryCoder.Camever
         private void Task_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // Reset task schedule
-            captureTimer.Stop();
-            //captureTimer.Dispose();
+            _captureTimer.Stop();
 
+            // Restart timer
             LaunchTimer();
 
-            BeginInvoke((MethodInvoker)delegate
-            {
-                UpdateLabels();
-            });
+            // Update UI on UI thread
+            BeginInvoke((MethodInvoker)UpdateLabels);
 
             Debug.WriteLine("Task completed, timer stopped and relaunched.");
         }
@@ -213,14 +206,14 @@ namespace SpryCoder.Camever
                     stripStatusLastStatus.Text = "Status: Capture in progress...";
                 });
 
-                string imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
+                var imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
                 // Save Capture
                 SaveCapturedImage(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
                 LogHelper.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
 
                 // Check for Services enabled on schedule
-                if (Settings.Default.WundergroundUploadEnabled == true)
+                if (Settings.Default.WundergroundUploadEnabled)
                 {
                     try
                     {
@@ -270,19 +263,10 @@ namespace SpryCoder.Camever
 
         /// CUSTOM METHODS ///
 
-        private void SaveCapturedImage(Image image, string ImageFileFullPath)
+        private void SaveCapturedImage(Image image, string imageFileFullPath)
         {
             //Image newimage = image;
-            try
-            {
-                image.Save(ImageFileFullPath, System.Drawing.Imaging.ImageFormat.Jpeg);
-            }
-            catch (Exception)
-            {
-                //LogHelper.WriteLogEntry("Error saving captured image file. " + ex.Message, LogHelper.LogEntryType.Error);
-                throw;
-            }
-
+            image.Save(imageFileFullPath, ImageFormat.Jpeg);
         }
 
         private void SetWindowLocation()
@@ -316,8 +300,8 @@ namespace SpryCoder.Camever
                     rightmost = screen;
             }
 
-            this.Left = rightmost.WorkingArea.Right - this.Width - 50;
-            this.Top = rightmost.WorkingArea.Bottom - this.Height - 50;
+            Left = rightmost.WorkingArea.Right - Width - 50;
+            Top = rightmost.WorkingArea.Bottom - Height - 50;
 
         }
 
@@ -332,8 +316,8 @@ namespace SpryCoder.Camever
                     rightmost = screen;
             }
 
-            this.Left = rightmost.WorkingArea.Right - this.Width - 50;
-            this.Top = rightmost.WorkingArea.Top + 50;
+            Left = rightmost.WorkingArea.Right - Width - 50;
+            Top = rightmost.WorkingArea.Top + 50;
 
         }
 
@@ -341,33 +325,33 @@ namespace SpryCoder.Camever
         {
             // Update Labels
             stripStatusScheduler.Text = Settings.Default.CapturesEnabled ? "Scheduler: Enabled" : "Scheduler: Disabled";
-            stripStatusNextCaptureTime.Text = Settings.Default.CapturesEnabled ? string.Format("Next Run: {0} {1}", NextHitTime.ToShortDateString(), NextHitTime.ToShortTimeString()) : "Next Run: Not scheduled";
+            stripStatusNextCaptureTime.Text = Settings.Default.CapturesEnabled ?
+                $"Next Run: {NextHitTime.ToShortDateString()} {NextHitTime.ToShortTimeString()}"
+                : "Next Run: Not scheduled";
         }
-
-
 
 
         /// MENU ITEMS ///
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Exit Program
-            this.Close();
+            Close();
         }
 
         private async void previewCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                this.Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
                 // Instantiate Preview Form with Image
                 PreviewForm preview = new PreviewForm(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage));
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
                 //LogHelper.WriteLogEntry("Preview snapshot loaded successfully.", LogHelper.LogEntryType.Information);
                 preview.ShowDialog();
             }
             catch (Exception ex)
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
                 LogHelper.WriteLogEntry("Preview snapshot error has occurred. " + ex.Message, LogHelper.LogEntryType.Error);
 
                 MessageBox.Show("We ran into a problem generating the preview image. " + ex.Message + ".",
@@ -385,19 +369,19 @@ namespace SpryCoder.Camever
             {
                 MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
                     "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                Close();
             }
 
             try
             {
                 // Capture Image and then save it
                 //Image image = CaptureImage();
-                this.Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
                 string imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
                 SaveCapturedImage(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
 
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
 
                 //LogHelper.WriteLogEntry($"Manual snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
 
@@ -408,7 +392,7 @@ namespace SpryCoder.Camever
             }
             catch (Exception ex)
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
                 LogHelper.WriteLogEntry("Manual snapshot error has occurred. " + ex.Message, LogHelper.LogEntryType.Error);
                 MessageBox.Show("We ran into a problem generating the snapshot image.  " + ex.Message + ".",
                     "Error",
@@ -438,12 +422,8 @@ namespace SpryCoder.Camever
 
         private void clearLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Clear the log
             LogHelper.ClearLog();
-        }
-
-        private void stripStatusScheduler_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

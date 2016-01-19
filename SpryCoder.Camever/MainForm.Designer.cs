@@ -1,11 +1,14 @@
-﻿namespace SpryCoder.Camever
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace SpryCoder.Camever
 {
     partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -191,7 +194,6 @@
             this.stripStatusScheduler.Size = new System.Drawing.Size(125, 25);
             this.stripStatusScheduler.Text = "stripStatusScheduler";
             this.stripStatusScheduler.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.stripStatusScheduler.Click += new System.EventHandler(this.stripStatusScheduler_Click);
             // 
             // stripStatusNextCaptureTime
             // 
@@ -247,24 +249,24 @@
         }
 
         #endregion
-        private System.Windows.Forms.MenuStrip MainFormMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem captureSnapshotNowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem previewCameraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem errorLogToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem clearLogToolStripMenuItem;
-        private System.Windows.Forms.StatusStrip statusStripMain;
-        private System.Windows.Forms.ToolStripStatusLabel stripStatusScheduler;
-        private System.Windows.Forms.ToolStripStatusLabel stripStatusNextCaptureTime;
-        private System.Windows.Forms.ToolStripStatusLabel stripStatusLastStatus;
+        private MenuStrip MainFormMenuStrip;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem captureSnapshotNowToolStripMenuItem;
+        private ToolStripMenuItem previewCameraToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem toolsToolStripMenuItem;
+        private ToolStripMenuItem optionsToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripMenuItem viewStripMenuItem;
+        private ToolStripMenuItem errorLogToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem clearLogToolStripMenuItem;
+        private StatusStrip statusStripMain;
+        private ToolStripStatusLabel stripStatusScheduler;
+        private ToolStripStatusLabel stripStatusNextCaptureTime;
+        private ToolStripStatusLabel stripStatusLastStatus;
     }
 }
 

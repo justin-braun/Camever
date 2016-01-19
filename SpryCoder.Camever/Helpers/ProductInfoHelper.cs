@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.IO;
+using System.Reflection;
 
 namespace SpryCoder.Camever.Helpers
 {
@@ -17,14 +19,14 @@ namespace SpryCoder.Camever.Helpers
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
         public static string AssemblyVersion(int octetsToShow = 4)
         {
                 string versionString = "";
-                System.Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
                 switch (octetsToShow)
                 {
