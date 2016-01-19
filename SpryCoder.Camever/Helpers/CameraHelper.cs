@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using SpryCoder.Camever.Properties;
 
 namespace SpryCoder.Camever.Helpers
 {
     public static class CameraHelper
     {
+        // Default dimensions
         private const int Width = 640;
         private const int Height = 480;
 
@@ -54,17 +53,10 @@ namespace SpryCoder.Camever.Helpers
             return output;
         }
 
-        public static async Task<Image> CaptureImage(CaptureType capType)
+        public static Image CaptureImage(CaptureType capType)
         {
-
-            // DEBUG/Tracing
-            //var st = new StackTrace();
-            //var sfMethodCalling = st.GetFrame(1).GetMethod().DeclaringType.FullName;
-            //LogHelper.WriteLogEntry(sfMethodCalling, LogHelper.LogEntryType.Information);
-
             Image image = null;
             Bitmap bitmap = null;
-            Image finalImage;
 
             if (capType == CaptureType.FinalImage)
             {
@@ -74,7 +66,7 @@ namespace SpryCoder.Camever.Helpers
                 NetworkCredential creds = new NetworkCredential(Settings.Default.Username, PasswordHelper.DecryptString(Settings.Default.Password));
                 request.Credentials = creds;
                 request.Method = "POST";
-                WebResponse response = await request.GetResponseAsync().ConfigureAwait(false);
+                WebResponse response = request.GetResponse();
                 Stream stream = response.GetResponseStream();
 
                 // Image
@@ -86,7 +78,7 @@ namespace SpryCoder.Camever.Helpers
             }
 
 
-            finalImage = image ?? bitmap;
+            var finalImage = image ?? bitmap;
 
 
             if (finalImage != null)
@@ -140,7 +132,7 @@ namespace SpryCoder.Camever.Helpers
             return finalImage;
         }
 
-        public static async Task UploadWuCamImage(string username, string password, Image image)
+        public static void UploadWuCamImage(string username, string password, Image image)
         {
             // Get the object used to communicate with the server.
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + WuCamFtp + "/image.jpg");
@@ -165,17 +157,10 @@ namespace SpryCoder.Camever.Helpers
             }
 
             // Get response
-            FtpWebResponse response = (FtpWebResponse) await request.GetResponseAsync();
+            FtpWebResponse response = (FtpWebResponse) request.GetResponse();
             response.Close();
         }
 
-        /// <summary>
-        /// Resize the image to the specified width and height.
-        /// </summary>
-        /// <param name="image">The image to resize.</param>
-        /// <param name="width">The width to resize to.</param>
-        /// <param name="height">The height to resize to.</param>
-        /// <returns>The resized image.</returns>
         public static Bitmap ResizeImage(Image image, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);

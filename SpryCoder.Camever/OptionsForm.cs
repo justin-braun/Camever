@@ -328,12 +328,12 @@ namespace SpryCoder.Camever
             UpdateOverlayPreview();
         }
 
-        private async void UploadWundercamButton_Click(object sender, EventArgs e)
+        private void UploadWundercamButton_Click(object sender, EventArgs e)
         {
             try
             {
                 Cursor = Cursors.WaitCursor;
-                await CameraHelper.UploadWuCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)).ConfigureAwait(false);
+                CameraHelper.UploadWuCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage));
                 Cursor = Cursors.Default;
                 //LogHelper.WriteLogEntry("Weather Underground webcam manual snapshot uploaded successfully.", LogHelper.LogEntryType.Information);
                 MessageBox.Show("Upload Successful!", "Upload Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
 using SpryCoder.Camever.Helpers;
@@ -15,10 +13,8 @@ namespace SpryCoder.Camever
 {
     public partial class MainForm : Form
     {
-        readonly BackgroundWorker _backgroundCaptureTask = new BackgroundWorker();
-        readonly Timer _captureTimer = new Timer();
-
-        private EventListViewHelper eventList;
+        private Timer _captureTimer;
+        private readonly EventListViewHelper _eventList;
 
         // PROPERTIES
         private DateTime NextHitTime => CameraHelper.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval));
@@ -32,22 +28,12 @@ namespace SpryCoder.Camever
         {
             InitializeComponent();
 
-
-            //Debug log
-            TextWriterTraceListener[] listeners = new TextWriterTraceListener[] {
-            new TextWriterTraceListener("c:\\temp\\debug.txt"),
-          new TextWriterTraceListener(Console.Out)};
-            Debug.Listeners.AddRange(listeners);
-
-
-
             // StatusStrip padding/margins
             statusStripMain.Padding = new Padding(statusStripMain.Padding.Left,
                                         statusStripMain.Padding.Top, statusStripMain.Padding.Left, statusStripMain.Padding.Bottom);
 
             // Look for settings changes
             Settings.Default.PropertyChanged += Settings_PropertyChanged;
-
 
             // Check for First Run
             // First Run, force the Options window
@@ -61,14 +47,8 @@ namespace SpryCoder.Camever
                 Settings.Default.Save();
             }
 
-            // Setup events
-            
-            _captureTimer.Elapsed += Timer_Elapsed;
-            _backgroundCaptureTask.DoWork += Task_DoWork;
-            _backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
-
             // Log Helper
-            eventList = new EventListViewHelper(this);
+            _eventList = new EventListViewHelper(this);
             
 
         }
@@ -92,7 +72,7 @@ namespace SpryCoder.Camever
             // Check if capture enabled
             if (Settings.Default.CapturesEnabled)
             {
-                LaunchTimer();
+                StartCaptureTimer(TimeDiff.TotalMilliseconds);
             }
 
             // Update labels
@@ -125,11 +105,11 @@ namespace SpryCoder.Camever
                 if (Settings.Default.CapturesEnabled)
                 {
                     //_captureTimer.Stop();
-                    LaunchTimer();
+                    StartCaptureTimer(TimeDiff.TotalMilliseconds);
                 }
                 else
                 {
-                    _captureTimer.Stop();
+                    StopCaptureTimer();
                 }
             }
 
@@ -138,103 +118,22 @@ namespace SpryCoder.Camever
         }
 
         /// <summary>
-        /// Start timer with background task
-        /// </summary>
-        private void LaunchTimer()
-        {
-            Debug.WriteLine($"{DateTime.Now.ToString()} - LaunchTimer called. " + Thread.CurrentThread.ManagedThreadId);
-            Debug.Flush();
-            // Backgroundwork events teardown and build up
-            //_backgroundCaptureTask.DoWork -= Task_DoWork;
-            //_backgroundCaptureTask.RunWorkerCompleted -= Task_RunWorkerCompleted;
-            //_backgroundCaptureTask.DoWork += Task_DoWork;
-            //_backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
-
-            // Start timer
-
-
-            //captureTimer.Elapsed += Timer_Elapsed;
-            _captureTimer.Stop();
-            _captureTimer.Interval = TimeDiff.TotalMilliseconds;
-            _captureTimer.AutoReset = false;
-            _captureTimer.Start();
-            
-        }
-
-        /// <summary>
-        /// Runs when timer has elapsed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            Debug.WriteLine($"{DateTime.Now.ToString()} - Timer elapsed. " + Thread.CurrentThread.ManagedThreadId);
-            Debug.Flush();
-
-            // Check for beta expiration
-            if (BetaHelper.BetaExpired())
-            {
-                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
-                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
-            }
-
-            _backgroundCaptureTask.RunWorkerAsync();
-            //captureTimer.Stop();
-
-            //LaunchTimer();
-            //captureTimer.Interval = TimeDiff.TotalMilliseconds;
-            //captureTimer.Start();
-
-        }
-
-        /// <summary>
-        /// Runs when background task is complete
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Task_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            Debug.WriteLine($"{DateTime.Now.ToString()} - Task_RunWorkerCompleted called ." + Thread.CurrentThread.ManagedThreadId);
-            Debug.Flush();
-
-            // Reset task schedule
-            //_captureTimer.Stop();
-
-            // Restart timer
-            LaunchTimer();
-
-            // Update UI on UI thread
-            BeginInvoke((MethodInvoker)UpdateLabels);
-        }
-
-        /// <summary>
         /// Runs when background task is triggered
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Task_DoWork(object sender, DoWorkEventArgs e)
+        private void StartCapture()
         {
-            Debug.WriteLine($"{DateTime.Now.ToString()} - Task_DoWork called. " + Thread.CurrentThread.ManagedThreadId);
-            Debug.Flush();
-
-
             // Capture Image and then save it
             try
             {
                 var imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
                 // Save Capture
-                Debug.WriteLine($"{DateTime.Now.ToString()} - SaveCapturedImage (inside Task_DoWork) called. " + Thread.CurrentThread.ManagedThreadId);
-                Debug.Flush();
-
-                SaveCapturedImage(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
-                //LogHelper.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
+                SaveCapturedImage(CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
 
                 // Update on the UI thread
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    eventList.AddEvent($"Scheduled snapshot successful. ({imageFile})", EventListViewHelper.LogEntryType.Information);
+                    _eventList.AddEvent($"Scheduled snapshot successful. ({imageFile})", EventListViewHelper.LogEntryType.Information);
                 });
                 
 
@@ -243,32 +142,25 @@ namespace SpryCoder.Camever
                 {
                     try
                     {
-                        await CameraHelper.UploadWuCamImage(
+                       CameraHelper.UploadWuCamImage(
                             Settings.Default.WundergroundCameraID,
                             PasswordHelper.DecryptString(Settings.Default.WundergroundPassword),
-                            await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)
+                            CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)
                         );
-
-                        //LogHelper.WriteLogEntry("Weather Underground webcam snapshot upload successful.", LogHelper.LogEntryType.Information);
 
                         // Update on the UI thread
                         BeginInvoke((MethodInvoker)delegate
                         {
-                            eventList.AddEvent("Weather Underground webcam snapshot upload successful.", EventListViewHelper.LogEntryType.Information);
+                            _eventList.AddEvent("Weather Underground webcam snapshot upload successful.", EventListViewHelper.LogEntryType.Information);
                         });
                         
                     }
                     catch (Exception wuex)
                     {
-
                         // Update on the UI thread
-                        //LogHelper.WriteLogEntry("Weather Underground webcam snapshot upload failed. " + wuex.Message, LogHelper.LogEntryType.Error);
-                        
-
                         BeginInvoke((MethodInvoker)delegate
                         {
-                            //LastStatusLabel.Text = "Upload Failure";
-                            eventList.AddEvent("Weather Underground webcam snapshot upload failed. " + wuex.Message, EventListViewHelper.LogEntryType.Error);
+                            _eventList.AddEvent("Weather Underground webcam snapshot upload failed. " + wuex.Message, EventListViewHelper.LogEntryType.Error);
 
                         });
                     }
@@ -278,27 +170,17 @@ namespace SpryCoder.Camever
             catch (Exception ex)
             {
                 // Update on the UI thread
-                //LogHelper.WriteLogEntry($"Scheduled snapshot failed. " + ex.Message, LogHelper.LogEntryType.Error);
-                
-
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    //LastStatusLabel.Text = "Error";
-                    eventList.AddEvent($"Scheduled snapshot failed. " + ex.Message, EventListViewHelper.LogEntryType.Error);
+                    _eventList.AddEvent($"Scheduled snapshot failed. " + ex.Message, EventListViewHelper.LogEntryType.Error);
                 });
-
             }
-
         }
 
         /// CUSTOM METHODS ///
 
         private void SaveCapturedImage(Image image, string imageFileFullPath)
         {
-            Debug.WriteLine($"{DateTime.Now.ToString()} - SaveCapturedImage called. " + Thread.CurrentThread.ManagedThreadId);
-            Debug.Flush();
-
-            //Image newimage = image;
             image.Save(imageFileFullPath, ImageFormat.Jpeg);
         }
 
@@ -371,21 +253,19 @@ namespace SpryCoder.Camever
             Close();
         }
 
-        private async void previewCameraToolStripMenuItem_Click(object sender, EventArgs e)
+        private void previewCameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 Cursor = Cursors.WaitCursor;
                 // Instantiate Preview Form with Image
-                PreviewForm preview = new PreviewForm(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage));
+                PreviewForm preview = new PreviewForm(CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage));
                 Cursor = Cursors.Default;
-                //LogHelper.WriteLogEntry("Preview snapshot loaded successfully.", LogHelper.LogEntryType.Information);
                 preview.ShowDialog();
             }
             catch (Exception ex)
             {
                 Cursor = Cursors.Default;
-                //LogHelper.WriteLogEntry("Preview snapshot error has occurred. " + ex.Message, LogHelper.LogEntryType.Error);
 
                 MessageBox.Show("We ran into a problem generating the preview image. " + ex.Message + ".",
                                     "Error",
@@ -395,7 +275,7 @@ namespace SpryCoder.Camever
 
         }
 
-        private async void captureSnapshotNowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void captureSnapshotNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Check for beta expiration
             if (BetaHelper.BetaExpired())
@@ -412,16 +292,14 @@ namespace SpryCoder.Camever
                 Cursor = Cursors.WaitCursor;
                 string imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
-                SaveCapturedImage(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
+                SaveCapturedImage(CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
 
                 Cursor = Cursors.Default;
-
-                //LogHelper.WriteLogEntry($"Manual snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
 
                 BeginInvoke((MethodInvoker)delegate
                 {
                     //LastStatusLabel.Text = "Error";
-                    eventList.AddEvent($"Manual snapshot successful. ({imageFile})", EventListViewHelper.LogEntryType.Information);
+                    _eventList.AddEvent($"Manual snapshot successful. ({imageFile})", EventListViewHelper.LogEntryType.Information);
                 });
                 
 
@@ -433,11 +311,10 @@ namespace SpryCoder.Camever
             catch (Exception ex)
             {
                 Cursor = Cursors.Default;
-                //LogHelper.WriteLogEntry("Manual snapshot error has occurred. " + ex.Message, LogHelper.LogEntryType.Error);
 
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    eventList.AddEvent("Manual snapshot error has occurred. " + ex.Message, EventListViewHelper.LogEntryType.Error);
+                    _eventList.AddEvent("Manual snapshot error has occurred. " + ex.Message, EventListViewHelper.LogEntryType.Error);
                 });
 
                 MessageBox.Show("We ran into a problem generating the snapshot image.  " + ex.Message + ".",
@@ -461,15 +338,41 @@ namespace SpryCoder.Camever
             about.ShowDialog();
         }
 
-        private void errorLogToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StartCaptureTimer(double timeNeededMs)
         {
-            LogHelper.ViewLogFile();
+            // Instantiate
+            StopCaptureTimer();
+            
+            _captureTimer = new Timer();
+            _captureTimer.AutoReset = false;
+            _captureTimer.Interval = timeNeededMs;
+
+            // Rewire Events
+            _captureTimer.Elapsed += CaptureTimer_Elapsed;
+
+            // Start
+            _captureTimer.Start();
+
         }
 
-        private void clearLogToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CaptureTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            // Clear the log
-            LogHelper.ClearLog();
+            // Start capture process
+            StartCapture();
+            UpdateLabels();
+            // Restart Time
+            StartCaptureTimer(TimeDiff.TotalMilliseconds);
+            
+        }
+
+        private void StopCaptureTimer()
+        {
+            if (_captureTimer != null)
+            {
+                _captureTimer.Stop();
+                _captureTimer.Elapsed += CaptureTimer_Elapsed;
+                _captureTimer.Dispose();
+            }
         }
     }
 }
