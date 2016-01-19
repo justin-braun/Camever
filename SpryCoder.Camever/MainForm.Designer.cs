@@ -53,6 +53,7 @@ namespace SpryCoder.Camever
             this.eventListColumnEventDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.eventListColumnEventType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.eventListColumnEventDesc = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
             this.MainFormMenuStrip.SuspendLayout();
             this.statusStripMain.SuspendLayout();
             this.SuspendLayout();
@@ -176,7 +177,7 @@ namespace SpryCoder.Camever
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stripStatusScheduler,
             this.stripStatusNextCaptureTime});
-            this.statusStripMain.Location = new System.Drawing.Point(0, 205);
+            this.statusStripMain.Location = new System.Drawing.Point(0, 242);
             this.statusStripMain.Name = "statusStripMain";
             this.statusStripMain.Size = new System.Drawing.Size(625, 30);
             this.statusStripMain.SizingGrip = false;
@@ -221,9 +222,9 @@ namespace SpryCoder.Camever
             this.eventListColumnEventDesc});
             this.listViewEvents.GridLines = true;
             this.listViewEvents.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listViewEvents.Location = new System.Drawing.Point(13, 28);
+            this.listViewEvents.Location = new System.Drawing.Point(12, 65);
             this.listViewEvents.Name = "listViewEvents";
-            this.listViewEvents.Size = new System.Drawing.Size(600, 174);
+            this.listViewEvents.Size = new System.Drawing.Size(601, 174);
             this.listViewEvents.TabIndex = 13;
             this.listViewEvents.UseCompatibleStateImageBehavior = false;
             this.listViewEvents.View = System.Windows.Forms.View.Details;
@@ -243,11 +244,22 @@ namespace SpryCoder.Camever
             this.eventListColumnEventDesc.Text = "Event";
             this.eventListColumnEventDesc.Width = 346;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Capture Log";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 235);
+            this.ClientSize = new System.Drawing.Size(625, 272);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.listViewEvents);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.MainFormMenuStrip);
@@ -292,6 +304,7 @@ namespace SpryCoder.Camever
         private ColumnHeader eventListColumnEventType;
         private ColumnHeader eventListColumnEventDesc;
         public ListView listViewEvents;
+        private Label label1;
     }
 }
 
