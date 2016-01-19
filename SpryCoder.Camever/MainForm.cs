@@ -13,7 +13,7 @@ namespace SpryCoder.Camever
     public partial class MainForm : Form
     {
         BackgroundWorker backgroundCaptureTask = new BackgroundWorker();
-        System.Timers.Timer captureTimer;
+        System.Timers.Timer captureTimer = new System.Timers.Timer();
 
         // PROPERTIES
         public DateTime NextHitTime { get { return CameraHelper.NextCaptureTime(DateTime.Now, double.Parse(Settings.Default.UpdateInterval)); } }
@@ -51,7 +51,8 @@ namespace SpryCoder.Camever
             }
 
             // Setup events
-
+            
+            captureTimer.Elapsed += Timer_Elapsed;
             backgroundCaptureTask.DoWork += Task_DoWork;
             backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
             
@@ -137,18 +138,15 @@ namespace SpryCoder.Camever
         /// </summary>
         public void LaunchTimer()
         {
-            // Setup background worker task
-            //backgroundCaptureTask = new BackgroundWorker();
-            //backgroundCaptureTask.DoWork += Task_DoWork;
-            //backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
 
             // Start timer
-            captureTimer = new System.Timers.Timer();
-            captureTimer.Elapsed += Timer_Elapsed;
+
             captureTimer.Interval = TimeDiff.TotalMilliseconds;
             captureTimer.AutoReset = false;
 
             //captureTimer.Elapsed += Timer_Elapsed;
+            captureTimer.Interval = TimeDiff.TotalMilliseconds;
+            captureTimer.AutoReset = false;
             captureTimer.Start();
             
         }
@@ -187,7 +185,7 @@ namespace SpryCoder.Camever
         {
             // Reset task schedule
             captureTimer.Stop();
-            captureTimer.Dispose();
+            //captureTimer.Dispose();
 
             LaunchTimer();
 
@@ -212,7 +210,6 @@ namespace SpryCoder.Camever
                 // Update on the UI thread
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    //LastStatusLabel.Text = "Capturing";
                     stripStatusLastStatus.Text = "Status: Capture in progress...";
                 });
 
