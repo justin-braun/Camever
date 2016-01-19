@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
 using SpryCoder.Camever.Helpers;
@@ -30,6 +31,14 @@ namespace SpryCoder.Camever
         public MainForm()
         {
             InitializeComponent();
+
+
+            //Debug log
+            TextWriterTraceListener[] listeners = new TextWriterTraceListener[] {
+            new TextWriterTraceListener("c:\\temp\\debug.txt"),
+          new TextWriterTraceListener(Console.Out)};
+            Debug.Listeners.AddRange(listeners);
+
 
 
             // StatusStrip padding/margins
@@ -84,7 +93,6 @@ namespace SpryCoder.Camever
             if (Settings.Default.CapturesEnabled)
             {
                 LaunchTimer();
-                Debug.WriteLine("Timer started");
             }
 
             // Update labels
@@ -116,14 +124,12 @@ namespace SpryCoder.Camever
                 // Check if capture enabled
                 if (Settings.Default.CapturesEnabled)
                 {
-                    _captureTimer.Stop();
+                    //_captureTimer.Stop();
                     LaunchTimer();
-                    Debug.WriteLine("Timer started after setting change.");
                 }
                 else
                 {
                     _captureTimer.Stop();
-                    Debug.WriteLine("Timer stopped after setting change.");
                 }
             }
 
@@ -136,13 +142,19 @@ namespace SpryCoder.Camever
         /// </summary>
         private void LaunchTimer()
         {
+            Debug.WriteLine($"{DateTime.Now.ToString()} - LaunchTimer called. " + Thread.CurrentThread.ManagedThreadId);
+            Debug.Flush();
+            // Backgroundwork events teardown and build up
+            //_backgroundCaptureTask.DoWork -= Task_DoWork;
+            //_backgroundCaptureTask.RunWorkerCompleted -= Task_RunWorkerCompleted;
+            //_backgroundCaptureTask.DoWork += Task_DoWork;
+            //_backgroundCaptureTask.RunWorkerCompleted += Task_RunWorkerCompleted;
 
             // Start timer
 
-            _captureTimer.Interval = TimeDiff.TotalMilliseconds;
-            _captureTimer.AutoReset = false;
 
             //captureTimer.Elapsed += Timer_Elapsed;
+            _captureTimer.Stop();
             _captureTimer.Interval = TimeDiff.TotalMilliseconds;
             _captureTimer.AutoReset = false;
             _captureTimer.Start();
@@ -156,6 +168,9 @@ namespace SpryCoder.Camever
         /// <param name="e"></param>
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            Debug.WriteLine($"{DateTime.Now.ToString()} - Timer elapsed. " + Thread.CurrentThread.ManagedThreadId);
+            Debug.Flush();
+
             // Check for beta expiration
             if (BetaHelper.BetaExpired())
             {
@@ -165,7 +180,6 @@ namespace SpryCoder.Camever
             }
 
             _backgroundCaptureTask.RunWorkerAsync();
-            Debug.WriteLine("Timer elapsed, background task started.");
             //captureTimer.Stop();
 
             //LaunchTimer();
@@ -181,16 +195,17 @@ namespace SpryCoder.Camever
         /// <param name="e"></param>
         private void Task_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            Debug.WriteLine($"{DateTime.Now.ToString()} - Task_RunWorkerCompleted called ." + Thread.CurrentThread.ManagedThreadId);
+            Debug.Flush();
+
             // Reset task schedule
-            _captureTimer.Stop();
+            //_captureTimer.Stop();
 
             // Restart timer
             LaunchTimer();
 
             // Update UI on UI thread
             BeginInvoke((MethodInvoker)UpdateLabels);
-
-            Debug.WriteLine("Task completed, timer stopped and relaunched.");
         }
 
         /// <summary>
@@ -200,12 +215,19 @@ namespace SpryCoder.Camever
         /// <param name="e"></param>
         private async void Task_DoWork(object sender, DoWorkEventArgs e)
         {
+            Debug.WriteLine($"{DateTime.Now.ToString()} - Task_DoWork called. " + Thread.CurrentThread.ManagedThreadId);
+            Debug.Flush();
+
+
             // Capture Image and then save it
             try
             {
                 var imageFile = Path.Combine(Settings.Default.ImageSavePath, ImageFileName);
 
                 // Save Capture
+                Debug.WriteLine($"{DateTime.Now.ToString()} - SaveCapturedImage (inside Task_DoWork) called. " + Thread.CurrentThread.ManagedThreadId);
+                Debug.Flush();
+
                 SaveCapturedImage(await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage),imageFile);
                 //LogHelper.WriteLogEntry($"Scheduled snapshot taken successfully. ({imageFile})", LogHelper.LogEntryType.Information);
 
@@ -273,6 +295,9 @@ namespace SpryCoder.Camever
 
         private void SaveCapturedImage(Image image, string imageFileFullPath)
         {
+            Debug.WriteLine($"{DateTime.Now.ToString()} - SaveCapturedImage called. " + Thread.CurrentThread.ManagedThreadId);
+            Debug.Flush();
+
             //Image newimage = image;
             image.Save(imageFileFullPath, ImageFormat.Jpeg);
         }

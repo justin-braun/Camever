@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -55,6 +56,12 @@ namespace SpryCoder.Camever.Helpers
 
         public static async Task<Image> CaptureImage(CaptureType capType)
         {
+
+            // DEBUG/Tracing
+            //var st = new StackTrace();
+            //var sfMethodCalling = st.GetFrame(1).GetMethod().DeclaringType.FullName;
+            //LogHelper.WriteLogEntry(sfMethodCalling, LogHelper.LogEntryType.Information);
+
             Image image = null;
             Bitmap bitmap = null;
             Image finalImage;
