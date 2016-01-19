@@ -49,7 +49,10 @@ namespace SpryCoder.Camever
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.stripStatusScheduler = new System.Windows.Forms.ToolStripStatusLabel();
             this.stripStatusNextCaptureTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.stripStatusLastStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.listViewEvents = new System.Windows.Forms.ListView();
+            this.eventListColumnEventDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.eventListColumnEventType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.eventListColumnEventDesc = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.MainFormMenuStrip.SuspendLayout();
             this.statusStripMain.SuspendLayout();
             this.SuspendLayout();
@@ -172,8 +175,7 @@ namespace SpryCoder.Camever
             this.statusStripMain.AutoSize = false;
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stripStatusScheduler,
-            this.stripStatusNextCaptureTime,
-            this.stripStatusLastStatus});
+            this.stripStatusNextCaptureTime});
             this.statusStripMain.Location = new System.Drawing.Point(0, 205);
             this.statusStripMain.Name = "statusStripMain";
             this.statusStripMain.Size = new System.Drawing.Size(625, 30);
@@ -205,28 +207,48 @@ namespace SpryCoder.Camever
             this.stripStatusNextCaptureTime.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
             this.stripStatusNextCaptureTime.Name = "stripStatusNextCaptureTime";
             this.stripStatusNextCaptureTime.Padding = new System.Windows.Forms.Padding(5);
-            this.stripStatusNextCaptureTime.Size = new System.Drawing.Size(180, 25);
+            this.stripStatusNextCaptureTime.Size = new System.Drawing.Size(481, 25);
+            this.stripStatusNextCaptureTime.Spring = true;
             this.stripStatusNextCaptureTime.Text = "stripStatusNextCaptureTime";
             this.stripStatusNextCaptureTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // stripStatusLastStatus
+            // listViewEvents
             // 
-            this.stripStatusLastStatus.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.stripStatusLastStatus.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.stripStatusLastStatus.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
-            this.stripStatusLastStatus.Name = "stripStatusLastStatus";
-            this.stripStatusLastStatus.Size = new System.Drawing.Size(299, 25);
-            this.stripStatusLastStatus.Spring = true;
-            this.stripStatusLastStatus.Text = "stripStatusLastStatus";
-            this.stripStatusLastStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.listViewEvents.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listViewEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.eventListColumnEventDate,
+            this.eventListColumnEventType,
+            this.eventListColumnEventDesc});
+            this.listViewEvents.GridLines = true;
+            this.listViewEvents.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewEvents.Location = new System.Drawing.Point(13, 28);
+            this.listViewEvents.Name = "listViewEvents";
+            this.listViewEvents.Size = new System.Drawing.Size(600, 174);
+            this.listViewEvents.TabIndex = 13;
+            this.listViewEvents.UseCompatibleStateImageBehavior = false;
+            this.listViewEvents.View = System.Windows.Forms.View.Details;
+            // 
+            // eventListColumnEventDate
+            // 
+            this.eventListColumnEventDate.Text = "Date/Time";
+            this.eventListColumnEventDate.Width = 150;
+            // 
+            // eventListColumnEventType
+            // 
+            this.eventListColumnEventType.Text = "Type";
+            this.eventListColumnEventType.Width = 100;
+            // 
+            // eventListColumnEventDesc
+            // 
+            this.eventListColumnEventDesc.Text = "Event";
+            this.eventListColumnEventDesc.Width = 346;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(625, 235);
+            this.Controls.Add(this.listViewEvents);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.MainFormMenuStrip);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -266,7 +288,10 @@ namespace SpryCoder.Camever
         private StatusStrip statusStripMain;
         private ToolStripStatusLabel stripStatusScheduler;
         private ToolStripStatusLabel stripStatusNextCaptureTime;
-        private ToolStripStatusLabel stripStatusLastStatus;
+        private ColumnHeader eventListColumnEventDate;
+        private ColumnHeader eventListColumnEventType;
+        private ColumnHeader eventListColumnEventDesc;
+        public ListView listViewEvents;
     }
 }
 

@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Helpers\BetaHelper.cs" />
     <Compile Include="Helpers\CameraHelper.cs" />
+    <Compile Include="Helpers\EventListViewHelper.cs" />
     <Compile Include="Helpers\ProductInfoHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="MainForm.cs">
