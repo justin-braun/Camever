@@ -59,30 +59,31 @@ namespace SpryCoder.Camever.Helpers
             Bitmap bitmap = null;
             Image finalImage;
 
-            try
+            if (capType == CaptureType.FinalImage)
             {
-                if (capType == CaptureType.FinalImage)
-                {
-                    // Http Post Request/Response
-                    WebRequest request = WebRequest.Create(string.Format("http://{0}/{1}", Settings.Default.CameraHostname, Settings.Default.SnapshotUrl));
-                    NetworkCredential creds = new NetworkCredential(Settings.Default.Username, PasswordHelper.DecryptString(Settings.Default.Password));
-                    request.Credentials = creds;
-                    request.Method = "POST";
-                    WebResponse response = await request.GetResponseAsync().ConfigureAwait(false);
-                    Stream stream = response.GetResponseStream();
+                // Http Post Request/Response
+                WebRequest request = WebRequest.Create(
+                    $"http://{Settings.Default.CameraHostname}/{Settings.Default.SnapshotUrl}");
+                NetworkCredential creds = new NetworkCredential(Settings.Default.Username, PasswordHelper.DecryptString(Settings.Default.Password));
+                request.Credentials = creds;
+                request.Method = "POST";
+                WebResponse response = await request.GetResponseAsync().ConfigureAwait(false);
+                Stream stream = response.GetResponseStream();
 
-                    // Image
-                    image = Image.FromStream(stream);
-                }
-                else if (capType == CaptureType.OptionPreviewImage)
-                {
-                    bitmap = new Bitmap(Width, Height);
-                }
-
-
-                finalImage = (image == null) ? bitmap : image;
+                // Image
+                if (stream != null) image = Image.FromStream(stream);
+            }
+            else if (capType == CaptureType.OptionPreviewImage)
+            {
+                bitmap = new Bitmap(Width, Height);
+            }
 
 
+            finalImage = image ?? bitmap;
+
+
+            if (finalImage != null)
+            {
                 using (Graphics g = Graphics.FromImage(finalImage))
                 {
                     // Full preview picture rectangle fill
@@ -126,51 +127,39 @@ namespace SpryCoder.Camever.Helpers
 
                 // TODO: Bitmap dispose?
 
-                return finalImage;
+                
+            }
 
-            }
-            catch
-            {
-                throw;
-            }
+            return finalImage;
         }
 
-        public static async Task UploadWUCamImage(string username, string password, Image image)
+        public static async Task UploadWuCamImage(string username, string password, Image image)
         {
-            try
+            // Get the object used to communicate with the server.
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + WuCamFtp + "/image.jpg");
+            request.Method = WebRequestMethods.Ftp.UploadFile;
+
+            // This example assumes the FTP site uses anonymous logon.
+            request.Credentials = new NetworkCredential(username, password);
+
+            // Copy the contents of the file to the request stream.
+            MemoryStream imageStream = new MemoryStream();
+            image.Save(imageStream, ImageFormat.Jpeg);
+
+            // Read image into a byte array
+            byte[] bytes = imageStream.ToArray();
+
+            // Write the bytes into the request stream
+            request.ContentLength = bytes.Length;
+            using (Stream requestStream = request.GetRequestStream())
             {
-                // Get the object used to communicate with the server.
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + WuCamFtp + "/image.jpg");
-                request.Method = WebRequestMethods.Ftp.UploadFile;
-
-                // This example assumes the FTP site uses anonymous logon.
-                request.Credentials = new NetworkCredential(username, password);
-
-                // Copy the contents of the file to the request stream.
-                MemoryStream imageStream = new MemoryStream();
-                image.Save(imageStream, ImageFormat.Jpeg);
-
-                // Read image into a byte array
-                byte[] bytes = imageStream.ToArray();
-
-                // Write the bytes into the request stream
-                request.ContentLength = bytes.Length;
-                using (Stream requestStream = request.GetRequestStream())
-                {
-                    requestStream.Write(bytes, 0, bytes.Length);
-                    requestStream.Close();
-                }
-
-                // Get response
-                FtpWebResponse response = (FtpWebResponse) await request.GetResponseAsync();
-                response.Close();
-
-            }
-            catch (Exception)
-            {
-                throw;
+                requestStream.Write(bytes, 0, bytes.Length);
+                requestStream.Close();
             }
 
+            // Get response
+            FtpWebResponse response = (FtpWebResponse) await request.GetResponseAsync();
+            response.Close();
         }
 
         /// <summary>

@@ -64,7 +64,7 @@ namespace SpryCoder.Camever
         {
 
             // Check if required settings are filled in
-            int _updateInt = 0;
+            int updateInt;
 
             if (string.IsNullOrWhiteSpace(CameraHostName.Text))
             {
@@ -97,12 +97,12 @@ namespace SpryCoder.Camever
                 return;
             }
             //Scheduling
-            if (CapturesEnabled.Checked && ((String.IsNullOrWhiteSpace(UpdateInterval.Text) || (int.TryParse(UpdateInterval.Text, out _updateInt) == false))))
+            if (CapturesEnabled.Checked && ((String.IsNullOrWhiteSpace(UpdateInterval.Text) || (int.TryParse(UpdateInterval.Text, out updateInt) == false))))
             {
                 MessageBox.Show("Please enter the capture interval in a numeric value.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (int.TryParse(UpdateInterval.Text, out _updateInt) == false)
+            if (int.TryParse(UpdateInterval.Text, out updateInt) == false)
             {
                 MessageBox.Show("Please change the update interval to a valid numeric value.", "Information Needed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -154,7 +154,14 @@ namespace SpryCoder.Camever
 
             // General
             if (Settings.Default.KeepOnTop != KeepOnTopCheckbox.Checked) Settings.Default.KeepOnTop = KeepOnTopCheckbox.Checked;
-            if (Settings.Default.WindowLocation != (string)WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag) Settings.Default.WindowLocation = (string)WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag;
+            //if (Settings.Default.WindowLocation != (string)WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag) Settings.Default.WindowLocation = (string)WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag;
+            var firstOrDefault = WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
+            if (firstOrDefault != null && Settings.Default.WindowLocation != (string)firstOrDefault.Tag)
+            {
+                var radioButton = WindowLocationGroup.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
+                if (radioButton != null)
+                    Settings.Default.WindowLocation = (string)radioButton.Tag;
+            }
 
             // Save all settings
             Settings.Default.Save();
@@ -226,8 +233,8 @@ namespace SpryCoder.Camever
 
         private void UpdateInterval_TextChanged(object sender, EventArgs e)
         {
-            int _updateInt = 0;
-            if(int.TryParse(UpdateInterval.Text,out _updateInt))
+            int updateInt;
+            if(int.TryParse(UpdateInterval.Text,out updateInt))
             {
                 CapturesEnabled.Enabled = true;
             }
@@ -239,30 +246,22 @@ namespace SpryCoder.Camever
 
         private async Task TestCameraConnection()
         {
-            try
+            // Test connection to camera
+            WebRequest request = WebRequest.Create(string.Format("http://{0}/{1}", CameraHostName.Text, SnapshotUrlPath.Text));
+            NetworkCredential creds = new NetworkCredential(Username.Text, Password.Text);
+            request.Credentials = creds;
+            request.Timeout = 10000; // 10 seconds
+            request.Method = "POST";
+
+            HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
+
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                // Test connection to camera
-                WebRequest request = WebRequest.Create(string.Format("http://{0}/{1}", CameraHostName.Text, SnapshotUrlPath.Text));
-                NetworkCredential creds = new NetworkCredential(Username.Text, Password.Text);
-                request.Credentials = creds;
-                request.Timeout = 10000; // 10 seconds
-                request.Method = "POST";
-
-                HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    MessageBox.Show("Successfully connected to camera stream.", "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show(String.Format("There was an issue connecting to the camera stream. Status Code: {0}", response.StatusCode), "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show("Successfully connected to camera stream.", "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception)
+            else
             {
-
-                throw;
+                MessageBox.Show(String.Format("There was an issue connecting to the camera stream. Status Code: {0}", response.StatusCode), "Successful Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -334,7 +333,7 @@ namespace SpryCoder.Camever
             try
             {
                 Cursor = Cursors.WaitCursor;
-                await CameraHelper.UploadWUCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)).ConfigureAwait(false);
+                await CameraHelper.UploadWuCamImage(WundergroundCameraID.Text, WundergroundPassword.Text, await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)).ConfigureAwait(false);
                 Cursor = Cursors.Default;
                 //LogHelper.WriteLogEntry("Weather Underground webcam manual snapshot uploaded successfully.", LogHelper.LogEntryType.Information);
                 MessageBox.Show("Upload Successful!", "Upload Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);

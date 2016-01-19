@@ -25,7 +25,7 @@ namespace SpryCoder.Camever.Helpers
 
         public static string AssemblyVersion(int octetsToShow = 4)
         {
-                string versionString = "";
+                string versionString;
                 Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
                 switch (octetsToShow)

@@ -217,7 +217,7 @@ namespace SpryCoder.Camever
                 {
                     try
                     {
-                        await CameraHelper.UploadWUCamImage(
+                        await CameraHelper.UploadWuCamImage(
                             Settings.Default.WundergroundCameraID,
                             PasswordHelper.DecryptString(Settings.Default.WundergroundPassword),
                             await CameraHelper.CaptureImage(CameraHelper.CaptureType.FinalImage)
