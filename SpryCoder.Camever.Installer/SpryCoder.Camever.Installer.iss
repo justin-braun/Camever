@@ -38,7 +38,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\Users\Justin\Dropbox\BitBucket\SpryCoder.Camever\SpryCoder.Camever\bin\Release\camever.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Justin\Dropbox\BitBucket\SpryCoder.Camever\SpryCoder.Camever\bin\Release\lib\Effortless.Net.Encryption.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
