@@ -39,7 +39,7 @@ namespace SpryCoder.Camever
             // First Run, force the Options window
             if (Settings.Default.FirstRun)
             {
-                MessageBox.Show("This is the first time that this application has been executed.  We'll take you to the Options so you can configure the required settings.", 
+                MessageBox.Show("This is the first time that this application has been started.  We'll take you to the Options so you can configure the required settings.", 
                                     "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 OptionsForm options = new OptionsForm();
                 options.ShowDialog();
@@ -172,7 +172,7 @@ namespace SpryCoder.Camever
                 // Update on the UI thread
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    _eventList.AddEvent($"Scheduled snapshot failed. " + ex.Message, EventListViewHelper.LogEntryType.Error);
+                    _eventList.AddEvent("Scheduled snapshot failed. " + ex.Message, EventListViewHelper.LogEntryType.Error);
                 });
             }
         }

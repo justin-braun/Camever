@@ -8,7 +8,8 @@ namespace SpryCoder.Camever
 {
     static class Program
     {
-        static Mutex mutex = new Mutex(true, "<53FC12C6-7064-46B6-916B-FB97CC89137A>");
+        // ReSharper disable once InconsistentNaming
+        static readonly Mutex mutex = new Mutex(true, "<53FC12C6-7064-46B6-916B-FB97CC89137A>");
 
         /// <summary>
         /// The main entry point for the application.

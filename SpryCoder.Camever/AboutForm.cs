@@ -16,6 +16,12 @@ namespace SpryCoder.Camever
             ProductCompanyLabel.Text = "Developed by " + ProductInfoHelper.AssemblyCompany + ".";
         }
 
+        public sealed override string Text
+        {
+            get { return base.Text; }
+            set { base.Text = value; }
+        }
+
         private void AboutForm_Load(object sender, EventArgs e)
         {
 

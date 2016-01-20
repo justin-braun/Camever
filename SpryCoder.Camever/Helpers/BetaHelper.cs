@@ -8,7 +8,7 @@ namespace SpryCoder.Camever.Helpers
 
         public static bool BetaExpired()
         {
-            return (DateTime.Now > BetaExpireDate);
+            return DateTime.Now > BetaExpireDate;
         }
 
 
