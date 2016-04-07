@@ -37,8 +37,6 @@ namespace ArmchairCoder.Camever
             this.ProductCompanyLabel = new System.Windows.Forms.Label();
             this.CopyrightLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.linkWebsite = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,36 +96,12 @@ namespace ArmchairCoder.Camever
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(148, 61);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(255, 17);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "BETA RELEASE EXPIRES 4/1/2016";
-            // 
-            // linkWebsite
-            // 
-            this.linkWebsite.AutoSize = true;
-            this.linkWebsite.Location = new System.Drawing.Point(13, 162);
-            this.linkWebsite.Name = "linkWebsite";
-            this.linkWebsite.Size = new System.Drawing.Size(130, 13);
-            this.linkWebsite.TabIndex = 9;
-            this.linkWebsite.TabStop = true;
-            this.linkWebsite.Text = "http://armchaircoder.com";
-            this.linkWebsite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkWebsite_LinkClicked);
-            // 
             // AboutForm
             // 
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(425, 188);
-            this.Controls.Add(this.linkWebsite);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.CopyrightLabel);
             this.Controls.Add(this.ProductCompanyLabel);
             this.Controls.Add(this.ProductVersionLabel);
@@ -159,7 +133,5 @@ namespace ArmchairCoder.Camever
         private Label ProductVersionLabel;
         private Label ProductCompanyLabel;
         private Label CopyrightLabel;
-        private Label label1;
-        private LinkLabel linkWebsite;
     }
 }
