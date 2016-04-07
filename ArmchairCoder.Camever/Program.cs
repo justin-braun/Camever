@@ -18,12 +18,12 @@ namespace ArmchairCoder.Camever
         static void Main()
         {
             // Check if beta expired
-            if (BetaHelper.BetaExpired())
-            {
-                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
-                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (BetaHelper.BetaExpired())
+            //{
+            //    MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
+            //        "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
             // Check if settings need to be upgraded because of file version change
             if (Settings.Default.UpgradeRequired)

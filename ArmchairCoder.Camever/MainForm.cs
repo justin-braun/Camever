@@ -276,12 +276,12 @@ namespace ArmchairCoder.Camever
         private void captureSnapshotNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Check for beta expiration
-            if (BetaHelper.BetaExpired())
-            {
-                MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
-                    "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
-            }
+            //if (BetaHelper.BetaExpired())
+            //{
+            //    MessageBox.Show("Sorry, this beta version has expired and can no longer be used.  Please uninstall or download an updated version.",
+            //        "Beta Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    Close();
+            //}
 
             try
             {
